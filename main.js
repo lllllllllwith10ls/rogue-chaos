@@ -18,10 +18,10 @@ let player = {
 			this.xPos += 1;
 		}
 		if(dir === "up") {
-			this.yPos += 1;
+			this.yPos -= 1;
 		}
 		if(dir === "down") {
-			this.yPos -= 1;
+			this.yPos += 1;
 		}
 		if(this.x < 0) {
 			this.x = 0;
