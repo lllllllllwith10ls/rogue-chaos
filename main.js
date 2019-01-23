@@ -1,6 +1,6 @@
 function change(x,y,char) {
 	let game = document.getElementById("game").innerHTML;
-	let pos = y*10+x-12;
+	let pos = y*10+x-11;
 	game = game.slice(0,pos) + char + game.slice(pos+1);
 	document.getElementById("game").innerHTML = game;
 	
@@ -23,16 +23,16 @@ let player = {
 		if(dir === "down") {
 			this.yPos += 1;
 		}
-		if(this.x < 0) {
+		if(this.xPos < 0) {
 			this.xPos = 0;
 		}
-		if(this.y < 0) {
+		if(this.yPos < 0) {
 			this.yPos = 0;
 		}
-		if(this.x > 9) {
+		if(this.xPos > 9) {
 			this.xPos = 9;
 		}
-		if(this.y > 9) {
+		if(this.yPos > 9) {
 			this.yPos = 9;
 		}
 		change(this.xPos,this.yPos,"@");
