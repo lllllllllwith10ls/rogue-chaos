@@ -23,11 +23,11 @@ let player = {
 		if(dir === "down") {
 			this.yPos += 1;
 		}
-		if(this.xPos < 0) {
-			this.xPos = 0;
+		if(this.xPos < 1) {
+			this.xPos = 1;
 		}
-		if(this.yPos < 0) {
-			this.yPos = 0;
+		if(this.yPos < 1) {
+			this.yPos = 1;
 		}
 		if(this.xPos > 9) {
 			this.xPos = 9;
