@@ -1,6 +1,6 @@
 function change(x,y,char) {
 	let game = document.getElementById("game").innerHTML;
-	let pos = y*10+x;
+	let pos = y*10+x+1;
 	game = game.slice(0,pos) + char + game.slice(pos+1);
 	document.getElementById("game").innerHTML = game;
 	
