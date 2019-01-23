@@ -2,17 +2,39 @@
 <html>
 	<head>
 		<script src="player.js"></script>
+		<script>
+			function updateStart() {
+				window.addEventListener('keydown', function (e) {
+				e.preventDefault();
+					switch(e.keyCode) {
+						case 87:
+							player.move("up");
+							break;
+						case 65:
+							player.move("left");
+							break;
+						case 83:
+							player.move("down");
+							break;
+						case 68:
+							player.move("right");
+							break;
+					}
+				});
+			}
+		</script>
 	</head>
-	<body>
+	<body onload="updateStart()">
 		<pre id="game">
-		#########
-		#########
-		#########
-		#########
-		#########
-		#########
-		#########
-		#########
+		.........
+		.........
+		.........
+		.........
+		....@....
+		.........
+		.........
+		.........
+		.........
 		</pre>
 	</body>
 </html>
