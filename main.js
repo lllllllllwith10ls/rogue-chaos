@@ -119,25 +119,18 @@ function move(dir) {
 			player.move(0,1);
 		}
 	}
-	if(player.relPosX < 4) {
-		while(player.relPosX < 4) {
-			camera.x++;
-		}
+	let relpos = 0;
+	if(player.relPosX < 3) {
+		camera.x+=player.relPosX-3;
 	}
-	if(player.relPosY < 4) {
-		while(player.relPosY < 4) {
-			camera.y++;
-		}
+	if(player.relPosY < 3) {
+		camera.y+=player.relPosY-3;
 	}
-	if(player.relPosX > 6) {
-		while(player.relPosX > 6) {
-			camera.x--;
-		}
+	if(player.relPosX > 7) {
+		camera.x-=player.relPosX-7;
 	}
-	if(player.relPosY > 6) {
-		while(player.relPosY > 6) {
-			camera.y--;
-		}
+	if(player.relPosY > 7) {
+		camera.y-=player.relPosY-7;
 	}
 	camera.draw();
 }
