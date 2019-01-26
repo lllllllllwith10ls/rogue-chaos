@@ -247,7 +247,7 @@ function move(dir) {
 	let relpos = 0;
 	if(camera.map.world) {
 		if(player.relPosX < 3) {
-			if(camera.x + player.relPosX-3 < 1) {
+			if(camera.x + player.chunkPosX-3 < 1) {
 				new Chunk(player.map.posX-1,player.map.posY,player.map.world);
 				camera.x+=player.relPosX-3;
 			} else {
@@ -259,7 +259,7 @@ function move(dir) {
 			}
 		}
 		if(player.relPosY < 3) {
-			if(camera.y + player.relPosY-3 < 1) {
+			if(camera.y + player.chunkPosY-3 < 1) {
 				new Chunk(player.map.posX,player.map.posY-1,player.map.world);
 				camera.y+=player.relPosY-3;
 			} else {
@@ -271,7 +271,7 @@ function move(dir) {
 			}
 		}
 		if(player.relPosX > 7) {
-			if(camera.x + player.relPosX+1 > 11) {
+			if(camera.x + player.chunkPosX+1 > 11) {
 				new Chunk(player.map.posX+1,player.map.posY,player.map.world);
 				camera.x+=player.relPosX-7;
 			} else {
@@ -283,7 +283,7 @@ function move(dir) {
 			}
 		}
 		if(player.relPosY > 7) {
-			if(camera.y + player.relPosY+1 > 11) {
+			if(camera.y + player.chunkPosY+1 > 11) {
 				new Chunk(player.map.posX,player.map.posY+1,player.map.world);
 				camera.y+=player.relPosY-7;
 			} else {
