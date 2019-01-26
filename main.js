@@ -109,15 +109,15 @@ class Chunk{
 		return "??";
 	}
 	get posY() {
-		for(let i in this.map.world[this.posX]) {
-			if(this.map.world[this.posX][i] === this) {
+		for(let i in this.map.world.map[this.posX]) {
+			if(this.map.world.map[this.posX][i] === this) {
 				return parseInt(i);
 			}
 		}
 	}
 }
 let world = new World();
-let map = new Chunk(11,11,world);
+let map = new Chunk(0,0,world);
 let player = new Thing("@","#000000",map,6,6);
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
@@ -140,7 +140,7 @@ camera.draw = function() {
 			for(let j = -1; j <= 1; j++) {
 				for(let k = 1; k <= 9; k++) {
 					for(let l = 1; l <= 9; l++) {
-						let spot = this.map.world[this.map.posX+i][this.map.posY+j].map[k][l];
+						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
 						let x = spot.relPosX;
 						let y = spot.relPosY;
 						if(spot.inCamera) {
@@ -188,7 +188,7 @@ function move(dir) {
 			}
 			if(camera.x < 1) {
 				camera.x += 9;
-				camera.map = camera.map.world[camera.map.posX-1][camera.map.posY];
+				camera.map = camera.map.world.map[camera.map.posX-1][camera.map.posY];
 			}
 		}
 		if(player.relPosY < 3) {
@@ -200,7 +200,7 @@ function move(dir) {
 			}
 			if(camera.y < 1) {
 				camera.y += 9;
-				camera.map = camera.map.world[camera.map.posX][camera.map.posY-1];
+				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY-1];
 			}
 		}
 		if(player.relPosX > 7) {
@@ -212,7 +212,7 @@ function move(dir) {
 			}
 			if(camera.x > 9) {
 				camera.x -= 9;
-				camera.map = camera.map.world[camera.map.posX+1][camera.map.posY];
+				camera.map = camera.map.world.map[camera.map.posX+1][camera.map.posY];
 			}
 		}
 		if(player.relPosY > 7) {
@@ -224,7 +224,7 @@ function move(dir) {
 			}
 			if(camera.y > 9) {
 				camera.y -= 9;
-				camera.map = camera.map.world[camera.map.posX][camera.map.posY+1];
+				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY+1];
 			}
 		}
 	} else {
