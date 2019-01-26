@@ -87,9 +87,9 @@ camera.map = map;
 camera.x = 2;
 camera.y = 2;
 camera.draw = function() {
-	for(let i = 0; i < 9; i++) {
-		for(let j = 0; j < 9; j++) {
-			this[i][j] = this.map.map[this.x+i][this.y+j];
+	for(let i = 1; i <= 9; i++) {
+		for(let j = 1; j <= 9; j++) {
+			this[i][j] = this.map.map[this.x+i-1][this.y+j-1];
 			let el = document.getElementById(""+i+j);
 			el.innerHTML = this[i][j].char;
 			el.style.color = this[i][j].color;
