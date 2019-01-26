@@ -121,16 +121,24 @@ function move(dir) {
 	}
 	let relpos = 0;
 	if(player.relPosX < 3) {
-		camera.x+=player.relPosX-3;
+		if(!(camera.x + player.relPosX-3 < 1)) {
+			camera.x+=player.relPosX-3;
+		}
 	}
 	if(player.relPosY < 3) {
-		camera.y+=player.relPosY-3;
+		if(!(camera.y + player.relPosY-3 < 1)) {
+			camera.y+=player.relPosY-3;
+		}
 	}
 	if(player.relPosX > 7) {
-		camera.x-=player.relPosX-7;
+		if(!(camera.x + player.relPosX-7 < 1)) {
+			camera.x+=player.relPosX-7;
+		}
 	}
 	if(player.relPosY > 7) {
-		camera.y-=player.relPosY-7;
+		if(!(camera.y + player.relPosY-7 < 1)) {
+			camera.y+=player.relPosY-7;
+		}
 	}
 	camera.draw();
 }
