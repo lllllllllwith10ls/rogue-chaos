@@ -247,5 +247,6 @@ function move(dir) {
 				camera.y+=player.relPosY-7;
 			}
 		}
+	}
 	camera.draw();
 }
