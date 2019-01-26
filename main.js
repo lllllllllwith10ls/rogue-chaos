@@ -12,15 +12,6 @@ class Thing{
 		this.map.map[x][y] = this;
 		things.push(this);
 	}
-	move(dx,dy) {
-		if(!(this.posX+dx <= 0 || this.posY+dy <= 0 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
-			let x = this.posX;
-			let y = this.posY;
-			new Empty(this.map,x,y);
-			this.map.map[x+dx][y+dy] = this;
-		}
-		
-	}
 	get posX() {
 		for(let i in this.map.map) {
 			if(Object.values(this.map.map[i]).includes(this)) {
@@ -80,6 +71,17 @@ class Map{
 }
 let map = new Map(11,11);
 let player = new Thing("@","#000000",map,6,6);
+player.move = function(dx,dy) {
+	if(!(this.posX+dx <= 0 || this.posY+dy <= 0 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
+		let thing = player.map.map[player.posX+dx][player.posY+dy];
+		if(!(thing instanceof Wall)) {
+			let x = this.posX;
+			let y = this.posY;
+			new Empty(this.map,x,y);
+			this.map.map[x+dx][y+dy] = this;
+		}
+	}
+}
 new Wall("#000000",map,5,5);
 camera.map = map;
 camera.x = 1;
@@ -96,38 +98,26 @@ camera.draw = function() {
 }
 function move(dir) {
 	if(dir === "left") {
-		let thing = player.map.map[player.posX-1][player.posY];
-		if(!(thing instanceof Wall)) {
-			player.move(-1,0);
-		}
+		player.move(-1,0);
 	}
 	if(dir === "right") {
-		let thing = player.map.map[player.posX+1][player.posY];
-		if(!(thing instanceof Wall)) {
-			player.move(1,0);
-		}
+		player.move(1,0);
 	}
 	if(dir === "up") {
-		let thing = player.map.map[player.posX][player.posY-1];
-		if(!(thing instanceof Wall)) {
-			player.move(0,-1);
-		}
+		player.move(0,-1);
 	}
 	if(dir === "down") {
-		let thing = player.map.map[player.posX][player.posY+1];
-		if(!(thing instanceof Wall)) {
-			player.move(0,1);
-		}
+		player.move(0,1);
 	}
 	let relpos = 0;
 	if(player.relPosX < 3) {
-		if(!(camera.x + player.relPosX-3 < 1)) {
-			camera.x+=player.relPosX-3;
+		if(!(camera.x - player.relPosX-3 < 1)) {
+			camera.x-=player.relPosX-3;
 		}
 	}
 	if(player.relPosY < 3) {
-		if(!(camera.y + player.relPosY-3 < 1)) {
-			camera.y+=player.relPosY-3;
+		if(!(camera.y - player.relPosY-3 < 1)) {
+			camera.y-=player.relPosY-3;
 		}
 	}
 	if(player.relPosX > 7) {
