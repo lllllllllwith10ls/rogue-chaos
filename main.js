@@ -149,15 +149,17 @@ camera.draw = function() {
 				for(let k = 1; k <= 9; k++) {
 					for(let l = 1; l <= 9; l++) {
 						if(this.map.world.map[this.map.posX+i]) {
-							let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
-							let x = spot.relPosX;
-							let y = spot.relPosY;
-							if(spot.inCamera) {
-								this[x][y] = spot;
+							if(this.map.world.map[this.map.posX+i][this.map.posY+j]) {
+								let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
+								let x = spot.relPosX;
+								let y = spot.relPosY;
+								if(spot.inCamera) {
+									this[x][y] = spot;
+								}
+								let el = document.getElementById(""+x+y);
+								el.innerHTML = this[x][y].char;
+								el.style.color = this[x][y].color;
 							}
-							let el = document.getElementById(""+x+y);
-							el.innerHTML = this[x][y].char;
-							el.style.color = this[x][y].color;
 						}
 					}
 				}
