@@ -20,7 +20,7 @@ class Thing{
 		
 	}
 	get posX() {
-		for(i in this.map.map) {
+		for(let i in this.map.map) {
 			if(Object.values(this.map.map[i]).includes(this)) {
 				return i;
 			}
@@ -28,7 +28,7 @@ class Thing{
 		return "??";
 	}
 	get posY() {
-		for(i in this.map.map[this.posX]) {
+		for(let i in this.map.map[this.posX]) {
 			if(this.map.map[this.posX][i] === this) {
 				return i;
 			}
