@@ -14,8 +14,10 @@ class Thing{
 	}
 	move(dx,dy) {
 		if(!(this.posX+dx <= 0 || this.posY+dy <= 0 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
-			new Empty(this.map,this.posX,this.posY);
-			this.map[this.posX+dx][this.posY+dy] = this;
+			let x = this.posX;
+			let y = this.posY;
+			new Empty(this.map,x,y);
+			this.map[x+dx][y+dy] = this;
 		}
 		
 	}
