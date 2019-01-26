@@ -109,8 +109,8 @@ class Chunk{
 		return "??";
 	}
 	get posY() {
-		for(let i in this.map.world.map[this.posX]) {
-			if(this.map.world.map[this.posX][i] === this) {
+		for(let i in this.world.map[this.posX]) {
+			if(this.world.map[this.posX][i] === this) {
 				return parseInt(i);
 			}
 		}
