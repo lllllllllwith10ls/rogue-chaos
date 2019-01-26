@@ -261,9 +261,9 @@ function move(dir) {
 		if(player.relPosY < 3) {
 			if(camera.y < 2) {
 				new Chunk(player.map.posX,player.map.posY-1,player.map.world);
-				camera.y+=player.relPosY-3;
+				camera.y+=player.relPosY-7;
 			} else {
-				camera.y+=player.relPosY-3;
+				camera.y+=player.relPosY-7;
 			}
 			if(camera.y < 1) {
 				camera.y += 11;
@@ -273,9 +273,9 @@ function move(dir) {
 		if(player.relPosX > 7) {
 			if(camera.x > 1) {
 				new Chunk(player.map.posX+1,player.map.posY,player.map.world);
-				camera.x+=player.relPosX+1;
+				camera.x+=player.relPosX-7;
 			} else {
-				camera.x+=player.relPosX+1;
+				camera.x+=player.relPosX-7;
 			}
 			if(camera.x > 11) {
 				camera.x -= 11;
@@ -285,9 +285,9 @@ function move(dir) {
 		if(player.relPosY > 7) {
 			if(camera.y > 1) {
 				new Chunk(player.map.posX,player.map.posY+1,player.map.world);
-				camera.y+=player.relPosY+1;
+				camera.y-=player.relPosY-7;
 			} else {
-				camera.y+=player.relPosY+1;
+				camera.y-=player.relPosY-7;
 			}
 			if(camera.y > 11) {
 				camera.y -= 11;
