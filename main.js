@@ -44,13 +44,13 @@ class Thing{
 	}
 	get relPosX() {
 		if(this.inCamera) {
-			return this.posX-camera.x;
+			return this.posX-camera.x+camera.map.posX*11;
 		}
 		return -1;
 	}
 	get relPosY() {
 		if(this.inCamera) {
-			return this.posY-camera.y;
+			return this.posY-camera.y+camera.map.posY*11;
 		}
 		return -1;
 	}
@@ -95,8 +95,8 @@ class Chunk{
 		for(let i = 11; i > 0; i--) {
 			this.map[i] = {};
 			for(let j = 11; j > 0; j--) {
-				if(Math.random > 0.8) {
-					new Wall(this,i,j);
+				if(Math.random() > 0.8) {
+					new Wall("#000000",this,i,j);
 				} else {
 					new Empty(this,i,j);
 				}
@@ -138,16 +138,15 @@ player.move = function(dx,dy) {
 		}
 	}
 }
-new Wall("#000000",map,5,5);
 camera.map = map;
 camera.x = 2;
 camera.y = 2;
 camera.draw = function() {
-	if(camera.map.world) {
+	if(this.map.world) {
 		for(let i = -1; i <= 1; i++) {
 			for(let j = -1; j <= 1; j++) {
-				for(let k = 1; k <= 9; k++) {
-					for(let l = 1; l <= 9; l++) {
+				for(let k = 1; k <= 11; k++) {
+					for(let l = 1; l <= 11; l++) {
 						if(this.map.world.map[this.map.posX+i]) {
 							if(this.map.world.map[this.map.posX+i][this.map.posY+j]) {
 								let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
