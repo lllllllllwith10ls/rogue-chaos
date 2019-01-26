@@ -49,13 +49,21 @@ class Thing{
 	}
 	get relPosX() {
 		if(this.inCamera) {
-			return this.posX-camera.x+camera.map.posX*11;
+			if(this.map.world && camera.map.world) {
+				return this.posX-(camera.x+camera.map.posX*11)+1;
+			} else {
+				return this.posX-camera.x+1;
+			}
 		}
 		return -1;
 	}
 	get relPosY() {
 		if(this.inCamera) {
-			return this.posY-camera.y+camera.map.posY*11;
+			if(this.map.world && camera.map.world) {
+				return this.posY-(camera.y+camera.map.posY*11)+1;
+			} else {
+				return this.posY-camera.x+1;
+			}
 		}
 		return -1;
 	}
