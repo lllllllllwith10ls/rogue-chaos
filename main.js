@@ -82,8 +82,8 @@ let map = new Map(11,11);
 let player = new Thing("@","#000000",map,6,6);
 new Wall("#000000",map,5,5);
 camera.map = map;
-camera.x = 2;
-camera.y = 2;
+camera.x = 1;
+camera.y = 1;
 camera.draw = function() {
 	for(let i = 1; i <= 9; i++) {
 		for(let j = 1; j <= 9; j++) {
@@ -119,23 +119,23 @@ function move(dir) {
 			player.move(0,1);
 		}
 	}
-	if(this.relPosX < 4) {
-		while(this.relPosX < 4) {
+	if(player.relPosX < 4) {
+		while(player.relPosX < 4) {
 			camera.x++;
 		}
 	}
-	if(this.relPosY < 4) {
-		while(this.relPosY < 4) {
+	if(player.relPosY < 4) {
+		while(player.relPosY < 4) {
 			camera.y++;
 		}
 	}
-	if(this.relPosX > 6) {
-		while(this.relPosX > 6) {
+	if(player.relPosX > 6) {
+		while(player.relPosX > 6) {
 			camera.x--;
 		}
 	}
-	if(this.relPosY > 6) {
-		while(this.relPosY > 6) {
+	if(player.relPosY > 6) {
+		while(player.relPosY > 6) {
 			camera.y--;
 		}
 	}
