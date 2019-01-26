@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<style>
+			p{
+				font-family:monospace;
+			}
 		<script src="main.js"></script>
 		<script>
+			
 			function updateStart() {
+				for(let i = 1; i <= 9; i++) {
+					for(let i = 1; i <= 9; i++) {
+						let span = document.createElement('span');
+						if(i === 5 && j === 5) {
+							span.innerHTML = "@";
+						} else {
+							span.innerHTML = ".";
+						}
+						
+						document.getElementById("game").appendChild(span);
+					}
+					let br = document.createElement('br');
+					document.getElementById("game").appendChild(br);
+				}
 				window.addEventListener('keydown', function (e) {
 				e.preventDefault();
 					switch(e.keyCode) {
 						case 87:
-							player.move("up");
+							move("up");
 							break;
 						case 65:
-							player.move("left");
+							move("left");
 							break;
 						case 83:
-							player.move("down");
+							move("down");
 							break;
 						case 68:
-							player.move("right");
+							move("right");
 							break;
 					}
 				});
@@ -25,16 +44,7 @@
 		</script>
 	</head>
 	<body onload="updateStart()">
-		<pre id="game">
-.........
-.........
-.........
-.........
-....@....
-.........
-.........
-.........
-.........
-		</pre>
+		<p id="game">
+		</p>
 	</body>
 </html>
