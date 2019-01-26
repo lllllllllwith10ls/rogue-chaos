@@ -13,17 +13,13 @@
 				for(let i = 1; i <= 9; i++) {
 					for(let j = 1; j <= 9; j++) {
 						let span = document.createElement('span');
-						if(i === 5 && j === 5) {
-							span.innerHTML = "@";
-						} else {
-							span.innerHTML = ".";
-						}
 						span.id = ""+j+i;
 						document.getElementById("game").appendChild(span);
 					}
 					let br = document.createElement('br');
 					document.getElementById("game").appendChild(br);
 				}
+				camera.draw;
 				window.addEventListener('keydown', function (e) {
 				e.preventDefault();
 					switch(e.keyCode) {
