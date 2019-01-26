@@ -155,10 +155,10 @@ camera.draw = function() {
 								let y = spot.relPosY;
 								if(spot.inCamera) {
 									this[x][y] = spot;
+									let el = document.getElementById(""+x+y);
+									el.innerHTML = this[x][y].char;
+									el.style.color = this[x][y].color;
 								}
-								let el = document.getElementById(""+x+y);
-								el.innerHTML = this[x][y].char;
-								el.style.color = this[x][y].color;
 							}
 						}
 					}
