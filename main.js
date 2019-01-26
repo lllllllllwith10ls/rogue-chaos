@@ -116,7 +116,7 @@ function move(dir) {
 	if(dir === "down") {
 		let thing = player.map.map[player.posX][player.posY+1];
 		if(!(thing instanceof Wall)) {
-			player.move(0,-1);
+			player.move(0,1);
 		}
 	}
 	if(this.relPosX < 4) {
