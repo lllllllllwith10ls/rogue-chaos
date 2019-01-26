@@ -23,14 +23,18 @@ class Thing{
 		if(this.map.world) {
 			result = result+this.map.posX*11;
 		}
-		return "??";
+		return result
 	}
 	get posY() {
 		for(let i in this.map.map[this.posX]) {
 			if(this.map.map[this.posX][i] === this) {
-				return parseInt(i);
+				result = parseInt(i);
 			}
 		}
+		if(this.map.world) {
+			result = result+this.map.posY*11;
+		}
+		return result
 	}
 	get inCamera() {
 		if(this.map.world && camera.map.world) {
