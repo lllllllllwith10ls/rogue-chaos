@@ -148,22 +148,33 @@ let player = new Thing("@","#000000",map,6,6);
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		if(this.map.world) {
-			if(!(thing instanceof Wall)) {
 				let x = this.posX;
 				let y = this.posY;
 				new Empty(this.map,x,y);
 				if(this.chunkPosX+dx > 11) {
-					this.map = this.map.world.map[camera.map.posX+1][camera.map.posY];
-					this.map.map[x+dx-11][y+dy] = this;
+					let thing = this.map.world.map[camera.map.posX+1][camera.map.posY].map[x+dx-11][y+dy];
+					if(!(thing instanceof Wall)) {
+						this.map = this.map.world.map[camera.map.posX+1][camera.map.posY];
+						this.map.map[x+dx-11][y+dy] = this;
+					}
 				} else if(this.chunkPosY+dy > 11) {
-					this.map = this.map.world.map[camera.map.posX][camera.map.posY+1];
-					this.map.map[x+dx][y+dy-11] = this;
+					let thing = this.map.world.map[camera.map.posX][camera.map.posY+1].map[x+dx][y+dy+11];
+					if(!(thing instanceof Wall)) {
+						this.map = this.map.world.map[camera.map.posX][camera.map.posY+1];
+						this.map.map[x+dx][y+dy-11] = this;
+					}
 				} else if(this.chunkPosX+dx < 1) {
-					this.map = this.map.world.map[camera.map.posX-1][camera.map.posY];
-					this.map.map[x+dx+11][y+dy] = this;
+					let thing = this.map.world.map[camera.map.posX-1][camera.map.posY].map[x+dx+11][y+dy];
+					if(!(thing instanceof Wall)) {
+						this.map = this.map.world.map[camera.map.posX-1][camera.map.posY];
+						this.map.map[x+dx+11][y+dy] = this;
+					}
 				} else if(this.chunkPosX+dy < 1) {
-					this.map = this.map.world.map[camera.map.posX][camera.map.posY-1];
-					this.map.map[x+dx][y+dy+11] = this;
+					let thing = this.map.world.map[camera.map.posX][camera.map.posY-1].map[x+dx][y+dy+11];
+					if(!(thing instanceof Wall)) {
+						this.map = this.map.world.map[camera.map.posX][camera.map.posY-1];
+						this.map.map[x+dx][y+dy+11] = this;
+					}
 				} else {
 					new Empty(this.map,x,y);
 					this.map.map[x+dx][y+dy] = this;
