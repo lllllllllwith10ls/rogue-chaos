@@ -72,7 +72,7 @@ class Map{
 let map = new Map(11,11);
 let player = new Thing("@","#000000",map,6,6);
 player.move = function(dx,dy) {
-	if(!(this.posX+dx <= 0 || this.posY+dy <= 0 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
+	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		let thing = player.map.map[player.posX+dx][player.posY+dy];
 		if(!(thing instanceof Wall)) {
 			let x = this.posX;
@@ -84,15 +84,15 @@ player.move = function(dx,dy) {
 }
 new Wall("#000000",map,5,5);
 camera.map = map;
-camera.x = 1;
-camera.y = 1;
+camera.x = 2;
+camera.y = 2;
 camera.draw = function() {
-	for(let i = 1; i <= 9; i++) {
-		for(let j = 1; j <= 9; j++) {
+	for(let i = 0; i < 9; i++) {
+		for(let j = 0; j < 9; j++) {
 			this[i][j] = this.map.map[this.x+i][this.y+j];
 			let el = document.getElementById(""+i+j);
 			el.innerHTML = this[i][j].char;
-			el.color = this[i][j].color;
+			el.style.color = this[i][j].color;
 		}
 	}
 }
