@@ -17,7 +17,7 @@ class Thing{
 			let x = this.posX;
 			let y = this.posY;
 			new Empty(this.map,x,y);
-			this.map[x+dx][y+dy] = this;
+			this.map.map[x+dx][y+dy] = this;
 		}
 		
 	}
