@@ -89,8 +89,8 @@ camera.draw = function() {
 		for(let j = 1; j <= 9; j++) {
 			this[i][j] = this.map.map[this.x+i][this.y+j];
 			let el = document.getElementById(""+i+j);
-			el.innerHTML = this.char;
-			el.color = this.color;
+			el.innerHTML = this[i][j].char;
+			el.color = this[i][j].color;
 		}
 	}
 }
