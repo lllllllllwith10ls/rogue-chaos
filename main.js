@@ -285,9 +285,9 @@ function move(dir) {
 		if(player.relPosY > 7) {
 			if(camera.y > 1) {
 				new Chunk(player.map.posX,player.map.posY+1,player.map.world);
-				camera.y-=player.relPosY-7;
+				camera.y+=player.relPosY-7;
 			} else {
-				camera.y-=player.relPosY-7;
+				camera.y+=player.relPosY-7;
 			}
 			if(camera.y > 11) {
 				camera.y -= 11;
@@ -307,12 +307,12 @@ function move(dir) {
 		}
 		if(player.relPosX > 7) {
 			if(!(camera.x + player.relPosX+1 > player.map.sizeX)) {
-				camera.x+=player.relPosX-5;
+				camera.x+=player.relPosX-7;
 			}
 		}
 		if(player.relPosY > 7) {
 			if(!(camera.y + player.relPosY+1 > player.map.sizeX)) {
-				camera.y+=player.relPosY-5;
+				camera.y+=player.relPosY-7;
 			}
 		}
 	}
