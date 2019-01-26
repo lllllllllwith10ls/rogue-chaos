@@ -20,7 +20,6 @@ class Thing{
 		
 	}
 	get posX() {
-		let keys = this.map.map.keys();
 		for(i in this.map.map) {
 			if(Object.values(this.map.map[i]).includes(this)) {
 				return i;
