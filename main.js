@@ -116,7 +116,8 @@ class Chunk{
 		}
 	}
 }
-let map = new Chunk(11,11);
+let world = new World();
+let map = new Chunk(11,11,world);
 let player = new Thing("@","#000000",map,6,6);
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
