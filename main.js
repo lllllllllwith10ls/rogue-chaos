@@ -148,8 +148,8 @@ let player = new Thing("@","#000000",map,6,6);
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		if(this.map.world) {
-			let x = this.posX;
-			let y = this.posY;
+			let x = this.chunkPosX;
+			let y = this.chunkPosY;
 			new Empty(this.map,x,y);
 			if(this.chunkPosX+dx > 11) {
 				let thing = this.map.world.map[camera.map.posX+1][camera.map.posY].map[x+dx-11][y+dy];
@@ -176,14 +176,14 @@ player.move = function(dx,dy) {
 					this.map.map[x+dx][y+dy+11] = this;
 				}
 			} else {
-				let thing = player.map.map[player.posX+dx][player.posY+dy];
+				let thing = this.map.map[this.chunkPosX+dx][this.chunkPosY+dy];
 				if(!(thing instanceof Wall)) {
 					new Empty(this.map,x,y);
 					this.map.map[x+dx][y+dy] = this;
 				}
 			}
 		}
-		let thing = player.map.map[player.posX+dx][player.posY+dy];
+		let thing = this.map.map[this.posX+dx][this.posY+dy];
 		if(!(thing instanceof Wall)) {
 			let x = this.posX;
 			let y = this.posY;
