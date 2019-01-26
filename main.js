@@ -72,7 +72,11 @@ class Map{
 		for(let i = sizeX; i > 0; i--) {
 			this.map[i] = {};
 			for(let j = sizeY; j > 0; j--) {
-				new Empty(this,i,j);
+				if(Math.random > 0.8) {
+					new Wall(this,i,j);
+				} else {
+					new Empty(this,i,j);
+				}
 			}
 		}
 		this.sizeX = sizeX;
@@ -91,7 +95,11 @@ class Chunk{
 		for(let i = 11; i > 0; i--) {
 			this.map[i] = {};
 			for(let j = 11; j > 0; j--) {
-				new Empty(this,i,j);
+				if(Math.random > 0.8) {
+					new Wall(this,i,j);
+				} else {
+					new Empty(this,i,j);
+				}
 			}
 		}
 		this.world = world;
