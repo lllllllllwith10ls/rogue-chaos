@@ -150,33 +150,36 @@ player.move = function(dx,dy) {
 		if(this.map.world) {
 			let x = this.chunkPosX;
 			let y = this.chunkPosY;
-			new Empty(this.map,x,y);
 			if(this.chunkPosX+dx > 11) {
 				let thing = this.map.world.map[camera.map.posX+1][camera.map.posY].map[x+dx-11][y+dy];
 				if(!(thing instanceof Wall)) {
+					new Empty(this.map,x,y);
 					this.map = this.map.world.map[camera.map.posX+1][camera.map.posY];
 					this.map.map[x+dx-11][y+dy] = this;
 				}
 			} else if(this.chunkPosY+dy > 11) {
 				let thing = this.map.world.map[camera.map.posX][camera.map.posY+1].map[x+dx][y+dy+11];
 				if(!(thing instanceof Wall)) {
+					new Empty(this.map,x,y);
 					this.map = this.map.world.map[camera.map.posX][camera.map.posY+1];
 					this.map.map[x+dx][y+dy-11] = this;
 				}
 			} else if(this.chunkPosX+dx < 1) {
 				let thing = this.map.world.map[camera.map.posX-1][camera.map.posY].map[x+dx+11][y+dy];
 				if(!(thing instanceof Wall)) {
+					new Empty(this.map,x,y);
 					this.map = this.map.world.map[camera.map.posX-1][camera.map.posY];
 					this.map.map[x+dx+11][y+dy] = this;
 				}
 			} else if(this.chunkPosX+dy < 1) {
 				let thing = this.map.world.map[camera.map.posX][camera.map.posY-1].map[x+dx][y+dy+11];
 				if(!(thing instanceof Wall)) {
+					new Empty(this.map,x,y);
 					this.map = this.map.world.map[camera.map.posX][camera.map.posY-1];
 					this.map.map[x+dx][y+dy+11] = this;
 				}
 			} else {
-				let thing = this.map.map[this.chunkPosX+dx][this.chunkPosY+dy];
+				let thing = this.map.map[x+dx][y+dy];
 				if(!(thing instanceof Wall)) {
 					new Empty(this.map,x,y);
 					this.map.map[x+dx][y+dy] = this;
