@@ -9,7 +9,7 @@ class Thing{
 		this.char = char;
 		this.color = color;
 		this.map = map;
-		this.map[x][y] = this;
+		this.map.map[x][y] = this;
 		things.push(this);
 	}
 	move(dx,dy) {
