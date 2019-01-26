@@ -307,12 +307,12 @@ function move(dir) {
 		}
 		if(player.relPosX > 7) {
 			if(!(camera.x + player.relPosX+1 > player.map.sizeX)) {
-				camera.x+=player.relPosX-7;
+				camera.x+=player.relPosX-5;
 			}
 		}
 		if(player.relPosY > 7) {
 			if(!(camera.y + player.relPosY+1 > player.map.sizeX)) {
-				camera.y+=player.relPosY-7;
+				camera.y+=player.relPosY-5;
 			}
 		}
 	}
