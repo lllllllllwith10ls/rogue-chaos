@@ -170,7 +170,7 @@ player.move = function(dx,dy) {
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
 				this.map.map[x+dx+11][y+dy] = this;
 			}
-		} else if(this.chunkPosX+dy < 1) {
+		} else if(this.chunkPosY+dy < 1) {
 			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+11];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
