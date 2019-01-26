@@ -13,7 +13,7 @@ class Thing{
 		things.push(this);
 	}
 	get posX() {
-		let result = 0;
+		let result = NaN;
 		for(let i in this.map.map) {
 			if(Object.values(this.map.map[i]).includes(this)) {
 				result = parseInt(i);
@@ -26,6 +26,7 @@ class Thing{
 		return result
 	}
 	get posY() {
+		let result = NaN;
 		for(let i in this.map.map[this.posX]) {
 			if(this.map.map[this.posX][i] === this) {
 				result = parseInt(i);
