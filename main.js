@@ -117,7 +117,7 @@ class Map{
 class World{
 	constructor() {
 		this.map = {};
-		this.seed = new Math.floor(Math.random()*4294967296);
+		this.seed = Math.floor(Math.random()*4294967296);
 	}
 }
 class Chunk{
