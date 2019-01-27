@@ -28,13 +28,13 @@ function pathfind(object,target) {
 			arrayCoords = arrayCoords.concat(pathfindHelper(array,arrayCoords[i][0],arrayCoords[i][1]));
 		}
 		let path = [target.relPosX,target.relPosY];
+		let path2 = [];
 		if(typeof array[path[0]][path[1]] === "number") {
 			while(true) {
 				if(array[path[0]][path[1]] > 0) {
+					path2 = [].concat(path);
 					path = pathfindHelper2(array,path[0],path[1]);
-					if(path) {
-						camera[path[0]][path[1]] = marker;
-					} else {
+					if(!path) {
 						break;
 					}
 				} else {
@@ -42,6 +42,7 @@ function pathfind(object,target) {
 				}
 			}
 		}
+		object.move(
 	}
 }
 function pathfindHelper(array,x,y) {
