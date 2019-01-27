@@ -11,8 +11,8 @@ function pathfind(object,target) {
 		let x = object.relPosX;
 		let y = object.relPosY;
 
-		for(let i in array) {
-			for(let j in array[i]) {
+		for(let i = 1; i < array.length; i++) {
+			for(let j = 1; j < array.length; j++) {
 				if(array[i][j].type = "wall" || array[i][j].ai) {
 					array[i][j] = 9**9;
 				}
@@ -38,6 +38,7 @@ function pathfind(object,target) {
 }
 function pathfindHelper(array,x,y) {
 	let coords = [];
+	console.log(array[x][y]+1);
 	if(array[x-1][y]) {
 		if(typeof array[x-1][y] != "number") {
 			array[x-1][y] = array[x][y]+1;
