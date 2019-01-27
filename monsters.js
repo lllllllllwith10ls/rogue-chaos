@@ -91,6 +91,7 @@ function pathfindHelper2(array,x,y) {
 				coords.push([x+1,y]);
 			}
 		}
+	}
 	if(array[x][y-1]) {
 		if(array[x][y-1] === array[x][y]-1) {
 			coords.push([x,y-1]);
