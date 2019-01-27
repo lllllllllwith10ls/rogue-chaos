@@ -20,7 +20,6 @@ function pathfind(object,target) {
 				}
 			}
 		}
-		console.log(array);
 		
 		array[x][y] = 0;
 		let arrayCoords = [[x,y]];
