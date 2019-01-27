@@ -181,7 +181,7 @@ class Monster extends Thing {
 		}
 	}
 }
-class Fighter extends Thing {
+class Fighter {
 	constructor(hp,power) {
 		this.hp = hp;
 		this.power = power;
