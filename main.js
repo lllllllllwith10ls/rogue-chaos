@@ -241,16 +241,18 @@ camera.draw = function() {
 						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
 						let x = i*chunkSize+k;
 						let y = j*chunkSize+l;
-						if(typeof spot === "string" && x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
-							this[x][y] = this.map.world[spot];
-							let el = document.getElementById(""+x+","+y);
-							el.innerHTML = this[x][y].char;
-							el.style.color = this[x][y].color;
-						} else {
-							this[x][y] = spot;
-							let el = document.getElementById(""+x+","+y);
-							el.innerHTML = this[x][y].char;
-							el.style.color = this[x][y].color;
+						if(x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
+							if(typeof spot === "string") {
+								this[x][y] = this.map.world[spot];
+								let el = document.getElementById(""+x+","+y);
+								el.innerHTML = this[x][y].char;
+								el.style.color = this[x][y].color;
+							} else {
+								this[x][y] = spot;
+								let el = document.getElementById(""+x+","+y);
+								el.innerHTML = this[x][y].char;
+								el.style.color = this[x][y].color;
+							}
 						}
 					}
 				}
