@@ -314,7 +314,7 @@ function move(dir) {
 			}
 		}
 		if(player.relPosX > (camera.size-1)/2+3) {
-			while(player.relPosX > (camera.size-1)/2-3) {
+			while(player.relPosX > (camera.size-1)/2+3) {
 				camera.x++;
 			}
 			if(camera.x > chunkSize) {
@@ -324,7 +324,7 @@ function move(dir) {
 			}
 		}
 		if(player.relPosY > (camera.size-1)/2+3) {
-			while(player.relPosY > (camera.size-1)/2-3) {
+			while(player.relPosY > (camera.size-1)/2+3) {
 				camera.y++;
 			}
 			if(camera.y > chunkSize) {
