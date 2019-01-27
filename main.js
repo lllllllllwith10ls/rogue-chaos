@@ -118,13 +118,19 @@ class World{
 class Chunk{
 	constructor(x,y,world) {
 		this.map = {};
-		for(let i = 11; i > 0; i--) {
-			this.map[i] = {};
-			for(let j = 11; j > 0; j--) {
-				if(Math.random() > 0.8) {
-					new Wall("#000000",this,i,j);
-				} else {
-					new Empty(this,i,j);
+		if(!world.map[x]) {
+			world.map[x] = {};
+		}
+		if(!world.map[x][y]) {
+			world.map[x][y] = this;
+			for(let i = 11; i > 0; i--) {
+				this.map[i] = {};
+				for(let j = 11; j > 0; j--) {
+					if(Math.random() > 0.8) {
+						new Wall("#000000",this,i,j);
+					} else {
+						new Empty(this,i,j);
+					}
 				}
 			}
 		}
@@ -335,3 +341,4 @@ function move(dir) {
 	camera.draw();
 	cleanThings();
 }
+cleanThings();
