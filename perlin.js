@@ -23,15 +23,6 @@ var perlin = function(x, y, z) {
     }
   }
 
-  if (x < 0) {
-    x = -x;
-  }
-  if (y < 0) {
-    y = -y;
-  }
-  if (z < 0) {
-    z = -z;
-  }
 
   var xi = Math.floor(x),
     yi = Math.floor(y),
