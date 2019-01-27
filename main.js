@@ -11,7 +11,7 @@ function cleanThings() {
 		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
-		if(places[i].map == null) {
+		if(!places[i].map) {
 			places.splice(i,1);
 		}
 	}
