@@ -45,16 +45,20 @@ function pathfind(object,target) {
 }
 function pathfindHelper(array,x,y) {
 	let coords = [];
-	if(array[x-1][y]) {
-		if(typeof array[x-1][y] != "number") {
-			array[x-1][y] = array[x][y]+1;
-			coords.push([x-1,y]);
+	if(array[x-1]) {
+		if(array[x-1][y]) {
+			if(typeof array[x-1][y] != "number") {
+				array[x-1][y] = array[x][y]+1;
+				coords.push([x-1,y]);
+			}
 		}
 	}
-	if(array[x+1][y]) {
-		if(typeof array[x+1][y] != "number") {
-			array[x+1][y] = array[x][y]+1;
-			coords.push([x+1,y]);
+	if(array[x+1]) {
+		if(array[x+1][y]) {
+			if(typeof array[x+1][y] != "number") {
+				array[x+1][y] = array[x][y]+1;
+				coords.push([x+1,y]);
+			}
 		}
 	}
 	if(array[x][y-1]) {
@@ -74,16 +78,19 @@ function pathfindHelper(array,x,y) {
 
 function pathfindHelper2(array,x,y) {
 	let coords = [];
-	if(array[x-1][y]) {
-		if(array[x-1][y] === array[x][y]-1) {
-			coords.push([x-1,y]);
+	if(array[x-1]) {
+		if(array[x-1][y]) {
+			if(array[x-1][y] === array[x][y]-1) {
+				coords.push([x-1,y]);
+			}
 		}
 	}
-	if(array[x+1][y]) {
-		if(array[x+1][y] === array[x][y]-1) {
-			coords.push([x+1,y]);
+	if(array[x+1]) {
+		if(array[x+1][y]) {
+			if(array[x+1][y] === array[x][y]-1) {
+				coords.push([x+1,y]);
+			}
 		}
-	}
 	if(array[x][y-1]) {
 		if(array[x][y-1] === array[x][y]-1) {
 			coords.push([x,y-1]);
