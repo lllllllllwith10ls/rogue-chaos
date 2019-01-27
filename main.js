@@ -1,5 +1,5 @@
 let camera = {};
-for(let i = 1; i <= 9; i++) {
+for(let i = 1; i <= camera.size; i++) {
 	camera[i] = {};
 }
 
@@ -28,7 +28,7 @@ class Thing{
 		let result = this.chunkPosX;
 		
 		if(this.map.world) {
-			result = result+this.map.posX*11;
+			result = result+this.map.posX*chunkSize;
 		}
 		return result
 	}
@@ -36,7 +36,7 @@ class Thing{
 		let result = this.chunkPosY;
 		
 		if(this.map.world) {
-			result = result+this.map.posY*11;
+			result = result+this.map.posY*chunkSize;
 		}
 		return result
 	}
@@ -56,10 +56,10 @@ class Thing{
 	}
 	get inCamera() {
 		if(this.map.world && camera.map.world) {
-			if(this.map.world === camera.map.world && this.posX >= camera.x+camera.map.posX*11 && this.posY >= camera.y+camera.map.posY*11 && this.posX < camera.x+camera.map.posX*11+9 &&  this.posY < camera.y+camera.map.posY*11+9) {
+			if(this.map.world === camera.map.world && this.posX >= camera.x+camera.map.posX*chunkSize && this.posY >= camera.y+camera.map.posY*chunkSize && this.posX < camera.x+camera.map.posX*chunkSize+camera.size &&  this.posY < camera.y+camera.map.posY*chunkSize+camera.size) {
 				return true;
 			}
-		} else if(this.map === camera.map && this.posX >= camera.x && this.posX < camera.x+9 && this.posY >= camera.y && this.posY < camera.y+9) {
+		} else if(this.map === camera.map && this.posX >= camera.x && this.posX < camera.x+camera.size && this.posY >= camera.y && this.posY < camera.y+camera.size) {
 			return true;
 		}
 		return false;
@@ -67,7 +67,7 @@ class Thing{
 	get relPosX() {
 		if(this.inCamera) {
 			if(this.map.world && camera.map.world) {
-				return this.posX-(camera.x+camera.map.posX*11)+1;
+				return this.posX-(camera.x+camera.map.posX*chunkSize)+1;
 			} else {
 				return this.posX-camera.x+1;
 			}
@@ -77,7 +77,7 @@ class Thing{
 	get relPosY() {
 		if(this.inCamera) {
 			if(this.map.world && camera.map.world) {
-				return this.posY-(camera.y+camera.map.posY*11)+1;
+				return this.posY-(camera.y+camera.map.posY*chunkSize)+1;
 			} else {
 				return this.posY-camera.x+1;
 			}
@@ -96,6 +96,7 @@ class Wall extends Thing{
 	}
 }
 let places = [];
+let chunkSize = 32;
 class Map{
 	constructor(sizeX,sizeY) {
 		this.map = {};
@@ -129,11 +130,11 @@ class Chunk{
 		if(!world.map[x][y]) {
 			world.map[x][y] = this;
 			noiseSeed(world.seed);
-			for(let i = 11; i > 0; i--) {
+			for(let i = chunkSize; i > 0; i--) {
 				this.map[i] = {};
-				for(let j = 11; j > 0; j--) {
+				for(let j = chunkSize; j > 0; j--) {
 					
-					if(perlin((x*11+i)/3,(y*11+j)/3) > 0.5) {
+					if(perlin((x*chunkSize+i)/3,(y*chunkSize+j)/3) > 0.5) {
 						new Wall("#000000",this,i,j);
 					} else {
 						new Empty(this,i,j);
@@ -172,37 +173,37 @@ player.move = function(dx,dy) {
 	if(this.map.world) {
 		let x = this.chunkPosX;
 		let y = this.chunkPosY;
-		if(this.chunkPosX+dx > 11) {
+		if(this.chunkPosX+dx > chunkSize) {
 			new Chunk(this.map.posX+1,this.map.posY,this.map.world);
-			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-11][y+dy];
+			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
 				this.map = this.map.world.map[this.map.posX+1][this.map.posY];
-				this.map.map[x+dx-11][y+dy] = this;
+				this.map.map[x+dx-chunkSize][y+dy] = this;
 			}
-		} else if(this.chunkPosY+dy > 11) {
+		} else if(this.chunkPosY+dy > chunkSize) {
 			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
-			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+11];
+			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
 				this.map = this.map.world.map[this.map.posX][this.map.posY+1];
-				this.map.map[x+dx][y+dy-11] = this;
+				this.map.map[x+dx][y+dy-chunkSize] = this;
 			}
 		} else if(this.chunkPosX+dx < 1) {
 			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
-			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+11][y+dy];
+			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
-				this.map.map[x+dx+11][y+dy] = this;
+				this.map.map[x+dx+chunkSize][y+dy] = this;
 			}
 		} else if(this.chunkPosY+dy < 1) {
 			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
-			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+11];
+			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
 				this.map = this.map.world.map[this.map.posX][this.map.posY-1];
-				this.map.map[x+dx][y+dy+11] = this;
+				this.map.map[x+dx][y+dy+chunkSize] = this;
 			}
 		} else {
 			let thing = this.map.map[x+dx][y+dy];
@@ -224,12 +225,13 @@ player.move = function(dx,dy) {
 camera.map = map;
 camera.x = 2;
 camera.y = 2;
+camera.size = 29;
 camera.draw = function() {
 	if(this.map.world) {
 		for(let i = -1; i <= 1; i++) {
 			for(let j = -1; j <= 1; j++) {
-				for(let k = 1; k <= 11; k++) {
-					for(let l = 1; l <= 11; l++) {
+				for(let k = 1; k <= chunkSize; k++) {
+					for(let l = 1; l <= chunkSize; l++) {
 						
 						new Chunk(this.map.posX+i,this.map.posY+j,this.map.world);
 						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
@@ -237,7 +239,7 @@ camera.draw = function() {
 						let y = spot.relPosY;
 						if(spot.inCamera) {
 							this[x][y] = spot;
-							let el = document.getElementById(""+x+y);
+							let el = document.getElementById(""+x+","+y);
 							el.innerHTML = this[x][y].char;
 							el.style.color = this[x][y].color;
 						}
@@ -246,10 +248,10 @@ camera.draw = function() {
 			}
 		}
 	}else {
-		for(let i = 1; i <= 9; i++) {
-			for(let j = 1; j <= 9; j++) {
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
 				this[i][j] = this.map.map[this.x+i-1][this.y+j-1];
-				let el = document.getElementById(""+i+j);
+				let el = document.getElementById(""+i+","+j);
 				el.innerHTML = this[i][j].char;
 				el.style.color = this[i][j].color;
 			}
@@ -271,54 +273,54 @@ function move(dir) {
 	}
 	let relpos = 0;
 	if(camera.map.world) {
-		if(player.relPosX < 3) {
+		if(player.relPosX < (camera.size-1)/2-3) {
 			if(camera.x < 2) {
 				new Chunk(player.map.posX-1,player.map.posY,player.map.world);
-				camera.x+=player.relPosX-3;
+				camera.x+=player.relPosX-(camera.size-1)/2-3;
 			} else {
-				camera.x+=player.relPosX-3;
+				camera.x+=player.relPosX-(camera.size-1)/2-3;
 			}
 			if(camera.x < 1) {
-				camera.x += 11;
+				camera.x += chunkSize;
 				new Chunk(camera.map.posX-1,camera.map.posY,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX-1][camera.map.posY];
 			}
 		}
-		if(player.relPosY < 3) {
+		if(player.relPosY < (camera.size-1)/2-3) {
 			if(camera.y < 2) {
 				new Chunk(player.map.posX,player.map.posY-1,player.map.world);
-				camera.y+=player.relPosY-3;
+				camera.y+=player.relPosY-(camera.size-1)/2-3;
 			} else {
-				camera.y+=player.relPosY-3;
+				camera.y+=player.relPosY-(camera.size-1)/2-3;
 			}
 			if(camera.y < 1) {
-				camera.y += 11;
+				camera.y += chunkSize;
 				new Chunk(camera.map.posX,camera.map.posY-1,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY-1];
 			}
 		}
-		if(player.relPosX > 7) {
+		if(player.relPosX > (camera.size-1)/2+3) {
 			if(camera.x > 1) {
 				new Chunk(player.map.posX+1,player.map.posY,player.map.world);
-				camera.x+=player.relPosX-7;
+				camera.x+=player.relPosX-(camera.size-1)/2+3;
 			} else {
-				camera.x+=player.relPosX-7;
+				camera.x+=player.relPosX-(camera.size-1)/2+3;
 			}
-			if(camera.x > 11) {
-				camera.x -= 11;
+			if(camera.x > chunkSize) {
+				camera.x -= chunkSize;
 				new Chunk(camera.map.posX+1,camera.map.posY,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX+1][camera.map.posY];
 			}
 		}
-		if(player.relPosY > 7) {
+		if(player.relPosY > (camera.size-1)/2+3) {
 			if(camera.y > 1) {
 				new Chunk(player.map.posX,player.map.posY+1,player.map.world);
-				camera.y+=player.relPosY-7;
+				camera.y+=player.relPosY-(camera.size-1)/2+3;
 			} else {
-				camera.y+=player.relPosY-7;
+				camera.y+=player.relPosY-(camera.size-1)/2+3;
 			}
-			if(camera.y > 11) {
-				camera.y -= 11;
+			if(camera.y > chunkSize) {
+				camera.y -= chunkSize;
 				new Chunk(camera.map.posX,camera.map.posY+1,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY+1];
 			}
