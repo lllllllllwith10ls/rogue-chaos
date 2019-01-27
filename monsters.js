@@ -23,7 +23,7 @@ function pathfind(object,target) {
 		array[x][y] = 0;
 		let arrayCoords = [[x,y]];
 		for(let i = 0; i < arrayCoords.length; i++) {
-			arrayCoords.concat(pathfindHelper(array,arrayCoords[i][0],arrayCoords[i][1]));
+			arrayCoords = arrayCoords.concat(pathfindHelper(array,arrayCoords[i][0],arrayCoords[i][1]));
 		}
 		let path = [target.relPosX,target.relPosY];
 		if(typeof array[path[0]][path[1]] === "number") {
@@ -45,7 +45,6 @@ function pathfind(object,target) {
 }
 function pathfindHelper(array,x,y) {
 	let coords = [];
-	console.log(array[x][y]+1);
 	if(array[x-1][y]) {
 		if(typeof array[x-1][y] != "number") {
 			array[x-1][y] = array[x][y]+1;
