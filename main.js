@@ -11,6 +11,12 @@ function cleanThings() {
 			things.splice(i,1);
 		}
 	}
+	for(let i = places.length-1; i >= 0; i--) {
+		if(places[i].map == {}) {
+			places[i] = null;
+			places.splice(i,1);
+		}
+	}
 }
 class Thing{
 	constructor(char,color,map,x,y) {
