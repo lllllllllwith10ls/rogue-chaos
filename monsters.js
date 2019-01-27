@@ -4,7 +4,7 @@ function pathfind(object,target) {
 		let array = [];
 		for(let i = 1; i <= camera.size; i++) {
 			array[i] = [];
-			for(let j = 1; j<= camera.size; j++) {
+			for(let j = 1; j <= camera.size; j++) {
 				array[i][j] = camera[i][j];
 			}
 		}
