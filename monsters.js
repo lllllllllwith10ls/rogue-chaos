@@ -41,7 +41,19 @@ function pathfind(object,target) {
 				}
 			}
 		}
-		object.move(path2[0],path2[1]);
+		if(path2) {
+			object.move(path2[0],path2[1]);
+		} else {
+			if(Math.random() >= 0.75) {
+				object.move(1,0);
+			} else if(Math.random() >= 0.5) {
+				object.move(-1,0);
+			} else if(Math.random() >= 0.25) {
+				object.move(0,1);
+			} else {
+				object.move(0,-1);
+			}
+		}
 	}
 }
 function pathfindHelper(array,x,y) {
