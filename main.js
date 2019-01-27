@@ -314,8 +314,9 @@ let logged = [];
 function log(str) {
 	if(Array.isArray(str)) {
 		logged.push(str[Math.floor(Math.random()*str.length)]);
+	} else {
+		logged.push(str);
 	}
-	logged.push(str);
 }
 function move(dir) {
 	if(dir === "left") {
