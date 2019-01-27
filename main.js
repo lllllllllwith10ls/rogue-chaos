@@ -173,7 +173,8 @@ class Chunk{
 let world = new World();
 let map = new Chunk(0,0,world);
 let player = new Thing("@","#000000",map,6,6);
-world.wall = new Tile("#","#444444",world,"wall");
+new Tile("#","#444444",world,"wall");
+new Tile(".","#ffffff",world,"empty");
 player.move = function(dx,dy) {
 	if(this.map.world) {
 		let x = this.chunkPosX;
