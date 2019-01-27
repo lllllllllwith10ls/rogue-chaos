@@ -245,17 +245,26 @@ camera.draw = function() {
 						if(x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
 							if(typeof spot === "string") {
 								this[x][y] = this.map.world[spot];
-								let el = document.getElementById(""+x+","+y);
-								el.innerHTML = this[x][y].char;
-								el.style.color = this[x][y].color;
 							} else {
 								this[x][y] = spot;
-								let el = document.getElementById(""+x+","+y);
-								el.innerHTML = this[x][y].char;
-								el.style.color = this[x][y].color;
 							}
 						}
 					}
+				}
+			}
+		}
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
+				if(this[x][y].ai) {
+					this[x][y].ai();
+				}
+			}
+		}
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
+				let el = document.getElementById(""+i+","+j);
+				el.innerHTML = this[x][y].char;
+				el.style.color = this[x][y].color;
 				}
 			}
 		}
