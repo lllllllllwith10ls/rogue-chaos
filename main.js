@@ -1,4 +1,5 @@
 let camera = {};
+camera.size = 29;
 for(let i = 1; i <= camera.size; i++) {
 	camera[i] = {};
 }
@@ -225,7 +226,6 @@ player.move = function(dx,dy) {
 camera.map = map;
 camera.x = 2;
 camera.y = 2;
-camera.size = 29;
 camera.draw = function() {
 	if(this.map.world) {
 		for(let i = -1; i <= 1; i++) {
