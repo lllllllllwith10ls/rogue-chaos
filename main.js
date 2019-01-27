@@ -117,6 +117,7 @@ class Map{
 class World{
 	constructor() {
 		this.map = {};
+		this.perlin = new Perlin(Math.random()*1000);
 	}
 }
 class Chunk{
@@ -130,7 +131,7 @@ class Chunk{
 			for(let i = 11; i > 0; i--) {
 				this.map[i] = {};
 				for(let j = 11; j > 0; j--) {
-					if(Math.random() > 0.8) {
+					if(world.perlin.noise(x*11+i,y*11+j) > 0.8) {
 						new Wall("#000000",this,i,j);
 					} else {
 						new Empty(this,i,j);
