@@ -13,7 +13,7 @@ function pathfind(object,target) {
 
 		for(let i = 1; i < array.length; i++) {
 			for(let j = 1; j < array.length; j++) {
-				if(array[i][j].type = "wall" || array[i][j].ai) {
+				if(array[i][j].type === "wall" || array[i][j].ai) {
 					array[i][j] = 9**9;
 				}
 			}
