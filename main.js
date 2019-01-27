@@ -172,6 +172,9 @@ class Chunk{
 }
 let world = new World();
 let map = new Chunk(0,0,world);
+camera.map = map;
+camera.x = 2;
+camera.y = 2;
 let player = new Thing("@","#000000",map,camera.x+(camera.size-1)/2,camera.y+(camera.size-1)/2);
 new Tile("#","#777777",world,"wall");
 new Tile(".","#ffffff",world,"empty");
@@ -228,9 +231,6 @@ player.move = function(dx,dy) {
 		}
 	}
 }
-camera.map = map;
-camera.x = 2;
-camera.y = 2;
 camera.draw = function() {
 	if(this.map.world) {
 		for(let i = -1; i <= 1; i++) {
