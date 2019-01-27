@@ -33,6 +33,8 @@ function pathfind(object,target) {
 			}
 		}
 	}
+	console.log(array);
+	console.log(camera);
 }
 function pathfindHelper(array,x,y) {
 	let coords = [];
