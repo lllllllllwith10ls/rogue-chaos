@@ -299,6 +299,11 @@ camera.draw = function() {
 		}
 	}
 }
+let logged = [];
+
+function log(str) {
+	logged.push(str);
+}
 function move(dir) {
 	if(dir === "left") {
 		player.move(-1,0);
@@ -374,6 +379,11 @@ function move(dir) {
 				camera.y+=player.relPosY-7;
 			}
 		}
+	}
+	let log = document.getElementById("log");
+	log.innerHTML = "";
+	for(let i = 0; i < logged.length; i++) {
+		log.innerHTML += logged[i]+"</br>";
 	}
 	camera.draw();
 	cleanThings();
