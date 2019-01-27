@@ -3,9 +3,9 @@ function pathfind(object,target) {
 	if(object.inCamera) {
 		let array = [];
 		for(let i = 1; i <= camera.size; i++) {
-			array.push([]);
+			array[i] = [];
 			for(let j = 1; j<= camera.size; j++) {
-				array[i].push(camera[i][j]);
+				array[i] = camera[i][j];
 			}
 		}
 		let x = object.relPosX;
