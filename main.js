@@ -284,9 +284,9 @@ function move(dir) {
 		if(player.relPosY < 3) {
 			if(camera.y < 2) {
 				new Chunk(player.map.posX,player.map.posY-1,player.map.world);
-				camera.y+=player.relPosY-7;
+				camera.y+=player.relPosY-3;
 			} else {
-				camera.y+=player.relPosY-7;
+				camera.y+=player.relPosY-3;
 			}
 			if(camera.y < 1) {
 				camera.y += 11;
