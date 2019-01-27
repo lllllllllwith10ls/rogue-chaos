@@ -68,9 +68,9 @@ class Thing{
 	get relPosX() {
 		if(this.inCamera) {
 			if(this.map.world && camera.map.world) {
-				return this.posX-(camera.x+camera.map.posX*chunkSize)+1;
+				return this.posX-(camera.x+camera.map.posX*chunkSize);
 			} else {
-				return this.posX-camera.x+1;
+				return this.posX-camera.x;
 			}
 		}
 		return -1;
@@ -78,9 +78,9 @@ class Thing{
 	get relPosY() {
 		if(this.inCamera) {
 			if(this.map.world && camera.map.world) {
-				return this.posY-(camera.y+camera.map.posY*chunkSize)+1;
+				return this.posY-(camera.y+camera.map.posY*chunkSize);
 			} else {
-				return this.posY-camera.x+1;
+				return this.posY-camera.x;
 			}
 		}
 		return -1;
@@ -298,7 +298,6 @@ function move(dir) {
 	if(dir === "down") {
 		player.move(0,1);
 	}
-	let relpos = 0;
 	if(camera.map.world) {
 		if(player.relPosX < (camera.size-1)/2-3) {
 			while(player.relPosX < (camera.size-1)/2-3) {
