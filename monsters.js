@@ -1,4 +1,4 @@
-let marker = new Tile("#","0000ff",world,"debug");
+let marker = new Tile("#","#0000ff",world,"debug");
 function pathfind(object,target) {
 	if(object.inCamera) {
 		let array = [];
@@ -32,8 +32,6 @@ function pathfind(object,target) {
 					path = pathfindHelper2(array,path[0],path[1]);
 					if(path) {
 						camera[path[0]][path[1]] = marker;
-						console.log([target.relPosX,target.relPosY]);
-						console.log(path);
 					} else {
 						break;
 					}
