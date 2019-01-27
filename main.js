@@ -240,8 +240,8 @@ camera.draw = function() {
 						
 						new Chunk(this.map.posX+i,this.map.posY+j,this.map.world);
 						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
-						let x = k+camera.map.posX*chunkSize*i-(camera.x+camera.map.posX*chunkSize)+1;
-						let y = l+camera.map.posX*chunkSize*j-(camera.x+camera.map.posX*chunkSize)+1;
+						let x = k+camera.map.posX*(chunkSize+i)-(camera.x+camera.map.posX*chunkSize)+1;
+						let y = l+camera.map.posY*(chunkSize+j)-(camera.x+camera.map.posX*chunkSize)+1;
 						if(x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
 							if(typeof spot === "string") {
 								this[x][y] = this.map.world[spot];
