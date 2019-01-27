@@ -265,7 +265,6 @@ camera.draw = function() {
 				let el = document.getElementById(""+i+","+j);
 				el.innerHTML = this[x][y].char;
 				el.style.color = this[x][y].color;
-				}
 			}
 		}
 	}else {
