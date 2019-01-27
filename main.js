@@ -102,7 +102,7 @@ class Map{
 		for(let i = sizeX; i > 0; i--) {
 			this.map[i] = {};
 			for(let j = sizeY; j > 0; j--) {
-				if(Math.random > 0.8) {
+				if(Math.random > 0.5) {
 					new Wall(this,i,j);
 				} else {
 					new Empty(this,i,j);
