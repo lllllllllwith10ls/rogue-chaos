@@ -255,16 +255,16 @@ camera.draw = function() {
 		}
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
-				if(this[x][y].ai) {
-					this[x][y].ai();
+				if(this[i][j].ai) {
+					this[i][j].ai();
 				}
 			}
 		}
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
 				let el = document.getElementById(""+i+","+j);
-				el.innerHTML = this[x][y].char;
-				el.style.color = this[x][y].color;
+				el.innerHTML = this[i][j].char;
+				el.style.color = this[i][j].color;
 			}
 		}
 	}else {
