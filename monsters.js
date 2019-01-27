@@ -24,10 +24,10 @@ function pathfind(object,target) {
 			arrayCoords.concat(pathfindHelper(array,arrayCoords[i][0],arrayCoords[i][1]));
 		}
 		let path = [target.relPosX,target.relPosY];
-		if(typeof arrayCoords[path[0]][path[1]] === "number") {
-			while(arrayCoords[path[0]][path[1]] > 0) {
+		if(typeof array[path[0]][path[1]] === "number") {
+			while(array[path[0]][path[1]] > 0) {
 				path = pathfindHelper2(array,path[0],path[1]);
-				if(arrayCoords[path[0]][path[1]] > 0) {
+				if(array[path[0]][path[1]] > 0) {
 					camera[path[0]][path[1]] = marker;
 				}
 			}
