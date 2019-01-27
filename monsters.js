@@ -5,7 +5,7 @@ function pathfind(object,target) {
 		for(let i = 1; i <= camera.size; i++) {
 			array[i] = [];
 			for(let j = 1; j<= camera.size; j++) {
-				array[i] = camera[i][j];
+				array[i][j] = camera[i][j];
 			}
 		}
 		let x = object.relPosX;
@@ -13,8 +13,10 @@ function pathfind(object,target) {
 
 		for(let i = 1; i < array.length; i++) {
 			for(let j = 1; j < array.length; j++) {
-				if(array[i][j].type === "wall" || array[i][j].ai) {
-					array[i][j] = 9**9;
+				if(array[i][j]) {
+					if(array[i][j].type === "wall" || array[i][j].ai) {
+						array[i][j] = 9**9;
+					}
 				}
 			}
 		}
