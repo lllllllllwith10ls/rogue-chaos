@@ -37,25 +37,25 @@ function pathfind(object,target) {
 function pathfindHelper(array,x,y) {
 	let coords = [];
 	if(array[x-1][y]) {
-		if(typof array[x-1][y] != "number") {
+		if(typeof array[x-1][y] != "number") {
 			array[x-1][y] = array[x][y]+1;
 			coords.push([x-1,y]);
 		}
 	}
 	if(array[x+1][y]) {
-		if(typof array[x+1][y] != "number") {
+		if(typeof array[x+1][y] != "number") {
 			array[x+1][y] = array[x][y]+1;
 			coords.push([x+1,y]);
 		}
 	}
 	if(array[x][y-1]) {
-		if(typof array[x][y-1] != "number") {
+		if(typeof array[x][y-1] != "number") {
 			array[x][y-1] = array[x][y]+1;
 			coords.push([x,y-1]);
 		}
 	}
 	if(array[x][y+1]) {
-		if(typof array[x][y+1] != "number") {
+		if(typeof array[x][y+1] != "number") {
 			array[x][y+1] = array[x][y]+1;
 			coords.push([x,y+1]);
 		}
