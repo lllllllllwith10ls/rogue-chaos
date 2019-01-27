@@ -57,33 +57,27 @@ class Thing{
 	}
 	get inCamera() {
 		if(this.map.world && camera.map.world) {
-			if(this.map.world === camera.map.world && this.posX >= camera.x+camera.map.posX*chunkSize && this.posY >= camera.y+camera.map.posY*chunkSize && this.posX < camera.x+camera.map.posX*chunkSize+camera.size &&  this.posY < camera.y+camera.map.posY*chunkSize+camera.size) {
+			if(this.map.world === camera.map.world && this.relPosX >= 1 && this.relPosY >= 1 && this.relPosX <= camera.size && this.relPosY <= camera.size) {
 				return true;
 			}
-		} else if(this.map === camera.map && this.posX >= camera.x && this.posX < camera.x+camera.size && this.posY >= camera.y && this.posY < camera.y+camera.size) {
-			return true;
-		}
+		} else if(this.map.world === camera.map.world && this.relPosX >= 1 && this.relPosY >= 1 && this.relPosX <= camera.size && this.relPosY <= camera.size) {
+				return true;
+			}
 		return false;
 	}
 	get relPosX() {
-		if(this.inCamera) {
-			if(this.map.world && camera.map.world) {
-				return this.posX-(camera.x+camera.map.posX*chunkSize);
-			} else {
-				return this.posX-camera.x;
-			}
+		if(this.map.world && camera.map.world) {
+			return this.posX-(camera.x+camera.map.posX*chunkSize)+1;
+		} else {
+			return this.posX-camera.x+1;
 		}
-		return -1;
 	}
 	get relPosY() {
-		if(this.inCamera) {
-			if(this.map.world && camera.map.world) {
-				return this.posY-(camera.y+camera.map.posY*chunkSize);
-			} else {
-				return this.posY-camera.x;
-			}
+		if(this.map.world && camera.map.world) {
+			return this.posY-(camera.y+camera.map.posY*chunkSize)+1;
+		} else {
+			return this.posY-camera.y+1;
 		}
-		return -1;
 	}
 }
 class Tile{
@@ -241,7 +235,7 @@ camera.draw = function() {
 						new Chunk(this.map.posX+i,this.map.posY+j,this.map.world);
 						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
 						let x = k+(camera.map.posX+i)*chunkSize-(camera.x+camera.map.posX*chunkSize)+1;
-						let y = l+(camera.map.posY+j)*chunkSize-(camera.x+camera.map.posX*chunkSize)+1;
+						let y = l+(camera.map.posY+j)*chunkSize-(camera.y+camera.map.posY*chunkSize)+1;
 						if(x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
 							if(typeof spot === "string") {
 								this[x][y] = this.map.world[spot];
