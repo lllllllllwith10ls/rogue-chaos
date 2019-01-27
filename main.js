@@ -257,6 +257,7 @@ function move(dir) {
 			}
 			if(camera.x < 1) {
 				camera.x += 11;
+				new Chunk(camera.map.posX-1,camera.map.posY,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX-1][camera.map.posY];
 			}
 		}
@@ -269,6 +270,7 @@ function move(dir) {
 			}
 			if(camera.y < 1) {
 				camera.y += 11;
+				new Chunk(camera.map.posX,camera.map.posY-1,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY-1];
 			}
 		}
@@ -281,6 +283,7 @@ function move(dir) {
 			}
 			if(camera.x > 11) {
 				camera.x -= 11;
+				new Chunk(camera.map.posX+1,camera.map.posY,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX+1][camera.map.posY];
 			}
 		}
@@ -293,6 +296,7 @@ function move(dir) {
 			}
 			if(camera.y > 11) {
 				camera.y -= 11;
+				new Chunk(camera.map.posX,camera.map.posY+1,camera.map.world);
 				camera.map = camera.map.world.map[camera.map.posX][camera.map.posY+1];
 			}
 		}
