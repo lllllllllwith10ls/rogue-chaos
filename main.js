@@ -4,6 +4,14 @@ for(let i = 1; i <= 9; i++) {
 }
 
 let things = [];
+function cleanThings() {
+	for(let i = things.length-1; i >= 0; i--) {
+		if(things.posX === NaN || things.posY === NaN) {
+			things[i] = null;
+			things.splice(i,1);
+		}
+	}
+}
 class Thing{
 	constructor(char,color,map,x,y) {
 		this.char = char;
@@ -325,4 +333,5 @@ function move(dir) {
 		}
 	}
 	camera.draw();
+	cleanThings();
 }
