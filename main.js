@@ -179,7 +179,9 @@ player.move = function(dx,dy) {
 		if(this.chunkPosX+dx > chunkSize) {
 			new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
-			if(!(thing === "wall")) {
+			if(thing.fighter) {
+				this.fighter.attack(thing.fighter);
+			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX+1][this.map.posY];
 				this.map.map[x+dx-chunkSize][y+dy] = this;
@@ -187,7 +189,9 @@ player.move = function(dx,dy) {
 		} else if(this.chunkPosY+dy > chunkSize) {
 			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
-			if(!(thing === "wall")) {
+			if(thing.fighter) {
+				this.fighter.attack(thing.fighter);
+			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY+1];
 				this.map.map[x+dx][y+dy-chunkSize] = this;
@@ -195,7 +199,9 @@ player.move = function(dx,dy) {
 		} else if(this.chunkPosX+dx < 1) {
 			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
-			if(!(thing === "wall")) {
+			if(thing.fighter) {
+				this.fighter.attack(thing.fighter);
+			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
 				this.map.map[x+dx+chunkSize][y+dy] = this;
@@ -203,21 +209,27 @@ player.move = function(dx,dy) {
 		} else if(this.chunkPosY+dy < 1) {
 			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
-			if(!(thing === "wall")) {
+			if(thing.fighter) {
+				this.fighter.attack(thing.fighter);
+			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY-1];
 				this.map.map[x+dx][y+dy+chunkSize] = this;
 			}
 		} else {
 			let thing = this.map.map[x+dx][y+dy];
-			if(!(thing === "wall")) {
+			if(thing.fighter) {
+				this.fighter.attack(thing.fighter);
+			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
 			}
 		}
 	} else if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		let thing = this.map.map[this.posX+dx][this.posY+dy];
-		if(!(thing === "wall")) {
+		if(thing.fighter) {
+			this.fighter.attack(thing.fighter);
+		} else if(!(thing === "wall")) {
 			let x = this.posX;
 			let y = this.posY;
 			this.map.map[x][y] = "empty";
@@ -266,15 +278,23 @@ camera.draw = function() {
 			for(let j = 1; j <= camera.size; j++) {
 				if(typeof spot === "string") {
 					this[i][j] = this.map.world[spot];
-					let el = document.getElementById(""+i+","+j);
-					el.innerHTML = this[i][j].char;
-					el.style.color = this[i][j].color;
 				} else {
 					this[i][j] = spot;
-					let el = document.getElementById(""+i+","+j);
-					el.innerHTML = this[i][j].char;
-					el.style.color = this[i][j].color;
 				}
+			}
+		}
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
+				if(this[i][j].ai) {
+					this[i][j].ai();
+				}
+			}
+		}
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
+				let el = document.getElementById(""+i+","+j);
+				el.innerHTML = this[i][j].char;
+				el.style.color = this[i][j].color;
 			}
 		}
 	}
