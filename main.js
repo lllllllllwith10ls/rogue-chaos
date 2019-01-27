@@ -99,7 +99,7 @@ class Map{
 		for(let i = sizeX; i > 0; i--) {
 			this.map[i] = {};
 			for(let j = sizeY; j > 0; j--) {
-				if(Math.random > 0.5) {
+				if(Math.random() > 0.5) {
 					this.map[i][j] = "wall";
 				} else {
 					this.map[i][j] = "empty";
@@ -136,6 +136,9 @@ class Chunk{
 						this.map[i][j] = "wall";
 					} else {
 						this.map[i][j] = "empty";
+						if(Math.random() > 0.95) {
+							new LargeRat(i,j);
+						}
 					}
 				}
 			}
