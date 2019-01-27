@@ -312,7 +312,7 @@ camera.draw = function() {
 let logged = [];
 
 function log(str) {
-	if(typeof str === "array") {
+	if(Array.isArray(str);) {
 		logged.push(str[Math.floor(Math.random()*str.length)]);
 	}
 	logged.push(str);
@@ -398,6 +398,7 @@ function move(dir) {
 	for(let i = 0; i < logged.length; i++) {
 		log.innerHTML += logged[i]+"</br>";
 	}
+	logged = [];
 	camera.draw();
 	cleanThings();
 }
