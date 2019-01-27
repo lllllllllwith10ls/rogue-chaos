@@ -28,9 +28,9 @@ function pathfind(object,target) {
 		let path = [target.relPosX,target.relPosY];
 		if(typeof array[path[0]][path[1]] === "number") {
 			while(true) {
-				if(path) {
-					if(array[path[0]][path[1]] > 0) {
-						path = pathfindHelper2(array,path[0],path[1]);
+				if(array[path[0]][path[1]] > 0) {
+					path = pathfindHelper2(array,path[0],path[1]);
+					if(path) {
 						camera[path[0]][path[1]] = marker;
 					} else {
 						break;
@@ -40,8 +40,6 @@ function pathfind(object,target) {
 				}
 			}
 		}
-		console.log(array);
-		console.log(camera);
 	}
 }
 function pathfindHelper(array,x,y) {
