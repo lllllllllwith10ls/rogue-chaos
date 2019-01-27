@@ -114,6 +114,9 @@ class Monster extends Thing {
 		this.fighter = fighter;
 		this.name = name;
 		this.move = function(dx,dy) {
+			if(this.fighter.hp <= 0) {
+				this.map[this.chunkPosX][this.chunkPosY] = "empty";
+			}
 			if(this.map.world) {
 				let x = this.chunkPosX;
 				let y = this.chunkPosY;
@@ -181,17 +184,28 @@ class Monster extends Thing {
 	}
 }
 class Fighter {
-	constructor(hp,power) {
+	constructor(hp,power,message,parent) {
 		this.hp = hp;
 		this.power = power;
+		this.message = message;
+		this.parent = parent;
 		this.attack = function(enemy) {
 			enemy.hp -= this.power;
+			if(this === player.fighter) {
+				if(enemy.parent.size === "small") {
+					log("You kick the "+enemy.parent.name+".");
+				}
+			} else {
+				log(message);
+			}
 		}
 	}
 }
-player.fighter = new Fighter(30,3);
+player.fighter = new Fighter(30,3,"",player);
 class LargeRat extends Monster{
 	constructor(x,y) {
-		super("%","#000000",map,x,y,pathfind,player,new Fighter(10,1),"Large Rat");
+		let message = ["The large rat bites you!","The large rat scraches you!","You get bitten by the large rat!"];
+		super("%","#000000",map,x,y,pathfind,player,new Fighter(10,1,message,this),"large rat");
+		this.size = "small";
 	}
 }
