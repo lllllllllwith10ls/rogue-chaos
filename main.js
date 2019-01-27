@@ -6,7 +6,7 @@ for(let i = 1; i <= 9; i++) {
 let things = [];
 function cleanThings() {
 	for(let i = things.length-1; i >= 0; i--) {
-		if(things.posX === NaN || things.posY === NaN) {
+		if(things[i].posX === NaN || things[i].posY === NaN) {
 			things[i] = null;
 			things.splice(i,1);
 		}
