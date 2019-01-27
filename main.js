@@ -185,6 +185,8 @@ player.move = function(dx,dy) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX+1][this.map.posY];
 				this.map.map[x+dx-chunkSize][y+dy] = this;
+			} else {
+				log(["You smack into the wall. Ouch.","You unsuccesfully attempt to walk through the wall."]);
 			}
 		} else if(this.chunkPosY+dy > chunkSize) {
 			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
@@ -195,6 +197,8 @@ player.move = function(dx,dy) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY+1];
 				this.map.map[x+dx][y+dy-chunkSize] = this;
+			} else {
+				log(["You smack into the wall. Ouch.","You unsuccesfully attempt to walk through the wall."]);
 			}
 		} else if(this.chunkPosX+dx < 1) {
 			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
@@ -205,6 +209,8 @@ player.move = function(dx,dy) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
 				this.map.map[x+dx+chunkSize][y+dy] = this;
+			} else {
+				log(["You smack into the wall. Ouch.","You unsuccesfully attempt to walk through the wall."]);
 			}
 		} else if(this.chunkPosY+dy < 1) {
 			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
@@ -215,6 +221,8 @@ player.move = function(dx,dy) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY-1];
 				this.map.map[x+dx][y+dy+chunkSize] = this;
+			} else {
+				log(["You smack into the wall. Ouch.","You unsuccesfully attempt to walk through the wall."]);
 			}
 		} else {
 			let thing = this.map.map[x+dx][y+dy];
@@ -223,6 +231,8 @@ player.move = function(dx,dy) {
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
+			} else {
+				log(["You smack into the wall. Ouch.","You unsuccesfully attempt to walk through the wall."]);
 			}
 		}
 	} else if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
@@ -302,6 +312,9 @@ camera.draw = function() {
 let logged = [];
 
 function log(str) {
+	if(typeof str === "array") {
+		logged.push(str[Math.floor(Math.random()*str.length)]);
+	}
 	logged.push(str);
 }
 function move(dir) {
