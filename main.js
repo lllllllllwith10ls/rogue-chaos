@@ -152,6 +152,7 @@ player.move = function(dx,dy) {
 		let x = this.chunkPosX;
 		let y = this.chunkPosY;
 		if(this.chunkPosX+dx > 11) {
+			new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-11][y+dy];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
@@ -159,6 +160,7 @@ player.move = function(dx,dy) {
 				this.map.map[x+dx-11][y+dy] = this;
 			}
 		} else if(this.chunkPosY+dy > 11) {
+			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+11];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
@@ -166,6 +168,7 @@ player.move = function(dx,dy) {
 				this.map.map[x+dx][y+dy-11] = this;
 			}
 		} else if(this.chunkPosX+dx < 1) {
+			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+11][y+dy];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
@@ -173,6 +176,7 @@ player.move = function(dx,dy) {
 				this.map.map[x+dx+11][y+dy] = this;
 			}
 		} else if(this.chunkPosY+dy < 1) {
+			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+11];
 			if(!(thing instanceof Wall)) {
 				new Empty(this.map,x,y);
@@ -205,18 +209,16 @@ camera.draw = function() {
 			for(let j = -1; j <= 1; j++) {
 				for(let k = 1; k <= 11; k++) {
 					for(let l = 1; l <= 11; l++) {
-						if(this.map.world.map[this.map.posX+i]) {
-							if(this.map.world.map[this.map.posX+i][this.map.posY+j]) {
-								let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
-								let x = spot.relPosX;
-								let y = spot.relPosY;
-								if(spot.inCamera) {
-									this[x][y] = spot;
-									let el = document.getElementById(""+x+y);
-									el.innerHTML = this[x][y].char;
-									el.style.color = this[x][y].color;
-								}
-							}
+						
+						new Chunk(this.map.posX+i,this.map.posY+j,this.map.world);
+						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
+						let x = spot.relPosX;
+						let y = spot.relPosY;
+						if(spot.inCamera) {
+							this[x][y] = spot;
+							let el = document.getElementById(""+x+y);
+							el.innerHTML = this[x][y].char;
+							el.style.color = this[x][y].color;
 						}
 					}
 				}
