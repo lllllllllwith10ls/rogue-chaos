@@ -124,7 +124,9 @@ class Chunk{
 		if(!world.map[x]) {
 			world.map[x] = {};
 		}
-		world.map[x][y] = this;
+		if(!world.map[x][y]) {
+			world.map[x][y] = this;
+		}
 	}
 	get posX() {
 		for(let i in this.world.map) {
