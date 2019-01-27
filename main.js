@@ -133,7 +133,7 @@ class Chunk{
 				this.map[i] = {};
 				for(let j = 11; j > 0; j--) {
 					
-					if(perlin(x*11+i,y*11+j) > 0.8) {
+					if(perlin(x*11+i,y*11+j) > 0.5) {
 						new Wall("#000000",this,i,j);
 					} else {
 						new Empty(this,i,j);
