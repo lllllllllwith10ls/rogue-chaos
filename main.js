@@ -86,14 +86,15 @@ class Thing{
 		return -1;
 	}
 }
-class Empty extends Thing{
-	constructor(map,x,y) {
-		super(".","#ffffff",map,x,y);
-	}
-}
-class Wall extends Thing{
-	constructor(color,map,x,y) {
-		super("#",color,map,x,y);
+class Tile{
+	constructor(char,color,world,type) {
+		this.char = char;
+		this.color = color;
+		this.world = world;
+		this.type = type;
+		if(!world[this.type]) {
+			world[this.type] = this;
+		}
 	}
 }
 let places = [];
@@ -105,9 +106,9 @@ class Map{
 			this.map[i] = {};
 			for(let j = sizeY; j > 0; j--) {
 				if(Math.random > 0.5) {
-					new Wall(this,i,j);
+					this.map[i][j] = "wall";
 				} else {
-					new Empty(this,i,j);
+					this.map[i][j] = "empty";
 				}
 			}
 		}
@@ -120,6 +121,8 @@ class World{
 	constructor() {
 		this.map = {};
 		this.seed = Math.floor(Math.random()*4294967296);
+		this.wall = null;
+		this.empty = null;
 	}
 }
 class Chunk{
@@ -136,9 +139,9 @@ class Chunk{
 				for(let j = chunkSize; j > 0; j--) {
 					
 					if(perlin((x*chunkSize+i)/3,(y*chunkSize+j)/3) > 0.5) {
-						new Wall("#000000",this,i,j);
+						this.map[i][j] = "wall";
 					} else {
-						new Empty(this,i,j);
+						this.map[i][j] = "empty";
 					}
 				}
 			}
@@ -170,6 +173,7 @@ class Chunk{
 let world = new World();
 let map = new Chunk(0,0,world);
 let player = new Thing("@","#000000",map,6,6);
+world.wall = new Tile("#","#444444",world,"wall");
 player.move = function(dx,dy) {
 	if(this.map.world) {
 		let x = this.chunkPosX;
@@ -177,48 +181,48 @@ player.move = function(dx,dy) {
 		if(this.chunkPosX+dx > chunkSize) {
 			new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
-			if(!(thing instanceof Wall)) {
-				new Empty(this.map,x,y);
+			if(!(thing === "wall")) {
+				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX+1][this.map.posY];
 				this.map.map[x+dx-chunkSize][y+dy] = this;
 			}
 		} else if(this.chunkPosY+dy > chunkSize) {
 			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
-			if(!(thing instanceof Wall)) {
-				new Empty(this.map,x,y);
+			if(!(thing === "wall")) {
+				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY+1];
 				this.map.map[x+dx][y+dy-chunkSize] = this;
 			}
 		} else if(this.chunkPosX+dx < 1) {
 			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
-			if(!(thing instanceof Wall)) {
-				new Empty(this.map,x,y);
+			if(!(thing === "wall")) {
+				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
 				this.map.map[x+dx+chunkSize][y+dy] = this;
 			}
 		} else if(this.chunkPosY+dy < 1) {
 			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
-			if(!(thing instanceof Wall)) {
-				new Empty(this.map,x,y);
+			if(!(thing === "wall")) {
+				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY-1];
 				this.map.map[x+dx][y+dy+chunkSize] = this;
 			}
 		} else {
 			let thing = this.map.map[x+dx][y+dy];
-			if(!(thing instanceof Wall)) {
-				new Empty(this.map,x,y);
+			if(!(thing === "wall")) {
+				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
 			}
 		}
 	} else if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		let thing = this.map.map[this.posX+dx][this.posY+dy];
-		if(!(thing instanceof Wall)) {
+		if(!(thing === "wall")) {
 			let x = this.posX;
 			let y = this.posY;
-			new Empty(this.map,x,y);
+			this.map.map[x][y] = "empty";
 			this.map.map[x+dx][y+dy] = this;
 		}
 	}
@@ -235,9 +239,14 @@ camera.draw = function() {
 						
 						new Chunk(this.map.posX+i,this.map.posY+j,this.map.world);
 						let spot = this.map.world.map[this.map.posX+i][this.map.posY+j].map[k][l];
-						let x = spot.relPosX;
-						let y = spot.relPosY;
-						if(spot.inCamera) {
+						let x = i*chunkSize+k;
+						let y = j*chunkSize+l;
+						if(typeof spot === "string" && x > 0 && x <= camera.size && y > 0 && y <= camera.size) {
+							this[x][y] = this.map.world[spot];
+							let el = document.getElementById(""+x+","+y);
+							el.innerHTML = this[x][y].char;
+							el.style.color = this[x][y].color;
+						} else {
 							this[x][y] = spot;
 							let el = document.getElementById(""+x+","+y);
 							el.innerHTML = this[x][y].char;
@@ -250,10 +259,17 @@ camera.draw = function() {
 	}else {
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
-				this[i][j] = this.map.map[this.x+i-1][this.y+j-1];
-				let el = document.getElementById(""+i+","+j);
-				el.innerHTML = this[i][j].char;
-				el.style.color = this[i][j].color;
+				if(typeof spot === "string") {
+					this[i][j] = this.map.world[spot];
+					let el = document.getElementById(""+i+","+j);
+					el.innerHTML = this[i][j].char;
+					el.style.color = this[i][j].color;
+				} else {
+					this[i][j] = spot;
+					let el = document.getElementById(""+i+","+j);
+					el.innerHTML = this[i][j].char;
+					el.style.color = this[i][j].color;
+				}
 			}
 		}
 	}
