@@ -312,7 +312,7 @@ camera.draw = function() {
 let logged = [];
 
 function log(str) {
-	if(Array.isArray(str);) {
+	if(Array.isArray(str)) {
 		logged.push(str[Math.floor(Math.random()*str.length)]);
 	}
 	logged.push(str);
