@@ -7,13 +7,11 @@ let things = [];
 function cleanThings() {
 	for(let i = things.length-1; i >= 0; i--) {
 		if(isNaN(things[i].posX) || isNaN(things[i].posY)) {
-			things[i] = null;
 			things.splice(i,1);
 		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
-		if(places[i].map == {}) {
-			places[i] = null;
+		if(places[i].map == null) {
 			places.splice(i,1);
 		}
 	}
@@ -139,6 +137,8 @@ class Chunk{
 					}
 				}
 			}
+		} else {
+			this.map = null;
 		}
 		this.world = world;
 		if(!world.map[x]) {
