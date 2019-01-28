@@ -301,6 +301,7 @@ class RatAi {
 				log("The "+enemy.parent.name+" dies!");
 			}
 		}
+		console.log(enemy.parent);
 	}
 }
 
