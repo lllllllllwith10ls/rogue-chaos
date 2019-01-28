@@ -311,7 +311,7 @@ class LargeRat extends Monster{
 				}
 			}
 		}
-		this.fighter = new Fighter(10,1,message,ded);
+		this.fighter = new Fighter(10,1,this,ded);
 		this.size = "small";
 	}
 }
