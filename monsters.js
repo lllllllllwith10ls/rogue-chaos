@@ -278,7 +278,7 @@ player.fighter = new Fighter(30,3,"",player);
 class LargeRat extends Monster{
 	constructor(x,y) {
 		let message = ["The large rat bites you!","The large rat scraches you!","You get bitten by the large rat!"];
-		super("%","#000000",map,x,y,pathfind,player,new Fighter(10,1,message,this),"large rat");
+		super("%","#000000",map,x,y,new RatAi(this),player,new Fighter(10,1,message,this),"large rat");
 		this.size = "small";
 	}
 }
