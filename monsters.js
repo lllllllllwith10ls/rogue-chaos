@@ -183,6 +183,7 @@ class Fighter {
 			}
 			if(enemy.hp <= 0) {
 				enemy.die();
+				log("The "+enemy.parent.name+" dies!");
 			}
 		}
 	}
