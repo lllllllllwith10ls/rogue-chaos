@@ -32,7 +32,9 @@ function dijkstra(target,desire,init) {
 			changed = false;
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
-					if(dijkstraHelper(array,i,j)) {
+					let before = array[i][j];
+					array[i][j] = dijkstraHelper(array,i,j)
+					if(array[i][j] !== before) {
 						changed = true;
 					}
 				}
@@ -90,10 +92,9 @@ function dijkstraHelper(array,x,y) {
 		}
 		
 		if(number >= array[x][y]) {
-			return false;
+			return array[x][y];
 		} else {
-			array[x][y] = number+1;
-			return true;
+			return number+1;
 		}
 	}
 }
