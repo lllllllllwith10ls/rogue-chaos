@@ -227,8 +227,8 @@ class RatAi {
 		this.observe();
 		this.cleanThings();
 		if(this.notables[0]) {
-			
-			console.log(this.parent);
+			console.log(this.parent.relPosX);
+			console.log(this.parent.relPosY);
 			let array = dijkstra(this.notables[0].thing,this.notables[0].desire);
 			for(let i = 1; i < this.notables.length; i++) {
 				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire)
@@ -289,7 +289,8 @@ class RatAi {
 				this.parent.move(0,1);
 			}
 			
-			console.log(this.parent);
+			console.log(this.parent.relPosX);
+			console.log(this.parent.relPosY);
 		}
 	}
 	attack(enemy) {
