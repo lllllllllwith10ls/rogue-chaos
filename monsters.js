@@ -288,7 +288,7 @@ for(let k = 0; k < places.length; k++) {
 		let place = places[k] 
 		for(let i = chunkSize; i > 0; i--) {
 			for(let j = chunkSize; j > 0; j--) {
-				if(Math.random() > 0.95 && place[i][j] === "empty") {
+				if(Math.random() > 0.95 && place.map[i][j] === "empty") {
 					new LargeRat(i,j);
 				}
 			}
