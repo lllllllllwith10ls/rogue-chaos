@@ -275,6 +275,7 @@ camera.draw = function() {
 				}
 			}
 		}
+		console.log(camera);
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
 				if(this[i][j].ai) {
