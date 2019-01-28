@@ -276,6 +276,7 @@ class RatAi {
 			} else if(choose === 3) {
 				this.parent.move(0,1);
 			}
+			console.log(this.parent);
 		}
 	}
 	attack(enemy) {
