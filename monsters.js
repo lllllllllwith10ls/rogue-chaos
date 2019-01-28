@@ -18,7 +18,7 @@ function dijkstra(object,target,desire,init) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
 						if(array[i][j].type === "wall" || array[i][j].ai) {
-							array[i][j] = NaN;
+							array[i][j] = undefined;
 						} else {
 							array[i][j] = 9^9;
 						}
@@ -52,7 +52,9 @@ function dijkstra(object,target,desire,init) {
 			}
 			return array;
 		}
+		
 	}
+	
 }
 function dijkstraHelper(array,x,y) {
 	let numbers = [];
@@ -155,7 +157,7 @@ class Monster extends Thing {
 		} else if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 			let thing = this.map.map[this.posX+dx][this.posY+dy];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.ai.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				let x = this.posX;
 				let y = this.posY;
@@ -166,7 +168,7 @@ class Monster extends Thing {
 	}
 }
 class Fighter {
-	constructor(hp,power,message,parent,die) {
+	constructor(hp,power,parent,die) {
 		this.hp = hp;
 		this.power = power;
 		this.message = message;
@@ -224,9 +226,9 @@ class RatAi {
 	move() {
 		this.observe();
 		if(this.notables[0]) {
-			let array = dijkstra(this,this.notables[0].thing,this.notables[0].desire);
+			let array = dijkstra(this.parent,this.notables[0].thing,this.notables[0].desire);
 			for(let i = 1; i < this.notables.length; i++) {
-				let array2 = dijkstra(this,this.notables[i].thing,this.notables[i].desire)
+				let array2 = dijkstra(this.parent,this.notables[i].thing,this.notables[i].desire)
 				for(let j = 1; j < array.length; j++) {
 					for(let k = 1; k < array.length; j++) {
 						array[j][k] += array2[j][k];
@@ -283,12 +285,35 @@ class RatAi {
 			}
 		}
 	}
+	attack(enemy) {
+		if(!enemy instanceof LargeRat) {
+			enemy.hp -= this.parent.fighter.power;
+			if(enemy === player) {
+				log(["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"]);
+			} else {
+				log(["The large rat bites the "+enemy.parent.name+"!","The large rat scratches the "+enemy.parent.name+"!", "The "+enemy.parent.name+" gets bitten by the large rat!"]);
+			}
+			if(enemy.hp <= 0) {
+				enemy.die();
+				log("The "+enemy.parent.name+" dies!");
+			}
+		}
+	}
 }
 
 player.fighter = new Fighter(30,3,"",player);
+player.attack = function(enemy) {
+	enemy.hp -= this.power;
+	if(enemy.parent.size === "small") {
+		log("You kick the "+enemy.parent.name+".");
+	}
+	if(enemy.hp <= 0) {
+		enemy.die();
+		log("The "+enemy.parent.name+" dies!");
+	}
+}
 class LargeRat extends Monster{
 	constructor(x,y) {
-		let message = ["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"];
 		super("%","#000000",map,x,y,player,"large rat");
 		this.ai = new RatAi(this);
 		function ded() {
@@ -301,7 +326,7 @@ class LargeRat extends Monster{
 				}
 			}
 		}
-		this.fighter = new Fighter(10,1,message,this,ded);
+		this.fighter = new Fighter(10,1,message,ded);
 		this.size = "small";
 	}
 }
