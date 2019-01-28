@@ -275,7 +275,7 @@ class RatAi {
 player.fighter = new Fighter(30,3,"",player);
 class LargeRat extends Monster{
 	constructor(x,y) {
-		let message = ["The large rat bites you!","The large rat scraches you!","You get bitten by the large rat!"];
+		let message = ["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"];
 		super("%","#000000",map,x,y,player,"large rat");
 		this.ai = new RatAi(this);
 		this.fighter = new Fighter(10,1,message,this);
