@@ -209,7 +209,7 @@ class RatAi {
 		}
 		if(this.notables[this.noted.indexOf(player)]) {
 			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.30;
-			if(this.parent.fighter.hp < 25) {
+			if(this.parent.fighter.hp < 5) {
 				this.notables[this.noted.indexOf(player)].desire -= 2;
 			}
 		}
@@ -293,7 +293,7 @@ class RatAi {
 		}
 	}
 	attack(enemy) {
-		if(!enemy instanceof LargeRat) {
+		if(enemy.name !== "large rat") {
 			enemy.hp -= this.parent.fighter.power;
 			if(enemy === player) {
 				log(["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"]);
