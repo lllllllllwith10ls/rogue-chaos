@@ -406,7 +406,7 @@ function move(dir) {
 		log.innerHTML += logged[i]+"</br>";
 	}
 	logged = [];
-	camera.draw();
 	cleanThings();
+	camera.draw();
 }
 cleanThings();
