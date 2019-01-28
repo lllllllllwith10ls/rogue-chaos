@@ -95,9 +95,8 @@ function dijkstraHelper(array,x,y) {
 }
 
 class Monster extends Thing {
-	constructor(char,color,map,x,y,ai,thePlayer,fighter,name) {
+	constructor(char,color,map,x,y,thePlayer,fighter,name) {
 		super(char,color,map,x,y);
-		this.ai = ai;
 		this.fighter = fighter;
 		this.name = name;
 	}
@@ -278,7 +277,8 @@ player.fighter = new Fighter(30,3,"",player);
 class LargeRat extends Monster{
 	constructor(x,y) {
 		let message = ["The large rat bites you!","The large rat scraches you!","You get bitten by the large rat!"];
-		super("%","#000000",map,x,y,new RatAi(this),player,new Fighter(10,1,message,this),"large rat");
+		super("%","#000000",map,x,y,player,new Fighter(10,1,message,this),"large rat");
+		this.ai = new RatAi(this);
 		this.size = "small";
 	}
 }
