@@ -273,11 +273,24 @@ class RatAi {
 		}
 	}
 }
+
 player.fighter = new Fighter(30,3,"",player);
 class LargeRat extends Monster{
 	constructor(x,y) {
 		let message = ["The large rat bites you!","The large rat scraches you!","You get bitten by the large rat!"];
 		super("%","#000000",map,x,y,pathfind,player,new Fighter(10,1,message,this),"large rat");
 		this.size = "small";
+	}
+}
+for(let k = 0; k < places.length; k++) {
+	if(places[k] instanceOf Chunk) {
+		let place = places[k] 
+		for(let i = chunkSize; i > 0; i--) {
+			for(let j = chunkSize; j > 0; j--) {
+				if(Math.random() > 0.95 && this.map[i][j] === "empty") {
+					new LargeRat(i,j);
+				}
+			}
+		}
 	}
 }
