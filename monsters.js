@@ -62,38 +62,33 @@ function dijkstra(target,desire,init) {
 }
 function dijkstraHelper(array,x,y) {
 	if(array[x][y] !== undefined) {
-		let numbers = [];
+		let number = array[x][y];
 		if(array[x-1]) {
-			if(array[x-1][y]) {
-				if(typeof array[x-1][y] != "number") {
-					numbers.push(array[x-1][y]);
+			if(array[x-1][y] !== undefined) {
+				if(array[x-1][y] < number) {
+					number = array[x-1][y];
 				}
 			}
 		}
 		if(array[x+1]) {
-			if(array[x+1][y]) {
-				if(typeof array[x+1][y] != "number") {
-					numbers.push(array[x-1][y]);
+			if(array[x+1][y] !== undefined) {
+				if(array[x+1][y] < number) {
+					number = array[x+1][y];
 				}
 			}
 		}
-		if(array[x][y-1]) {
-			if(typeof array[x][y-1] != "number") {
-				numbers.push(array[x][y-1]);
+		if(array[x][y-1] !== undefined) {
+			if(array[x][y-1] < number) {
+				number = array[x][y-1];
 			}
 		}
-		if(array[x][y+1]) {
-			if(typeof array[x][y+1] != "number") {
-				numbers.push(array[x][y+1]);
+		if(array[x][y+1] !== undefined) {
+			if(array[x][y+1] < number) {
+				number = array[x][y+1];
 			}
 		}
-		let number = array[x][y];
-		for(let i = 0; i < numbers.length; i++) {
-			if(numbers[i] < number) {
-				number = numbers[i];
-			}
-		}
-		if(number === array[x][y]) {
+		
+		if(number >= array[x][y]) {
 			return false;
 		} else {
 			array[x][y] = number+1;
