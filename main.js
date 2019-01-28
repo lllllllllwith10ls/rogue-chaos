@@ -137,7 +137,9 @@ class Chunk{
 					} else {
 						this.map[i][j] = "empty";
 						if(Math.random() > 0.95) {
-							new LargeRat(i,j);
+							if(LargeRat) {
+								new LargeRat(i,j);
+							}
 						}
 					}
 				}
