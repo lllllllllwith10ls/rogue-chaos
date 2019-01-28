@@ -171,23 +171,8 @@ class Fighter {
 	constructor(hp,power,parent,die) {
 		this.hp = hp;
 		this.power = power;
-		this.message = message;
 		this.die = die;
 		this.parent = parent;
-		this.attack = function(enemy) {
-			enemy.hp -= this.power;
-			if(this === player.fighter) {
-				if(enemy.parent.size === "small") {
-					log("You kick the "+enemy.parent.name+".");
-				}
-			} else {
-				log(message);
-			}
-			if(enemy.hp <= 0) {
-				enemy.die();
-				log("The "+enemy.parent.name+" dies!");
-			}
-		}
 	}
 }
 class RatAi {
