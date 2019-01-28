@@ -198,7 +198,7 @@ class RatAi {
 	observe() {
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
-				if(this.noted.includes(camera[i][j]) || camera[i] === this.parent) {
+				if(this.noted.includes(camera[i][j]) || camera[i][j] === this.parent) {
 					
 				} else if(camera[i][j] instanceof LargeRat) {
 					this.notables.push({thing:camera[i][j],desire:0.2});
@@ -214,7 +214,10 @@ class RatAi {
 			this.ratsDead--;
 		}
 		if(this.notables[this.noted.indexOf(player)]) {
-			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.45;
+			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.30;
+			if(this.parent.fighter.hp < 25) {
+				this.notables[this.noted.indexOf(player)].desire -= 2;
+			}
 		}
 	}
 	move() {
@@ -292,7 +295,7 @@ class LargeRat extends Monster{
 				for(let j = 1; j <= camera.size; j++) {
 					if(camera[i][j] instanceof LargeRat) {
 						camera[i][j].ai.ratsDead++;
-						camera[i][j].ai.timeSinceLastDeath = 10;
+						camera[i][j].ai.timeSinceLastDeath = 5;
 					}
 				}
 			}
