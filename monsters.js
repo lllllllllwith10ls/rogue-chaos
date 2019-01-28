@@ -115,7 +115,7 @@ class Monster extends Thing {
 				new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 				let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
 				if(thing.fighter) {
-					this.fighter.attack(thing.fighter);
+					this.ai.attack(thing.fighter);
 				} else if(!(thing === "wall")) {
 					this.map.map[x][y] = "empty";
 					this.map = this.map.world.map[this.map.posX+1][this.map.posY];
@@ -125,7 +125,7 @@ class Monster extends Thing {
 				new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 				let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
 				if(thing.fighter) {
-					this.fighter.attack(thing.fighter);
+					this.ai.attack(thing.fighter);
 				} else if(!(thing === "wall")) {
 					this.map.map[x][y] = "empty";
 					this.map = this.map.world.map[this.map.posX][this.map.posY+1];
@@ -135,7 +135,7 @@ class Monster extends Thing {
 				new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 				let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
 				if(thing.fighter) {
-					this.fighter.attack(thing.fighter);
+					this.ai.attack(thing.fighter);
 				} else if(!(thing === "wall")) {
 					this.map.map[x][y] = "empty";
 					this.map = this.map.world.map[this.map.posX-1][this.map.posY];
@@ -145,7 +145,7 @@ class Monster extends Thing {
 				new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 				let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
 				if(thing.fighter) {
-					this.fighter.attack(thing.fighter);
+					this.ai.attack(thing.fighter);
 				} else if(!(thing === "wall")) {
 					this.map.map[x][y] = "empty";
 					this.map = this.map.world.map[this.map.posX][this.map.posY-1];
@@ -154,7 +154,7 @@ class Monster extends Thing {
 			} else {
 				let thing = this.map.map[x+dx][y+dy];
 				if(thing.fighter) {
-					this.fighter.attack(thing.fighter);
+					this.ai.attack(thing.fighter);
 				} else if(!(thing === "wall")) {
 					this.map.map[x][y] = "empty";
 					this.map.map[x+dx][y+dy] = this;
