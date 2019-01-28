@@ -284,7 +284,7 @@ class LargeRat extends Monster{
 }
 monstersDefined = true;
 for(let k = 0; k < places.length; k++) {
-	if(places[k] instanceOf Chunk) {
+	if(places[k] instanceof Chunk) {
 		let place = places[k] 
 		for(let i = chunkSize; i > 0; i--) {
 			for(let j = chunkSize; j > 0; j--) {
