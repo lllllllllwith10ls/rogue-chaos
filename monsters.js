@@ -20,11 +20,12 @@ function dijkstra(target,desire,init) {
 						if(array[i][j].type === "wall" || array[i][j].ai) {
 							array[i][j] = undefined;
 						} else {
-							array[i][j] = 9^9;
+							array[i][j] = 1000000;
 						}
 					}
 				}
 			}
+			array[x][y] = 0;
 		}
 		let changed = false;
 		while(changed) {
