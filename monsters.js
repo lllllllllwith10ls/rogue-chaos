@@ -209,7 +209,9 @@ class RatAi {
 				}
 			}
 		}
-		this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.45;
+		if(this.notables[this.noted.indexOf(player)]) {
+			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.45;
+		}
 	}
 	move() {
 		this.observe();
