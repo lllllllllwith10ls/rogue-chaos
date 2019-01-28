@@ -119,6 +119,7 @@ class World{
 		this.empty = null;
 	}
 }
+let monstersDefined = false;
 class Chunk{
 	constructor(x,y,world) {
 		this.map = {};
@@ -137,7 +138,7 @@ class Chunk{
 					} else {
 						this.map[i][j] = "empty";
 						if(Math.random() > 0.95) {
-							if(LargeRat) {
+							if(monstersDefined) {
 								new LargeRat(i,j);
 							}
 						}
