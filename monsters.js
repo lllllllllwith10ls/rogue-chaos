@@ -224,6 +224,7 @@ class RatAi {
 	}
 	move() {
 		this.observe();
+		this.cleanThings();
 		if(this.notables[0]) {
 			let array = dijkstra(this.notables[0].thing,this.notables[0].desire);
 			for(let i = 1; i < this.notables.length; i++) {
