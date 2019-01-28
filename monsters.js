@@ -198,7 +198,7 @@ class RatAi {
 	observe() {
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
-				if(this.noted.includes(camera[i][j])) {
+				if(this.noted.includes(camera[i][j]) || camera[i] === this.parent) {
 					
 				} else if(camera[i][j] instanceof LargeRat) {
 					this.notables.push({thing:camera[i][j],desire:0.2});
