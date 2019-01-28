@@ -18,7 +18,7 @@ function dijkstra(target,desire,init) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
 						if(array[i][j].type === "wall" || array[i][j].ai) {
-							array[i][j] = NaN;
+							array[i][j] = undefined;
 						} else {
 							array[i][j] = 9^9;
 						}
@@ -40,14 +40,18 @@ function dijkstra(target,desire,init) {
 		if(desire < 0) {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
-					array[i][j] *= -1.2;
+					if(array[i][j]) {
+						array[i][j] *= -1.2
+					}
 				}
 			}
 			return dijkstra(target,-desire,array);
 		} else {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
-					array[i][j] *= desire;
+					if(array[i][j]) {
+						array[i][j] *= desire;
+					}
 				}
 			}
 			return array;
@@ -57,42 +61,44 @@ function dijkstra(target,desire,init) {
 	
 }
 function dijkstraHelper(array,x,y) {
-	let numbers = [];
-	if(array[x-1]) {
-		if(array[x-1][y]) {
-			if(typeof array[x-1][y] != "number") {
-				numbers.push(array[x-1][y]);
+	if(array[x][y]) {
+		let numbers = [];
+		if(array[x-1]) {
+			if(array[x-1][y]) {
+				if(typeof array[x-1][y] != "number") {
+					numbers.push(array[x-1][y]);
+				}
 			}
 		}
-	}
-	if(array[x+1]) {
-		if(array[x+1][y]) {
-			if(typeof array[x+1][y] != "number") {
-				numbers.push(array[x-1][y]);
+		if(array[x+1]) {
+			if(array[x+1][y]) {
+				if(typeof array[x+1][y] != "number") {
+					numbers.push(array[x-1][y]);
+				}
 			}
 		}
-	}
-	if(array[x][y-1]) {
-		if(typeof array[x][y-1] != "number") {
-			numbers.push(array[x][y-1]);
+		if(array[x][y-1]) {
+			if(typeof array[x][y-1] != "number") {
+				numbers.push(array[x][y-1]);
+			}
 		}
-	}
-	if(array[x][y+1]) {
-		if(typeof array[x][y+1] != "number") {
-			numbers.push(array[x][y+1]);
+		if(array[x][y+1]) {
+			if(typeof array[x][y+1] != "number") {
+				numbers.push(array[x][y+1]);
+			}
 		}
-	}
-	let number = array[x][y];
-	for(let i = 0; i < numbers.length; i++) {
-		if(numbers[i] < number) {
-			number = numbers[i];
+		let number = array[x][y];
+		for(let i = 0; i < numbers.length; i++) {
+			if(numbers[i] < number) {
+				number = numbers[i];
+			}
 		}
-	}
-	if(number === array[x][y]) {
-		return false;
-	} else {
-		array[x][y] = number+1;
-		return true;
+		if(number === array[x][y]) {
+			return false;
+		} else {
+			array[x][y] = number+1;
+			return true;
+		}
 	}
 }
 
@@ -216,7 +222,9 @@ class RatAi {
 				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire)
 				for(let j = 1; j < array.length; j++) {
 					for(let k = 1; k < array.length; k++) {
-						array[j][k] += array2[j][k];
+						if(array[i][j]) {
+							array[i][j] += array2[i][j];
+						}
 					}
 				}
 			}
