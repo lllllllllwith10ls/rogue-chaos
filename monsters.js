@@ -33,10 +33,13 @@ function dijkstra(target,desire,init) {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
 					let before = array[i][j];
-					array[i][j] = dijkstraHelper(array,i,j)
+					array[i][j] = dijkstraHelper(array,i,j);
+					if(dijkstraHelper(array,i,j) < 1000000) {
+						console.log(array[i][j]);
+						
+					}
 					if(array[i][j] !== before) {
 						changed = true;
-						console.log(array[i][j]);
 					}
 				}
 			}
