@@ -1,6 +1,6 @@
 let marker = new Tile("#","#0000ff",world,"debug");
-function dijkstra(object,target,desire,init) {
-	if(object.inCamera) {
+function dijkstra(target,desire,init) {
+	if(target.inCamera) {
 		let array = [];
 		if(init) {
 			array = init;
@@ -18,7 +18,7 @@ function dijkstra(object,target,desire,init) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
 						if(array[i][j].type === "wall" || array[i][j].ai) {
-							array[i][j] = undefined;
+							array[i][j] = NaN;
 						} else {
 							array[i][j] = 9^9;
 						}
@@ -43,7 +43,7 @@ function dijkstra(object,target,desire,init) {
 					array[i][j] *= -1.2;
 				}
 			}
-			return dijkstra(object,target,-desire,array);
+			return dijkstra(target,-desire,array);
 		} else {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
