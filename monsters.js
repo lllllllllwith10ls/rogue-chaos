@@ -27,21 +27,20 @@ function dijkstra(target,desire,init) {
 			}
 			array[x][y] = 0;
 		}
-		let changed = false;
-		while(changed) {
+		let changed = true;
+		while(true) {
 			changed = false;
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
 					let before = array[i][j];
 					array[i][j] = dijkstraHelper(array,i,j);
-					if(dijkstraHelper(array,i,j) < 1000000) {
-						console.log(array[i][j]);
-						
-					}
 					if(array[i][j] !== before) {
 						changed = true;
 					}
 				}
+			}
+			if(changed === false) {
+				break;
 			}
 		}
 		if(desire < 0) {
