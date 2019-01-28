@@ -209,6 +209,10 @@ class RatAi {
 				}
 			}
 		}
+		this.timeSinceLastDeath--;
+		if(this.timeSinceLastDeath <= 0) {
+			this.ratsDead--;
+		}
 		if(this.notables[this.noted.indexOf(player)]) {
 			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.45;
 		}
@@ -283,7 +287,17 @@ class LargeRat extends Monster{
 		let message = ["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"];
 		super("%","#000000",map,x,y,player,"large rat");
 		this.ai = new RatAi(this);
-		this.fighter = new Fighter(10,1,message,this);
+		function ded() {
+			for(let i = 1; i <= camera.size; i++) {
+				for(let j = 1; j <= camera.size; j++) {
+					if(camera[i][j] instanceof LargeRat) {
+						camera[i][j].ai.ratsDead++;
+						camera[i][j].ai.timeSinceLastDeath = 10;
+					}
+				}
+			}
+		}
+		this.fighter = new Fighter(10,1,message,this,ded);
 		this.size = "small";
 	}
 }
