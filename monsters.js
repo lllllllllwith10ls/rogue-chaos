@@ -36,6 +36,7 @@ function dijkstra(target,desire,init) {
 					array[i][j] = dijkstraHelper(array,i,j)
 					if(array[i][j] !== before) {
 						changed = true;
+						console.log(array[i][j]);
 					}
 				}
 			}
