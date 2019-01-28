@@ -40,7 +40,7 @@ function dijkstra(target,desire,init) {
 		if(desire < 0) {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
-					if(array[i][j]) {
+					if(array[i][j] !== undefined) {
 						array[i][j] *= -1.2
 					}
 				}
@@ -49,7 +49,7 @@ function dijkstra(target,desire,init) {
 		} else {
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
-					if(array[i][j]) {
+					if(array[i][j] !== undefined) {
 						array[i][j] *= desire;
 					}
 				}
@@ -61,7 +61,7 @@ function dijkstra(target,desire,init) {
 	
 }
 function dijkstraHelper(array,x,y) {
-	if(array[x][y]) {
+	if(array[x][y] !== undefined) {
 		let numbers = [];
 		if(array[x-1]) {
 			if(array[x-1][y]) {
@@ -222,7 +222,7 @@ class RatAi {
 				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire)
 				for(let j = 1; j < array.length; j++) {
 					for(let k = 1; k < array.length; k++) {
-						if(array[i][j]) {
+						if(array[i][j] !== undefined && array2[i][j] !== undefined) {
 							array[i][j] += array2[i][j];
 						}
 					}
