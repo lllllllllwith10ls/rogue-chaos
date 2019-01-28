@@ -215,6 +215,7 @@ class RatAi {
 		}
 	}
 	cleanThings() {
+		cleanThings();
 		for(let i = this.noted.length-1; i >= 0; i--) {
 			if(isNaN(this.noted[i].posX) || isNaN(this.noted[i].posY)) {
 				this.noted.splice(i,1);
