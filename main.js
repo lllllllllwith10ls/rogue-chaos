@@ -186,7 +186,7 @@ player.move = function(dx,dy) {
 			new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX+1][this.map.posY];
@@ -198,7 +198,7 @@ player.move = function(dx,dy) {
 			new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY+1];
@@ -210,7 +210,7 @@ player.move = function(dx,dy) {
 			new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 			let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX-1][this.map.posY];
@@ -222,7 +222,7 @@ player.move = function(dx,dy) {
 			new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 			let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map = this.map.world.map[this.map.posX][this.map.posY-1];
@@ -233,7 +233,7 @@ player.move = function(dx,dy) {
 		} else {
 			let thing = this.map.map[x+dx][y+dy];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.attack(thing.fighter);
 			} else if(!(thing === "wall")) {
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
@@ -244,7 +244,7 @@ player.move = function(dx,dy) {
 	} else if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY)) { 
 		let thing = this.map.map[this.posX+dx][this.posY+dy];
 		if(thing.fighter) {
-			this.fighter.attack(thing.fighter);
+			this.attack(thing.fighter);
 		} else if(!(thing === "wall")) {
 			let x = this.posX;
 			let y = this.posY;
