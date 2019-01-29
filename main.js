@@ -253,6 +253,12 @@ player.move = function(dx,dy) {
 		}
 	}
 }
+function lose() {
+	log("Rip");
+	move = function() {
+		log("Rip");
+	}
+}
 camera.draw = function() {
 	if(this.map.world) {
 		for(let i = -1; i <= 1; i++) {
