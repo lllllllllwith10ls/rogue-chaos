@@ -139,7 +139,7 @@ class Chunk{
 						this.map[i][j] = "empty";
 						if(Math.random() > 0.95) {
 							if(monstersDefined) {
-								new LargeRat(i,j);
+								new LargeRat(i,j,this);
 							}
 						}
 					}
