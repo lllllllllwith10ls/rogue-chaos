@@ -276,13 +276,7 @@ camera.draw = function() {
 			}
 		}
 		console.log(camera);
-		for(let i = 1; i <= camera.size; i++) {
-			for(let j = 1; j <= camera.size; j++) {
-				if(this[i][j].ai) {
-					this[i][j].ai.move();
-				}
-			}
-		}
+		
 		for(let i = 1; i <= camera.size; i++) {
 			for(let j = 1; j <= camera.size; j++) {
 				let el = document.getElementById(""+i+","+j);
@@ -408,6 +402,13 @@ function move(dir) {
 	}
 	logged = [];
 	cleanThings();
+	for(let i = 1; i <= camera.size; i++) {
+		for(let j = 1; j <= camera.size; j++) {
+			if(this[i][j].ai) {
+				this[i][j].ai.move();
+			}
+		}
+	}
 	camera.draw();
 }
 cleanThings();
