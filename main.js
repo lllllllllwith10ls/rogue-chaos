@@ -332,6 +332,13 @@ function move(dir) {
 	if(dir === "down") {
 		player.move(0,1);
 	}
+	for(let i = 1; i <= camera.size; i++) {
+		for(let j = 1; j <= camera.size; j++) {
+			if(this[i][j].ai) {
+				this[i][j].ai.move();
+			}
+		}
+	}
 	if(camera.map.world) {
 		if(player.relPosX < (camera.size-1)/2-3) {
 			while(player.relPosX < (camera.size-1)/2-3) {
@@ -402,13 +409,7 @@ function move(dir) {
 	}
 	logged = [];
 	cleanThings();
-	for(let i = 1; i <= camera.size; i++) {
-		for(let j = 1; j <= camera.size; j++) {
-			if(this[i][j].ai) {
-				this[i][j].ai.move();
-			}
-		}
-	}
+	
 	camera.draw();
 }
 cleanThings();
