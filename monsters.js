@@ -184,10 +184,11 @@ class Fighter {
 class RatAi {
 	constructor(parent) {
 		this.parent = parent;
-		this.ratsDead = 0;
-		this.timeSinceLastDeath = 0;
 		this.notables = [];
 		this.noted = [];
+		this.fearOnKill = Math.random()/2+0.1;
+		this.baseFear = Math.random()/4;
+		this.percievedStrength = 1;
 	}
 	observe() {
 		for(let i = 1; i <= camera.size; i++) {
@@ -195,10 +196,10 @@ class RatAi {
 				if(this.noted.includes(camera[i][j]) || camera[i][j] === this.parent) {
 					
 				} else if(camera[i][j].name === "large rat") {
-					this.notables.push({thing:camera[i][j],desire:0.2});
+					this.notables.push({thing:camera[i][j],baseLove:0.3});
 					this.noted.push(camera[i][j]);
 				} else if(camera[i][j] === player) {
-					this.notables.push({thing:camera[i][j],desire:1});
+					this.notables.push({thing:camera[i][j],hate:2,baseFear:this.baseFear,killed:0});
 					this.noted.push(camera[i][j]);
 				}
 			}
@@ -207,17 +208,33 @@ class RatAi {
 		if(this.timeSinceLastDeath <= 0) {
 			this.ratsDead--;
 		}
-		if(this.notables[this.noted.indexOf(player)]) {
-			this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.30;
-			if(this.parent.fighter.hp < 5) {
-				this.notables[this.noted.indexOf(player)].desire -= 2;
+		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power/10;
+		for(let i = 0; i < notables.length; i++) {
+			if(this.notables[i].thing.name === "large rat") {
+				let rat = this.notables[i].thing;
+				this.percievedStrength += (rat.fighter.hp*rat.fighter.power)/(Math.abs(this.relPosX-rat.relPosX+this.relPosY-rat.relPosY)*10);
+				
+			}
+		}
+		for(let i = 0; i < notables.length; i++) {
+			if(this.notables[i].thing === player) {
+				this.notables[i].fear = this.baseFear + player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+			}
+			if(this.notables[i].thing.name === "large rat") {
+				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/10;
+				
+			}
+			if(this.notables[i].love) {
+				this.notables[i].desire = this.notables[i].love;
+			} else if(this.notables[i].fear && this.notables[i].hate) {
+				this.notables[i].desire = this.notables[i].hate-this.notables[i].fear;
 			}
 		}
 	}
 	cleanThings() {
 		cleanThings();
 		for(let i = this.noted.length-1; i >= 0; i--) {
-			if(isNaN(this.noted[i].posX) || isNaN(this.noted[i].posY)) {
+			if(isNaN(this.noted[i].posX) || isNaN(this.noted[i].posY) || this.noted[i].dead) {
 				this.noted.splice(i,1);
 				this.notables.splice(i,1);
 			}
@@ -291,7 +308,7 @@ class RatAi {
 	attack(enemy) {
 		if(enemy.name !== "large rat") {
 			enemy.hp -= this.parent.fighter.power;
-			if(enemy === player) {
+			if(enemy.parent === player) {
 				log(["The large rat bites you!","The large rat scratches you!","You get bitten by the large rat!"]);
 			} else {
 				log(["The large rat bites the "+enemy.parent.name+"!","The large rat scratches the "+enemy.parent.name+"!", "The "+enemy.parent.name+" gets bitten by the large rat!"]);
@@ -304,14 +321,14 @@ class RatAi {
 	}
 }
 
-player.fighter = new Fighter(30,3,"",player);
+player.fighter = new Fighter(30,3,"",lose);
 player.attack = function(enemy) {
 	enemy.hp -= this.power;
 	if(enemy.parent.size === "small") {
 		log("You kick the "+enemy.parent.name+".");
 	}
 	if(enemy.hp <= 0) {
-		enemy.die();
+		enemy.die(this);
 		log("The "+enemy.parent.name+" dies!");
 	}
 }
@@ -319,16 +336,20 @@ class LargeRat extends Monster{
 	constructor(x,y,map) {
 		super("%","#000000",map,x,y,player,"large rat");
 		this.ai = new RatAi(this);
-		function ded() {
+		function ded(thing) {
 			for(let i = 1; i <= camera.size; i++) {
 				for(let j = 1; j <= camera.size; j++) {
-					if(camera[i][j] instanceof LargeRat) {
-						camera[i][j].ai.ratsDead++;
-						camera[i][j].ai.timeSinceLastDeath = 5;
+					if(camera[i][j].name === "large rat") {
+						let rat = camera[i][j];
+						if(rat.ai.noted.includes(thing)]) {
+							rat.ai.notables[rat.ai.noted.indexOf(thing)].killed++;
+						}
 					}
 				}
 			}
+			this.dead = true;
 		}
+		this.dead = false;
 		this.fighter = new Fighter(10,1,this,ded);
 		this.size = "small";
 	}
@@ -340,7 +361,12 @@ for(let k = 0; k < places.length; k++) {
 		for(let i = chunkSize; i > 0; i--) {
 			for(let j = chunkSize; j > 0; j--) {
 				if(Math.random() > 0.95 && place.map[i][j] === "empty") {
-					new LargeRat(i,j,place);
+					if(this.notables[this.noted.indexOf(player)]) {
+						this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.30;
+						if(this.parent.fighter.hp < 5) {
+							this.notables[this.noted.indexOf(player)].desire -= 2;
+						}
+					}
 				}
 			}
 		}
