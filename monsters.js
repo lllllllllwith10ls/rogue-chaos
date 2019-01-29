@@ -111,7 +111,7 @@ class Monster extends Thing {
 		if(this.map.world) {
 			let x = this.chunkPosX;
 			let y = this.chunkPosY;
-			if(this.chunkPosX+dx > chunkSize) {
+			if(x+dx > chunkSize) {
 				new Chunk(this.map.posX+1,this.map.posY,this.map.world);
 				let thing = this.map.world.map[this.map.posX+1][this.map.posY].map[x+dx-chunkSize][y+dy];
 				if(thing.fighter) {
@@ -121,7 +121,7 @@ class Monster extends Thing {
 					this.map = this.map.world.map[this.map.posX+1][this.map.posY];
 					this.map.map[x+dx-chunkSize][y+dy] = this;
 				}
-			} else if(this.chunkPosY+dy > chunkSize) {
+			} else if(y+dy > chunkSize) {
 				new Chunk(this.map.posX,this.map.posY+1,this.map.world);
 				let thing = this.map.world.map[this.map.posX][this.map.posY+1].map[x+dx][y+dy+chunkSize];
 				if(thing.fighter) {
@@ -131,7 +131,7 @@ class Monster extends Thing {
 					this.map = this.map.world.map[this.map.posX][this.map.posY+1];
 					this.map.map[x+dx][y+dy-chunkSize] = this;
 				}
-			} else if(this.chunkPosX+dx < 1) {
+			} else if(x+dx < 1) {
 				new Chunk(this.map.posX-1,this.map.posY,this.map.world);
 				let thing = this.map.world.map[this.map.posX-1][this.map.posY].map[x+dx+chunkSize][y+dy];
 				if(thing.fighter) {
@@ -141,7 +141,7 @@ class Monster extends Thing {
 					this.map = this.map.world.map[this.map.posX-1][this.map.posY];
 					this.map.map[x+dx+chunkSize][y+dy] = this;
 				}
-			} else if(this.chunkPosY+dy < 1) {
+			} else if(y+dy < 1) {
 				new Chunk(this.map.posX,this.map.posY-1,this.map.world);
 				let thing = this.map.world.map[this.map.posX][this.map.posY-1].map[x+dx][y+dy+chunkSize];
 				if(thing.fighter) {
@@ -194,7 +194,7 @@ class RatAi {
 			for(let j = 1; j <= camera.size; j++) {
 				if(this.noted.includes(camera[i][j]) || camera[i][j] === this.parent) {
 					
-				} else if(camera[i][j] instanceof LargeRat) {
+				} else if(camera[i][j].name === "large rat") {
 					this.notables.push({thing:camera[i][j],desire:0.2});
 					this.noted.push(camera[i][j]);
 				} else if(camera[i][j] === player) {
@@ -301,7 +301,6 @@ class RatAi {
 				log("The "+enemy.parent.name+" dies!");
 			}
 		}
-		console.log(enemy.parent);
 	}
 }
 
@@ -317,7 +316,7 @@ player.attack = function(enemy) {
 	}
 }
 class LargeRat extends Monster{
-	constructor(x,y) {
+	constructor(x,y,map) {
 		super("%","#000000",map,x,y,player,"large rat");
 		this.ai = new RatAi(this);
 		function ded() {
@@ -341,7 +340,7 @@ for(let k = 0; k < places.length; k++) {
 		for(let i = chunkSize; i > 0; i--) {
 			for(let j = chunkSize; j > 0; j--) {
 				if(Math.random() > 0.95 && place.map[i][j] === "empty") {
-					new LargeRat(i,j);
+					new LargeRat(i,j,place);
 				}
 			}
 		}
