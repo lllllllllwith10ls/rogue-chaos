@@ -361,12 +361,7 @@ for(let k = 0; k < places.length; k++) {
 		for(let i = chunkSize; i > 0; i--) {
 			for(let j = chunkSize; j > 0; j--) {
 				if(Math.random() > 0.95 && place.map[i][j] === "empty") {
-					if(this.notables[this.noted.indexOf(player)]) {
-						this.notables[this.noted.indexOf(player)].desire = 1-this.ratsDead*0.30;
-						if(this.parent.fighter.hp < 5) {
-							this.notables[this.noted.indexOf(player)].desire -= 2;
-						}
-					}
+					new LageRat(i,j);
 				}
 			}
 		}
