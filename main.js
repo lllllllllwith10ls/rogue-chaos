@@ -99,9 +99,9 @@ class World{
 		}
 		if(!this.map[x][y]) {
 			if(perlin(x/3,y/3) > 0.5) {
-				this.map[i][j] = "wall";
+				this.map[x][y] = "wall";
 			} else {
-				this.map[i][j] = "empty";
+				this.map[x][y] = "empty";
 				if(Math.random() > 0.99) {
 					new LargeRat(x,y,this);
 				}
