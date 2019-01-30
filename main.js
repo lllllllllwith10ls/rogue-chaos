@@ -234,5 +234,6 @@ function move(dir) {
 	cleanThings();
 	
 	camera.draw();
+	document.getElementById("stats").innerHTML = "HP: "+player.hp+"/"+player.maxHp;
 }
 cleanThings();
