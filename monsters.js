@@ -295,8 +295,8 @@ class LargeRat extends Monster{
 				for(let j = 1; j <= camera.size; j++) {
 					if(camera[i][j].name === "large rat") {
 						let rat = camera[i][j];
-						if(rat.ai.noted.includes(thing)]) {
-							rat.ai.notables[rat.ai.noted.indexOf(thing)].killed++;
+						if(rat.ai.noted.includes(thing)) {
+							rat.ai.notables[rat.ai.noted.indexOf(thing).killed++;
 						}
 					}
 				}
