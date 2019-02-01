@@ -149,8 +149,8 @@ camera.draw = function() {
 				this.map.generate(this.x+i,this.y+j);
 			}
 			let spot = this.map.map[this.x+i][this.y+j];
-			let x = i + this.x;
-			let y = j + this.y;
+			let x = this.x;
+			let y = this.y;
 			if(typeof spot === "string") {
 				this[x][y] = this.map[spot];
 			} else {
@@ -162,8 +162,8 @@ camera.draw = function() {
 			}
 		}
 	}
-	for(let i = 2; i <= this.size; i++) {
-		for(let j = 2; j <= this.size; j++) {
+	for(let i = 2; i < this.size; i++) {
+		for(let j = 2; j < this.size; j++) {
 			let el = document.getElementById(""+i+","+j);
 			el.innerHTML = this[i-1][j-1].char;
 			el.style.color = this[i-1][j-1].color;
