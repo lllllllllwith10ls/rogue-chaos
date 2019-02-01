@@ -260,7 +260,7 @@ class RatAi {
 	attack(enemy) {
 		if(enemy.name !== "large rat") {
 			enemy.hp -= this.parent.fighter.power;
-			let string = " -"+this.parent.fighter.power+"+hp ("+enemy.hp+"/"+enemy.maxHp,"
+			let string = " -"+this.parent.fighter.power+"+hp ("+enemy.hp+"/"+enemy.maxHp+")";
 			if(enemy.parent === player) {
 				log(["The large rat bites you!"+string,"The large rat scratches you!"+string,"You get bitten by the large rat!"+string]);
 			} else {
@@ -277,7 +277,7 @@ class RatAi {
 player.fighter = new Fighter(30,3,"",lose);
 player.attack = function(enemy) {
 	enemy.hp -= this.power;
-	let string = " -"+this.fighter.power+"+hp ("+enemy.hp+"/"+enemy.maxHp,"
+	let string = " -"+this.fighter.power+"+hp ("+enemy.hp+"/"+enemy.maxHp+")";
 	if(enemy.parent.size === "small") {
 		log("You kick the "+enemy.parent.name+"."+string);
 	}
