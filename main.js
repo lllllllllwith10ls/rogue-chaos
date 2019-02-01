@@ -112,8 +112,8 @@ class World{
 
 let map = new World();
 camera.map = map;
-camera.x = 2;
-camera.y = 2;
+camera.x = -14;
+camera.y = -14;
 let player = new Thing("@","#000000",map,0,0);
 new Tile("#","#777777",map,"wall");
 new Tile(".","#ffffff",map,"empty");
@@ -142,13 +142,13 @@ function lose() {
 camera.draw = function() {
 	for(let i = 1; i <= this.size; i++) {
 		for(let j = 1; j <= this.size; j++) {
-			if(!this.map[this.x+i]) {
+			if(!this.map.map[this.x+i]) {
 				this.map.generate(this.x+i,this.y+j);
 			}
-			if(!this.map[this.x+i][this.y+j]) {
+			if(!this.map.map[this.x+i][this.y+j]) {
 				this.map.generate(this.x+i,this.y+j);
 			}
-			let spot = this.map[this.x+i][this.y+j];
+			let spot = this.map.map[this.x+i][this.y+j];
 			let x = i + this.x;
 			let y = j + this.y;
 			if(typeof spot === "string") {
@@ -157,7 +157,7 @@ camera.draw = function() {
 				this[x][y] = spot;
 			}
 			if((i === 1 || j === 1 || i === this.size || j === this.size) && spot.name === "large rat") {
-				this.map[this.x+i][this.y+j] = "empty";
+				this.map.map[this.x+i][this.y+j] = "empty";
 				this[x][y] = this.map.empty;
 			}
 		}
