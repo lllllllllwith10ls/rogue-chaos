@@ -105,7 +105,7 @@ class World{
 			} else {
 				this.map[x][y] = "empty";
 				if(Math.random() > 0.99) {
-					new LargeRat(x,y,this);
+					new Debug(x,y,this);
 				}
 			}
 		}
@@ -201,7 +201,7 @@ function move(dir) {
 				camera[i][j].ai.move();
 			} else if(camera[i][j] === camera.map.empty && (i === 1 || i === camera.size) && (j === 1 || j === camera.size)) {
 				if(Math.random() > 0.99) {
-					camera[i][j] = new LargeRat(i,j,camera.map);
+					camera[i][j] = new Debug(i,j,camera.map);
 					camera[i][j].ai.move();
 				}
 			}
