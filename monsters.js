@@ -119,7 +119,8 @@ class Monster extends Thing {
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
 			} else {
-				console.log(this.map.map[this.posX+dx][this.posY+dy]);
+				console.log(this.relPosX);
+				console.log(this.relPosY);
 			}
 		}
 	}
@@ -279,8 +280,8 @@ class RatAi {
 						console.log(camera[x][y+1]);
 						console.log(this.parent.map.map[this.parent.posX][this.parent.posY+1]);
 					}
-					console.log(x);
-					console.log(y);
+					console.log(this.relPosX);
+					console.log(this.relPosY);
 				}
 			}
 		}
