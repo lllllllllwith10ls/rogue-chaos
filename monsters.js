@@ -418,13 +418,17 @@ class Debug {
 			}
 			choose = choose[Math.floor(Math.random()*choose.length)];
 			if(choose === 1) {
-				if(this.parent.map.map[this.parent.xPos-1][this.parent.yPos] === "empty") {
-					this.parent.map.map[this.parent.xPos-1][this.parent.yPos] = marker;
+				if(this.parent.map.map[this.parent.xPos-1] === "empty") {
+					if(this.parent.map.map[this.parent.xPos-1][this.parent.yPos] === "empty") {
+						this.parent.map.map[this.parent.xPos-1][this.parent.yPos] = marker;
+					}
 				}
 				return [x-1,y];
 			} else if(choose === 2) {
-				if(this.parent.map.map[this.parent.xPos+1][this.parent.yPos] === "empty") {
-					this.parent.map.map[this.parent.xPos+1][this.parent.yPos] = marker;
+				if(this.parent.map.map[this.parent.xPos+1]) {
+					if(this.parent.map.map[this.parent.xPos+1][this.parent.yPos] === "empty") {
+						this.parent.map.map[this.parent.xPos+1][this.parent.yPos] = marker;
+					}
 				}
 				return [x+1,y];
 			} else if(choose === 3) {
