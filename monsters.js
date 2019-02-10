@@ -1,4 +1,4 @@
-let marker = new Tile("#","#0000ff",camera.world,"debug");
+let marker = new Tile("#","#0000ff",camera.map,"debug");
 function dijkstra(target,desire,init) {
 	if(target.inCamera) {
 		let array = [];
