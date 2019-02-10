@@ -262,7 +262,7 @@ class RatAi {
 				} else if(choose === 4) {
 					this.parent.move(0,1);
 				}
-				if(this.relPosX === x && this.relPosY === y) {
+				if(this.parent.relPosX === x && this.parent.relPosY === y) {
 					if(choose === 1) {
 						console.log(camera[x-1,y]);
 					} else if(choose === 2) {
