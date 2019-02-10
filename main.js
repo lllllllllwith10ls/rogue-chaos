@@ -45,7 +45,7 @@ class Thing{
 		}
 	}
 	get inCamera() {
-		if(this.map === camera.map && this.relPosX > 1 && this.relPosY > 1 && this.relPosX < camera.size && this.relPosY < camera.size) {
+		if(this.map === camera.map && this.relPosX >= 1 && this.relPosY >= 1 && this.relPosX <= camera.size && this.relPosY <= camera.size) {
 			return true;
 		}
 		return false;
