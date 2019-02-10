@@ -12,7 +12,6 @@ function dijkstra(target,desire,init) {
 			}
 			let x = target.relPosX;
 			let y = target.relPosY;
-
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
@@ -262,6 +261,17 @@ class RatAi {
 					this.parent.move(0,-1);
 				} else if(choose === 4) {
 					this.parent.move(0,1);
+				}
+				if(this.relPosX === x && this.relPosY === y) {
+					if(choose === 1) {
+						console.log(camera[x-1,y]);
+					} else if(choose === 2) {
+						console.log(camera[x+1,y]);
+					} else if(choose === 3) {
+						console.log(camera[x,y-1]);
+					} else if(choose === 4) {
+						console.log(camera[x,y+1]);
+					}
 				}
 			}
 		}
