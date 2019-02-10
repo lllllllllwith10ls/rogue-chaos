@@ -11,7 +11,7 @@ function cleanThings() {
 			things.splice(i,1);
 		}
 	}
-	for(let i = places.length-1; i >= 0; i--) {
+	for(let i = places.length-1; i >= 0; i--) {x
 		if(!places[i].map) {
 			places.splice(i,1);
 		}
@@ -196,7 +196,7 @@ function move(dir) {
 				camera[i][j].ai.move();
 			} else if(camera[i][j] === camera.map.empty) {
 				if(Math.random() > 0.99) {
-					camera[i][j] = new LargeRat(i,j,this);
+					camera[i][j] = new LargeRat(i,j,camera.map);
 					camera[i][j].ai.move();
 				}
 			}
