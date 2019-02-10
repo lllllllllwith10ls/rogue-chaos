@@ -219,49 +219,51 @@ class RatAi {
 			let y = this.parent.relPosY;
 			let number = 9**9;
 			let choose = [];
-			if(array[this.parent-1]) {
-				if(array[x-1][y]) {
-					if(array[x-1][y] < number) {
-						number = array[x-1][y];
-						choose = [1];
+			if(this.parent.inCamera) {
+				if(array[x-1]) {
+					if(array[x-1][y]) {
+						if(array[x-1][y] < number) {
+							number = array[x-1][y];
+							choose = [1];
+						}
 					}
 				}
-			}
-			if(array[x+1]) {
-				if(array[x+1][y]) {
-					if(array[x+1][y] < number) {
-						number = array[x+1][y];
-						choose = [2];
-					} else if(array[x+1][y] === number){
-						choose.push(2);
+				if(array[x+1]) {
+					if(array[x+1][y]) {
+						if(array[x+1][y] < number) {
+							number = array[x+1][y];
+							choose = [2];
+						} else if(array[x+1][y] === number){
+							choose.push(2);
+						}
 					}
 				}
-			}
-			if(array[x][y-1]) {
-				if(array[x][y-1] < number) {
-					number = array[x][y-1];
-					choose = [3];
-				} else if(array[x][y-1] === number){
-					choose.push(3);
+				if(array[x][y-1]) {
+					if(array[x][y-1] < number) {
+						number = array[x][y-1];
+						choose = [3];
+					} else if(array[x][y-1] === number){
+						choose.push(3);
+					}
 				}
-			}
-			if(array[x][y+1]) {
-				if(array[x][y+1] < number) {
-					number = array[x][y+1];
-					choose = [4];
-				} else if(array[x][y+1] === number){
-					choose.push(4);
+				if(array[x][y+1]) {
+					if(array[x][y+1] < number) {
+						number = array[x][y+1];
+						choose = [4];
+					} else if(array[x][y+1] === number){
+						choose.push(4);
+					}
 				}
-			}
-			choose = choose[Math.floor(Math.random()*choose.length)];
-			if(choose === 1) {
-				this.parent.move(-1,0);
-			} else if(choose === 2) {
-				this.parent.move(1,0);
-			} else if(choose === 3) {
-				this.parent.move(0,-1);
-			} else if(choose === 4) {
-				this.parent.move(0,1);
+				choose = choose[Math.floor(Math.random()*choose.length)];
+				if(choose === 1) {
+					this.parent.move(-1,0);
+				} else if(choose === 2) {
+					this.parent.move(1,0);
+				} else if(choose === 3) {
+					this.parent.move(0,-1);
+				} else if(choose === 4) {
+					this.parent.move(0,1);
+				}
 			}
 		}
 	}
