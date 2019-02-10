@@ -113,7 +113,7 @@ class Monster extends Thing {
 			}
 			let thing = this.map.map[this.posX+dx][this.posY+dy];
 			if(thing.fighter) {
-				this.fighter.attack(thing.fighter);
+				this.parent.ai.attack(thing.fighter);
 			} else if(thing !== "wall") {
 				let x = this.posX;
 				let y = this.posY;
