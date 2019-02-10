@@ -36,8 +36,8 @@ class Thing{
 		}
 	}
 	get posY() {
-		for(let i in this.map.map[this.chunkPosX]) {
-			if(this.map.map[this.chunkPosX][i] === this) {
+		for(let i in this.map.map[this.posX]) {
+			if(this.map.map[this.posX][i] === this) {
 				return parseInt(i);
 			}
 		}
