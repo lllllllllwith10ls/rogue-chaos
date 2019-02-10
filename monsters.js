@@ -374,7 +374,7 @@ class Debug {
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
 					break;
-				} else if(camera[thingy[0]][thingy[1]] === camera.world.empty) {
+				} else if(camera[thingy[0]][thingy[1]] === camera.map.empty) {
 					break;
 				}
 			}
