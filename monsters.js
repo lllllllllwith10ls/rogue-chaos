@@ -436,14 +436,14 @@ class Debug {
 			} else if(choose === 3) {
 				if(this.parent.map.map[this.parent.xPos]) {
 					if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
-						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = "debug";
 					}
 				}
 				return [x,y-1];
 			} else if(choose === 4) {
 				if(this.parent.map.map[this.parent.xPos]) {
 					if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
-						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = "debug";
 					}
 				}
 				return [x,y+1];
