@@ -149,16 +149,14 @@ camera.draw = function() {
 				this.map.generate(this.x+i,this.y+j);
 			}
 			let spot = this.map.map[this.x+i][this.y+j];
-			let x = this.x;
-			let y = this.y;
 			if(typeof spot === "string") {
-				this[x][y] = this.map[spot];
+				this[i][j] = this.map[spot];
 			} else {
-				this[x][y] = spot;
+				this[i][j] = spot;
 			}
 			if((i === 1 || j === 1 || i === this.size || j === this.size) && spot.name === "large rat") {
 				this.map.map[this.x+i][this.y+j] = "empty";
-				this[x][y] = this.map.empty;
+				this[i][j] = this.map.empty;
 			}
 		}
 	}
