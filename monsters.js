@@ -216,7 +216,7 @@ class RatAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX;
+			let x = this.parent.relPosX+1;
 			let y = this.parent.relPosY;
 			let number = 9**9;
 			let choose = [];
