@@ -312,6 +312,8 @@ class LargeRat extends Monster{
 				}
 			}
 			this.dead = true;
+			this.map[this.xPos][this.yPos] = "empty";
+			
 		}
 		this.dead = false;
 		this.fighter = new Fighter(10,1,this,ded);
