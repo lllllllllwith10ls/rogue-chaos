@@ -1,3 +1,4 @@
+let marker = new Tile("#","#0000ff","debug");
 function dijkstra(target,desire,init) {
 	if(target.inCamera) {
 		let array = [];
@@ -283,6 +284,178 @@ class RatAi {
 		}
 	}
 }
+class Debug {
+	constructor(parent) {
+		this.parent = parent;
+		this.notables = [];
+		this.noted = [];
+		this.fearOnKill = Math.random()*10+3;
+		this.baseFear = Math.random()/4;
+		this.percievedStrength = 1;
+	}
+	observe() {
+		for(let i = 1; i <= camera.size; i++) {
+			for(let j = 1; j <= camera.size; j++) {
+				if(this.noted.includes(camera[i][j]) || camera[i][j] === this.parent) {
+					
+				} else if(camera[i][j].name === "large rat") {
+					this.notables.push({thing:camera[i][j],baseLove:0.3});
+					this.noted.push(camera[i][j]);
+				} else if(camera[i][j] === player) {
+					this.notables.push({thing:camera[i][j],hate:2,baseFear:this.baseFear,killed:0});
+					this.noted.push(camera[i][j]);
+				}
+			}
+		}
+		this.timeSinceLastDeath--;
+		if(this.timeSinceLastDeath <= 0) {
+			this.ratsDead--;
+		}
+		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power;
+		for(let i = 0; i < this.notables.length; i++) {
+			if(this.notables[i].thing.name === "large rat") {
+				let rat = this.notables[i].thing;
+				this.percievedStrength += rat.fighter.hp*rat.fighter.power/(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY)*20);
+				
+			}
+		}
+		for(let i = 0; i < this.notables.length; i++) {
+			if(this.notables[i].thing === player) {
+				this.notables[i].fear = this.baseFear * player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+			}
+			if(this.notables[i].thing.name === "large rat") {
+				let rat = this.notables[i].thing;
+				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/10;
+				
+			}
+			if(this.notables[i].love) {
+				this.notables[i].desire = this.notables[i].love;
+			} else if(this.notables[i].fear && this.notables[i].hate) {
+				this.notables[i].desire = this.notables[i].hate-this.notables[i].fear;
+			}
+		}
+	}
+	cleanThings() {
+		for(let i = this.noted.length-1; i >= 0; i--) {
+			if(isNaN(this.noted[i].posX) || isNaN(this.noted[i].posY) || this.noted[i].dead) {
+				this.noted.splice(i,1);
+				this.notables.splice(i,1);
+			}
+		}
+	}
+	move() {
+		camera.update();
+		this.observe();
+		this.cleanThings();
+		if(this.notables[0]) {
+			let array = dijkstra(this.notables[0].thing,this.notables[0].desire);
+			for(let i = 1; i < this.notables.length; i++) {
+				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire);
+				if(array) {
+					for(let j = 1; j < array.length; j++) {
+						for(let k = 1; k < array.length; k++) {
+							if(array2) {
+								if(array[j] && array2[j]) {
+									if(array[j][k] !== undefined && array2[j][k] !== undefined) {
+										array[j][k] += array2[j][k];
+									}
+								}
+							}
+						}
+					}
+				} else {
+					array = array2;
+				}
+			}
+			let x = this.parent.relPosX-1;
+			let y = this.parent.relPosY;
+			let thingy = [x,y];
+			while(true) {
+				thingy = this.moveHelp(thingy[0],thingy[1]);
+				if(this.camera[thingy[0]][thingy[1]] === this.camera.world.empty) {
+					break;
+				}
+			}
+		}
+	}
+	moveHelp(x,y) {
+		if(this.parent.inCamera) {
+			let number = array[x][y];
+			let choose = [];
+			if(array[x-1]) {
+				if(array[x-1][y]) {
+					if(array[x-1][y] < number) {
+						number = array[x-1][y];
+						choose = [1];
+					}
+				}
+			}
+			if(array[x+1]) {
+				if(array[x+1][y]) {
+					if(array[x+1][y] < number) {
+						number = array[x+1][y];
+						choose = [2];
+					} else if(array[x+1][y] === number){
+						choose.push(2);
+					}
+				}
+			}
+			if(array[x][y-1]) {
+				if(array[x][y-1] < number) {
+					number = array[x][y-1];
+					choose = [3];
+				} else if(array[x][y-1] === number){
+					choose.push(3);
+				}
+			}
+			if(array[x][y+1]) {
+				if(array[x][y+1] < number) {
+					number = array[x][y+1];
+					choose = [4];
+				} else if(array[x][y+1] === number){
+					choose.push(4);
+				}
+			}
+			choose = choose[Math.floor(Math.random()*choose.length)];
+			if(choose === 1) {
+				if(this.parent.map.map[this.parent.xPos-1][this.parent.yPos] === "empty") {
+					this.parent.map.map[this.parent.xPos-1][this.parent.yPos] = marker;
+				}
+				return [x-1,y];
+			} else if(choose === 2) {
+				if(this.parent.map.map[this.parent.xPos+1][this.parent.yPos] === "empty") {
+					this.parent.map.map[this.parent.xPos+1][this.parent.yPos] = marker;
+				}
+				return [x+1,y];
+			} else if(choose === 3) {
+				if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
+					this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+				}
+				return [x,y-1];
+			} else if(choose === 4) {
+				if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
+					this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+				}
+				return [x,y+1];
+			}
+		}
+	}
+	attack(enemy) {
+		if(enemy.parent.name !== "large rat") {
+			enemy.hp -= this.parent.fighter.power;
+			let string = " -"+this.parent.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
+			if(enemy.parent === player) {
+				log(["The large rat bites you!"+string,"The large rat scratches you!"+string,"You get bitten by the large rat!"+string]);
+			} else {
+				log(["The large rat bites the "+enemy.parent.name+"!"+string,"The large rat scratches the "+enemy.parent.name+"!"+string, "The "+enemy.parent.name+" gets bitten by the large rat!"+string]);
+			}
+			if(enemy.hp <= 0) {
+				enemy.die();
+				log("The "+enemy.parent.name+" dies!");
+			}
+		}
+	}
+}
 
 player.fighter = new Fighter(30,3,"",lose);
 player.attack = function(enemy) {
@@ -299,7 +472,7 @@ player.attack = function(enemy) {
 class LargeRat extends Monster{
 	constructor(x,y,map) {
 		super("%","#000000",map,x,y,player,"large rat");
-		this.ai = new RatAi(this);
+		this.ai = new Debug(this);
 		function ded(thing) {
 			for(let i = 1; i <= camera.size; i++) {
 				for(let j = 1; j <= camera.size; j++) {
