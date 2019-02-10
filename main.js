@@ -210,12 +210,12 @@ function move(dir) {
 	
 	if(player.relPosX < camera.size/2+.5-3) {
 		if(!(camera.x + player.relPosX-camera.size/2+.5-3 < 1) || player.map instanceof World) {
-			camera.x-=player.relPosX-(camera.size/2+.5-3);
+			camera.x+=player.relPosX-(camera.size/2+.5-3);
 		}
 	}
 	if(player.relPosY < camera.size/2+.5-3) {
 		if(!(camera.y + player.relPosY-camera.size/2+.5-3 < 1) || player.map instanceof World) {
-			camera.y-=player.relPosY-(camera.size/2+.5-3);
+			camera.y+=player.relPosY-(camera.size/2+.5-3);
 		}
 	}
 	if(player.relPosX > camera.size/2+.5+3) {
