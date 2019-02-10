@@ -141,7 +141,7 @@ function lose() {
 		log("Rip");
 	}
 }
-camera.draw = function() {
+camera.update = function() {
 	for(let i = 1; i <= this.size; i++) {
 		for(let j = 1; j <= this.size; j++) {
 			if(!this.map.map[this.x+i]) {
@@ -162,6 +162,9 @@ camera.draw = function() {
 			}
 		}
 	}
+}
+camera.draw = function() {
+	this.update();
 	for(let i = 2; i < this.size; i++) {
 		for(let j = 2; j < this.size; j++) {
 			let el = document.getElementById(""+i+","+j);
