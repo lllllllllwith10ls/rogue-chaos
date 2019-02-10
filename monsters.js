@@ -18,7 +18,7 @@ function dijkstra(target,desire,init) {
 						if(array[i][j].type === "wall" || array[i][j].ai) {
 							array[i][j] = undefined;
 						} else {
-							array[i][j] = 1000000;
+							array[i][j] = 200;
 						}
 					}
 				}
@@ -216,8 +216,8 @@ class RatAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX-1;
-			let y = this.parent.relPosY-1;
+			let x = this.parent.relPosX;
+			let y = this.parent.relPosY;
 			let number = 9**9;
 			let choose = [];
 			if(this.parent.inCamera) {
