@@ -279,6 +279,8 @@ class RatAi {
 						console.log(camera[x][y+1]);
 						console.log(this.parent.map.map[this.parent.posX][this.parent.posY+1]);
 					}
+					console.log(x);
+					console.log(y);
 				}
 			}
 		}
