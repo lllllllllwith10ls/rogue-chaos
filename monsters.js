@@ -137,7 +137,7 @@ class RatAi {
 		this.parent = parent;
 		this.notables = [];
 		this.noted = [];
-		this.fearOnKill = Math.random()/2+0.1;
+		this.fearOnKill = Math.random()*10+3;
 		this.baseFear = Math.random()/4;
 		this.percievedStrength = 1;
 	}
@@ -159,7 +159,7 @@ class RatAi {
 		if(this.timeSinceLastDeath <= 0) {
 			this.ratsDead--;
 		}
-		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power/10;
+		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power;
 		for(let i = 0; i < this.notables.length; i++) {
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
@@ -169,7 +169,7 @@ class RatAi {
 		}
 		for(let i = 0; i < this.notables.length; i++) {
 			if(this.notables[i].thing === player) {
-				this.notables[i].fear = this.baseFear + player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+				this.notables[i].fear = this.baseFear * player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
 			}
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
