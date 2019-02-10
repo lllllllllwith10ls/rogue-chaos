@@ -183,6 +183,13 @@ function log(str) {
 	}
 }
 function move(dir) {
+	for(let i in player.map.map) {
+		for(let j in player.map.map[i]) {
+			if(player.map.map[i][j] === "debug") {
+				player.map.map[i][j] === "empty"
+			}
+		}
+	}
 	if(dir === "left") {
 		player.move(-1,0);
 	}
@@ -237,13 +244,7 @@ function move(dir) {
 	cleanThings();
 	
 	camera.draw();
-	for(let i in player.map.map) {
-		for(let j in player.map.map[i]) {
-			if(player.map.map[i][j] === "debug") {
-				player.map.map[i][j] === "empty"
-			}
-		}
-	}
+	
 	document.getElementById("stats").innerHTML = "HP: "+player.fighter.hp+"/"+player.fighter.maxHp;
 }
 cleanThings();
