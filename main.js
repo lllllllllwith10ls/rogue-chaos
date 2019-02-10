@@ -10,6 +10,9 @@ function cleanThings() {
 		if(isNaN(things[i].posX) || isNaN(things[i].posY)) {
 			things.splice(i,1);
 		}
+		if(things[i].dead) {
+			things.splice(i,1);
+		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
 		if(!places[i].map) {
