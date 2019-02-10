@@ -163,7 +163,7 @@ class RatAi {
 		for(let i = 0; i < this.notables.length; i++) {
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
-				this.percievedStrength += rat.fighter.hp*rat.fighter.power/(Math.abs(this.relPosX-rat.relPosX+this.relPosY-rat.relPosY)*20);
+				this.percievedStrength += rat.fighter.hp*rat.fighter.power/(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY)*20);
 				
 			}
 		}
