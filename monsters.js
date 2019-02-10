@@ -216,8 +216,8 @@ class RatAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX-1;
-			let y = this.parent.relPosY-1;
+			let x = this.parent.relPosX;
+			let y = this.parent.relPosY;
 			if(this.parent.inCamera) {
 				let number = array[x][y];
 				let choose = [];
