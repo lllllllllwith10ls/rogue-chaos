@@ -267,12 +267,13 @@ class RatAi {
 				if(this.parent.relPosX === x && this.parent.relPosY === y) {
 					if(choose === 1) {
 						console.log(camera[x-1][y]);
+						console.log(this.parent.map.map[this.parent.posX-1][this.parent.posY]);
 					} else if(choose === 2) {
-						console.log(camera[x+1][y]);
+						console.log(this.parent.map.map[this.parent.posX+1][this.parent.posY]);
 					} else if(choose === 3) {
-						console.log(camera[x][y-1]);
+						console.log(this.parent.map.map[this.parent.posX][this.parent.posY-1]);
 					} else if(choose === 4) {
-						console.log(camera[x][y+1]);
+						console.log(this.parent.map.map[this.parent.posX][this.parent.posY+1]);
 					}
 				}
 			}
