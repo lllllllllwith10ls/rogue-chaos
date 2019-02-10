@@ -218,9 +218,9 @@ class RatAi {
 			}
 			let x = this.parent.relPosX;
 			let y = this.parent.relPosY;
-			let number = array[x][y];
-			let choose = [];
 			if(this.parent.inCamera) {
+				let number = array[x][y];
+				let choose = [];
 				if(array[x-1]) {
 					if(array[x-1][y]) {
 						if(array[x-1][y] < number) {
