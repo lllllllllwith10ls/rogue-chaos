@@ -202,9 +202,11 @@ class RatAi {
 				if(array) {
 					for(let j = 1; j < array.length; j++) {
 						for(let k = 1; k < array.length; k++) {
-							if(array[j] && array2[j]) {
-								if(array[j][k] !== undefined && array2[j][k] !== undefined) {
-									array[j][k] += array2[j][k];
+							if(array2) {
+								if(array[j] && array2[j]) {
+									if(array[j][k] !== undefined && array2[j][k] !== undefined) {
+										array[j][k] += array2[j][k];
+									}
 								}
 							}
 						}
