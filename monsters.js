@@ -267,17 +267,17 @@ class RatAi {
 				}
 				if(this.parent.relPosX === x && this.parent.relPosY === y) {
 					if(choose === 1) {
-						console.log(x-1);
-						console.log(y);
+						console.log(x-1+camera.x);
+						console.log(y+camera.y);
 					} else if(choose === 2) {
-						console.log(x+1);
-						console.log(y);
+						console.log(x+1+camera.x);
+						console.log(y+camera.y);
 					} else if(choose === 3) {
-						console.log(x);
-						console.log(y-1);
+						console.log(x+camera.x);
+						console.log(y-1+camera.y);
 					} else if(choose === 4) {
-						console.log(x);
-						console.log(y+1);
+						console.log(x+camera.x);
+						console.log(y+1+camera.y);
 					}
 				}
 			}
