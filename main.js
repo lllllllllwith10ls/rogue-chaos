@@ -7,10 +7,9 @@ for(let i = 1; i <= camera.size; i++) {
 let things = [];
 function cleanThings() {
 	for(let i = things.length-1; i >= 0; i--) {
-		if(isNaN(things[i].posX) || isNaN(things[i].posY)) {
+		if(!things[i]) {
 			things.splice(i,1);
-		}
-		if(things[i].dead) {
+		} else if(isNaN(things[i].posX) || isNaN(things[i].posY) || things[i].dead) {
 			things.splice(i,1);
 		}
 	}
