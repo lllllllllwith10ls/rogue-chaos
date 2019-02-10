@@ -268,7 +268,7 @@ class RatAi {
 		}
 	}
 	attack(enemy) {
-		if(enemy.name !== "large rat") {
+		if(enemy.parent.name !== "large rat") {
 			enemy.hp -= this.parent.fighter.power;
 			let string = " -"+this.parent.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
 			if(enemy.parent === player) {
