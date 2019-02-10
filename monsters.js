@@ -107,20 +107,23 @@ class Monster extends Thing {
 	}
 	move(dx,dy) {
 		if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
-			if(!this.map.map[this.posX+dx][this.posY+dy]) {
-				this.map.generate(this.posX+dx,this.posY+dy);
+
+			let x = this.posX;
+			let y = this.posY;
+			if(!this.map.map[x+dx][y+dy]) {
+				this.map.generate(x+dx,y+dy);
 			}
-			let thing = this.map.map[this.posX+dx][this.posY+dy];
+			let thing = this.map.map[x+dx][y+dy];
 			if(thing.fighter) {
 				this.ai.attack(thing.fighter);
 			} else if(thing !== "wall") {
-				let x = this.posX;
-				let y = this.posY;
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
 			} else {
 				console.log(this.relPosX);
 				console.log(this.relPosY);
+				console.log(this.map.map[x+dx][y+dy]);
+				console.log(camera[this.relPosX+dx][this.relPosY+dy]);
 			}
 		}
 	}
