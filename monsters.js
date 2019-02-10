@@ -193,6 +193,7 @@ class RatAi {
 		}
 	}
 	move() {
+		camera.update();
 		this.observe();
 		this.cleanThings();
 		if(this.notables[0]) {
