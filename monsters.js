@@ -371,14 +371,14 @@ class Debug {
 			let y = this.parent.relPosY;
 			let thingy = [x,y];
 			while(true) {
-				thingy = this.moveHelp(thingy[0],thingy[1]);
+				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(this.camera[thingy[0]][thingy[1]] === this.camera.world.empty) {
 					break;
 				}
 			}
 		}
 	}
-	moveHelp(x,y) {
+	moveHelp(x,y,array) {
 		if(this.parent.inCamera) {
 			let number = array[x][y];
 			let choose = [];
