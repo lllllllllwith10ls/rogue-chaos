@@ -434,13 +434,17 @@ class Debug {
 				}
 				return [x+1,y];
 			} else if(choose === 3) {
-				if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
-					this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+				if(this.parent.map.map[this.parent.xPos]) {
+					if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
+						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+					}
 				}
 				return [x,y-1];
 			} else if(choose === 4) {
-				if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
-					this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+				if(this.parent.map.map[this.parent.xPos]) {
+					if(this.parent.map.map[this.parent.xPos][this.parent.yPos-1] === "empty") {
+						this.parent.map.map[this.parent.xPos][this.parent.yPos-1] = marker;
+					}
 				}
 				return [x,y+1];
 			}
