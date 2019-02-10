@@ -160,14 +160,14 @@ class RatAi {
 			this.ratsDead--;
 		}
 		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power/10;
-		for(let i = 0; i < notables.length; i++) {
+		for(let i = 0; i < this.notables.length; i++) {
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
 				this.percievedStrength += rat.fighter.hp*rat.fighter.power/(Math.abs(this.relPosX-rat.relPosX+this.relPosY-rat.relPosY)*20);
 				
 			}
 		}
-		for(let i = 0; i < notables.length; i++) {
+		for(let i = 0; i < this.notables.length; i++) {
 			if(this.notables[i].thing === player) {
 				this.notables[i].fear = this.baseFear + player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
 			}
