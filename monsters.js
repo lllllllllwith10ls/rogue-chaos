@@ -119,9 +119,6 @@ class Monster extends Thing {
 			} else if(thing !== "wall") {
 				this.map.map[x][y] = "empty";
 				this.map.map[x+dx][y+dy] = this;
-			} else {
-				console.log(this.map.map[x][y]);
-				console.log(camera[this.relPosX][this.relPosY]);
 			}
 		}
 	}
@@ -218,7 +215,7 @@ class RatAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX;
+			let x = this.parent.relPosX-1;
 			let y = this.parent.relPosY;
 			if(this.parent.inCamera) {
 				let number = array[x][y];
@@ -266,21 +263,6 @@ class RatAi {
 					this.parent.move(0,-1);
 				} else if(choose === 4) {
 					this.parent.move(0,1);
-				}
-				if(this.parent.relPosX === x && this.parent.relPosY === y) {
-					if(choose === 1) {
-						console.log(camera[x-1][y]);
-						console.log(this.parent.map.map[this.parent.posX-1][this.parent.posY]);
-					} else if(choose === 2) {
-						console.log(camera[x+1][y]);
-						console.log(this.parent.map.map[this.parent.posX+1][this.parent.posY]);
-					} else if(choose === 3) {
-						console.log(camera[x][y-1]);
-						console.log(this.parent.map.map[this.parent.posX][this.parent.posY-1]);
-					} else if(choose === 4) {
-						console.log(camera[x][y+1]);
-						console.log(this.parent.map.map[this.parent.posX][this.parent.posY+1]);
-					}
 				}
 			}
 		}
