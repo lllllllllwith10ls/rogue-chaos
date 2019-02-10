@@ -312,7 +312,7 @@ class LargeRat extends Monster{
 				}
 			}
 			this.dead = true;
-			this.map[this.xPos][this.yPos] = "empty";
+			this.map[this.posX][this.posY] = "empty";
 			
 		}
 		this.dead = false;
