@@ -216,9 +216,9 @@ class RatAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX+1;
+			let x = this.parent.relPosX;
 			let y = this.parent.relPosY;
-			let number = 9**9;
+			let number = array[x][y];
 			let choose = [];
 			if(this.parent.inCamera) {
 				if(array[x-1]) {
