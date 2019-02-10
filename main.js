@@ -203,24 +203,24 @@ function move(dir) {
 		}
 	}
 	
-	if(player.relPosX < 3) {
-		if(!(camera.x + player.relPosX-3 < 1)) {
-			camera.x+=player.relPosX-3;
+	if(player.relPosX < camera.size/2+.5-3) {
+		if(!(camera.x + player.relPosX-camera.size/2+.5-3 < 1)) {
+			camera.x+=player.relPosX-camera.size/2+.5-3;
 		}
 	}
-	if(player.relPosY < 3) {
-		if(!(camera.y + player.relPosY-3 < 1)) {
-			camera.y+=player.relPosY-3;
+	if(player.relPosY < camera.size/2+.5-3) {
+		if(!(camera.y + player.relPosY-camera.size/2+.5-3 < 1)) {
+			camera.y+=player.relPosY-camera.size/2+.5-3;
 		}
 	}
-	if(player.relPosX > 7) {
+	if(player.relPosX > camera.size/2+.5+3) {
 		if(!(camera.x + player.relPosX+1 > player.map.sizeX)) {
-			camera.x+=player.relPosX-7;
+			camera.x+=player.relPosX-camera.size/2+.5+3;
 		}
 	}
-	if(player.relPosY > 7) {
+	if(player.relPosY > camera.size/2+.5+3) {
 		if(!(camera.y + player.relPosY+1 > player.map.sizeX)) {
-			camera.y+=player.relPosY-7;
+			camera.y+=player.relPosY-camera.size/2+.5+3;
 		}
 	}
 	let log = document.getElementById("log");
