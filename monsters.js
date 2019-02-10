@@ -198,11 +198,13 @@ class RatAi {
 		if(this.notables[0]) {
 			let array = dijkstra(this.notables[0].thing,this.notables[0].desire);
 			for(let i = 1; i < this.notables.length; i++) {
-				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire)
+				let array2 = dijkstra(this.notables[i].thing,this.notables[i].desire);
 				for(let j = 1; j < array.length; j++) {
 					for(let k = 1; k < array.length; k++) {
-						if(array[j][k] !== undefined && array2[j][k] !== undefined) {
-							array[j][k] += array2[j][k];
+						if(array[j] && array2[j]) {
+							if(array[j][k] && array2[j][k]) {
+								array[j][k] += array2[j][k];
+							}
 						}
 					}
 				}
