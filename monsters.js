@@ -426,6 +426,7 @@ class Debug {
 				if(this.parent.map.map[this.parent.posX-1]) {
 					if(this.parent.map.map[this.parent.posX-1][this.parent.posY] === "empty") {
 						this.parent.map.map[this.parent.posX-1][this.parent.posY] = "debug";
+						console.log([x-1,y]);
 					}
 				}
 				return [x-1,y];
@@ -433,6 +434,7 @@ class Debug {
 				if(this.parent.map.map[this.parent.posX+1]) {
 					if(this.parent.map.map[this.parent.posX+1][this.parent.posY] === "empty") {
 						this.parent.map.map[this.parent.posX+1][this.parent.posY] = "debug";
+						console.log([x+1,y]);
 					}
 				}
 				return [x+1,y];
@@ -440,6 +442,7 @@ class Debug {
 				if(this.parent.map.map[this.parent.posX]) {
 					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
 						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
+						console.log([x,y-1]);
 					}
 				}
 				return [x,y-1];
@@ -447,6 +450,7 @@ class Debug {
 				if(this.parent.map.map[this.parent.posX]) {
 					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
 						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
+						console.log([x,y+1]);
 					}
 				}
 				return [x,y+1];
