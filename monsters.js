@@ -371,10 +371,13 @@ class Debug {
 			let y = this.parent.relPosY;
 			let thingy = [x,y];
 			while(true) {
+				let thingy2 = [thingy[0],thingy[1]];
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
 					break;
-				} else if(camera[thingy[0]][thingy[1]] === camera.map.empty) {
+				} else if(thingy2 === thingy) {
+					break;
+				} else if(thingy[0] < camera.x || thingy[1] < camera.y || thingy[0] >= camera.x+camera.size || thingy[1] >= camera.y+camera.size) {
 					break;
 				}
 			}
