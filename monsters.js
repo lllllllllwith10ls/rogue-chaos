@@ -428,33 +428,33 @@ class Debug {
 			console.log(number);
 			choose = choose[Math.floor(Math.random()*choose.length)];
 			if(choose === 1) {
-				if(this.parent.map.map[this.parent.posX-1]) {
-					if(this.parent.map.map[this.parent.posX-1][this.parent.posY] === "empty") {
-						this.parent.map.map[this.parent.posX-1][this.parent.posY] = "debug";
+				if(this.parent.map.map[camera.x+x-1]) {
+					if(this.parent.map.map[camera.x+x-1][this.parent.posY] === "empty") {
+						this.parent.map.map[camera.x+x-1][this.parent.posY] = "debug";
 						return [x-1,y];
 					}
 					console.log([x-1,y]);
 				}
 			} else if(choose === 2) {
-				if(this.parent.map.map[this.parent.posX+1]) {
-					if(this.parent.map.map[this.parent.posX+1][this.parent.posY] === "empty") {
-						this.parent.map.map[this.parent.posX+1][this.parent.posY] = "debug";
+				if(this.parent.map.map[camera.x+x]) {
+					if(this.parent.map.map[camera.x+x+1][this.parent.posY] === "empty") {
+						this.parent.map.map[camera.x+x+1][this.parent.posY] = "debug";
 						return [x+1,y];
 					}
 					console.log([x+1,y]);
 				}
 			} else if(choose === 3) {
-				if(this.parent.map.map[this.parent.posX]) {
-					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
-						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
+				if(this.parent.map.map[camera.x+x]) {
+					if(this.parent.map.map[camera.x+x][this.parent.posY-1] === "empty") {
+						this.parent.map.map[camera.x+x][this.parent.posY-1] = "debug";
 						return [x,y-1];
 					}
 					console.log([x,y-1]);
 				}
 			} else if(choose === 4) {
-				if(this.parent.map.map[this.parent.posX]) {
-					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
-						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
+				if(this.parent.map.map[camera.x+x]) {
+					if(this.parent.map.map[camera.x+x][this.parent.posY-1] === "empty") {
+						this.parent.map.map[camera.x+x][this.parent.posY-1] = "debug";
 						return [x,y+1];
 					}
 					console.log([x,y+1]);
