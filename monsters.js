@@ -375,6 +375,7 @@ class Debug {
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
 					console.log(thingy2);
+					console.log(this.camera[thingy2[0]][thingy2[1]]);
 					break;
 				} else if(thingy2 === thingy) {
 					console.log(thingy);
