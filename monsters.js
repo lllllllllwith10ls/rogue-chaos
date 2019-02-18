@@ -219,7 +219,7 @@ class RatAi {
 			let x = this.parent.relPosX-1;
 			let y = this.parent.relPosY-1;
 			if(this.parent.inCamera) {
-				let number = array[x][y];
+				let number = 1000000000000000;
 				let choose = [];
 				if(array[x-1]) {
 					if(array[x-1][y]) {
@@ -284,7 +284,7 @@ class RatAi {
 		}
 	}
 }
-class Debug {
+/*class Debug {
 	constructor(parent) {
 		this.parent = parent;
 		this.notables = [];
@@ -468,7 +468,7 @@ class Debug {
 			}
 		}
 	}
-}
+}*/
 
 player.fighter = new Fighter(30,3,"",lose);
 player.attack = function(enemy) {
@@ -485,7 +485,7 @@ player.attack = function(enemy) {
 class LargeRat extends Monster{
 	constructor(x,y,map) {
 		super("%","#000000",map,x,y,player,"large rat");
-		this.ai = new Debug(this);
+		this.ai = new RatAi(this);
 		function ded(thing) {
 			for(let i = 1; i <= camera.size; i++) {
 				for(let j = 1; j <= camera.size; j++) {
