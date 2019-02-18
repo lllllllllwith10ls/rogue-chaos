@@ -383,7 +383,7 @@ class Debug {
 					console.log("break");
 					break;
 				}
-				console.log("thingy");
+				console.log(thingy);
 			}
 		}
 	}
