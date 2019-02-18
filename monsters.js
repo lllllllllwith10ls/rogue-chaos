@@ -374,16 +374,12 @@ class Debug {
 				let thingy2 = [thingy[0],thingy[1]];
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
-					console.log("break");
 					break;
 				} else if(thingy2 === thingy) {
-					console.log("break");
 					break;
 				} else if(thingy[0] < 1 || thingy[1] < 1 || thingy[0] >= camera.size || thingy[1] >= camera.size) {
-					console.log("break");
 					break;
 				}
-				console.log(thingy);
 			}
 		}
 	}
@@ -425,7 +421,6 @@ class Debug {
 					choose.push(4);
 				}
 			}
-			console.log(number);
 			choose = choose[Math.floor(Math.random()*choose.length)];
 			if(choose === 1) {
 				if(this.parent.map.map[camera.x+x-1]) {
@@ -433,7 +428,6 @@ class Debug {
 						this.parent.map.map[camera.x+x-1][this.parent.posY] = "debug";
 						return [x-1,y];
 					}
-					console.log([x-1,y]);
 				}
 			} else if(choose === 2) {
 				if(this.parent.map.map[camera.x+x]) {
@@ -441,7 +435,6 @@ class Debug {
 						this.parent.map.map[camera.x+x+1][this.parent.posY] = "debug";
 						return [x+1,y];
 					}
-					console.log([x+1,y]);
 				}
 			} else if(choose === 3) {
 				if(this.parent.map.map[camera.x+x]) {
@@ -449,15 +442,13 @@ class Debug {
 						this.parent.map.map[camera.x+x][this.parent.posY-1] = "debug";
 						return [x,y-1];
 					}
-					console.log([x,y-1]);
 				}
 			} else if(choose === 4) {
 				if(this.parent.map.map[camera.x+x]) {
-					if(this.parent.map.map[camera.x+x][this.parent.posY-1] === "empty") {
-						this.parent.map.map[camera.x+x][this.parent.posY-1] = "debug";
+					if(this.parent.map.map[camera.x+x][this.parent.posY+1] === "empty") {
+						this.parent.map.map[camera.x+x][this.parent.posY+1] = "debug";
 						return [x,y+1];
 					}
-					console.log([x,y+1]);
 				}
 			}
 		}
