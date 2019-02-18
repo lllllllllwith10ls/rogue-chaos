@@ -11,8 +11,8 @@ function dijkstra(target,desire,init) {
 					array[i][j] = camera[i][j];
 				}
 			}
-			let x = target.relPosX;
-			let y = target.relPosY;
+			let x = target.relPosX-1;
+			let y = target.relPosY-1;
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
@@ -217,7 +217,7 @@ class RatAi {
 				}
 			}
 			let x = this.parent.relPosX-1;
-			let y = this.parent.relPosY;
+			let y = this.parent.relPosY-1;
 			if(this.parent.inCamera) {
 				let number = array[x][y];
 				let choose = [];
@@ -368,7 +368,7 @@ class Debug {
 				}
 			}
 			let x = this.parent.relPosX-1;
-			let y = this.parent.relPosY;
+			let y = this.parent.relPosY-1;
 			let thingy = [x,y];
 			while(true) {
 				let thingy2 = [thingy[0],thingy[1]];
