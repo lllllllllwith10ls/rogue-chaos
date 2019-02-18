@@ -174,7 +174,7 @@ class RatAi {
 			}
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
-				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/10;
+				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/20;
 				
 			}
 			if(this.notables[i].love) {
