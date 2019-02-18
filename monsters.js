@@ -424,29 +424,29 @@ class Debug {
 			choose = choose[Math.floor(Math.random()*choose.length)];
 			if(choose === 1) {
 				if(this.parent.map.map[camera.x+x-1]) {
-					if(this.parent.map.map[camera.x+x-1][this.parent.posY] === "empty") {
-						this.parent.map.map[camera.x+x-1][this.parent.posY] = "debug";
+					if(this.parent.map.map[camera.x+x-1][camera.y+y] === "empty") {
+						this.parent.map.map[camera.x+x-1][camera.y+y] = "debug";
 						return [x-1,y];
 					}
 				}
 			} else if(choose === 2) {
 				if(this.parent.map.map[camera.x+x]) {
-					if(this.parent.map.map[camera.x+x+1][this.parent.posY] === "empty") {
-						this.parent.map.map[camera.x+x+1][this.parent.posY] = "debug";
+					if(this.parent.map.map[camera.x+x+1][camera.y+y] === "empty") {
+						this.parent.map.map[camera.x+x+1][camera.y+y] = "debug";
 						return [x+1,y];
 					}
 				}
 			} else if(choose === 3) {
 				if(this.parent.map.map[camera.x+x]) {
-					if(this.parent.map.map[camera.x+x][this.parent.posY-1] === "empty") {
-						this.parent.map.map[camera.x+x][this.parent.posY-1] = "debug";
+					if(this.parent.map.map[camera.x+x][camera.y+y-1] === "empty") {
+						this.parent.map.map[camera.x+x][camera.y+y-1] = "debug";
 						return [x,y-1];
 					}
 				}
 			} else if(choose === 4) {
 				if(this.parent.map.map[camera.x+x]) {
-					if(this.parent.map.map[camera.x+x][this.parent.posY+1] === "empty") {
-						this.parent.map.map[camera.x+x][this.parent.posY+1] = "debug";
+					if(this.parent.map.map[camera.x+x][camera.y+y+1] === "empty") {
+						this.parent.map.map[camera.x+x][camera.y+y+1] = "debug";
 						return [x,y+1];
 					}
 				}
