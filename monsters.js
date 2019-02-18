@@ -389,7 +389,7 @@ class Debug {
 	}
 	moveHelp(x,y,array) {
 		if(this.parent.inCamera) {
-			let number = array[x][y];
+			let number = 100000000;
 			let choose = [];
 			if(array[x-1]) {
 				if(array[x-1][y]) {
