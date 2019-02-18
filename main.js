@@ -210,6 +210,7 @@ function move(dir) {
 			} else if(camera[i][j] === camera.map.empty && (i === 1 || i === camera.size) && (j === 1 || j === camera.size)) {
 				if(Math.random() > 0.99) {
 					camera[i][j] = new LargeRat(i,j,camera.map);
+					camera.map.map[camera.x+i-1][camera.y+j-1] = new LargeRat(i,j,camera.map);
 					camera[i][j].ai.move();
 				}
 			}
