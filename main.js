@@ -183,8 +183,8 @@ function log(str) {
 	}
 }
 function move(dir) {
-	for(let i in player.map.map) {
-		for(let j in player.map.map[i]) {
+	for(let i = 1; i < camera.size; i++) {
+		for(let j = 1; j < camera.size; j++) {
 			if(player.map.map[i][j] === "debug") {
 				player.map.map[i][j] === "empty"
 			}
