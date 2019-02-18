@@ -383,7 +383,6 @@ class Debug {
 					console.log("break");
 					break;
 				}
-				console.log(thingy);
 			}
 		}
 	}
@@ -425,6 +424,7 @@ class Debug {
 					choose.push(4);
 				}
 			}
+			console.log(number);
 			choose = choose[Math.floor(Math.random()*choose.length)];
 			if(choose === 1) {
 				if(this.parent.map.map[this.parent.posX-1]) {
