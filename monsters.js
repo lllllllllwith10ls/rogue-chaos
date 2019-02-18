@@ -374,16 +374,16 @@ class Debug {
 				let thingy2 = [thingy[0],thingy[1]];
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
-					console.log(thingy2);
-					console.log(camera[thingy2[0]][thingy2[1]]);
+					console.log("break");
 					break;
 				} else if(thingy2 === thingy) {
-					console.log(thingy);
-					console.log(camera[thingy[0]][thingy[1]]);
+					console.log("break");
 					break;
 				} else if(thingy[0] < 1 || thingy[1] < 1 || thingy[0] >= camera.size || thingy[1] >= camera.size) {
+					console.log("break");
 					break;
 				}
+				console.log(thingy);
 			}
 		}
 	}
