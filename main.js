@@ -183,14 +183,7 @@ function log(str) {
 	}
 }
 function move(dir) {
-	for(let i = 1; i < camera.size; i++) {
-		for(let j = 1; j < camera.size; j++) {
-			if(camera[i][j] === camera.map.debug) {
-				camera[i][j] = camera.map.empty;
-				camera.map.map[i+camera.x][j+camera.y] = "empty";
-			}
-		}
-	}
+	
 	if(dir === "left") {
 		player.move(-1,0);
 	}
@@ -207,7 +200,7 @@ function move(dir) {
 		for(let j = 1; j <= camera.size; j++) {
 			if(camera[i][j].ai) {
 				camera[i][j].ai.move();
-			} else if(camera[i][j] === camera.map.empty && (i === 1 || i === camera.size) && (j === 1 || j === camera.size)) {
+			} else if(camera[i][j] === camera.map.empty && (i <= 2 || i >= camera.size-1) && (j <= 2 || j >= camera.size-1)) {
 				if(Math.random() > 0.99) {
 					camera[i][j] = new LargeRat(i,j,camera.map);
 					camera.map.map[camera.x+i][camera.y+j] = new LargeRat(i,j,camera.map);
