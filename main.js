@@ -185,8 +185,8 @@ function log(str) {
 function move(dir) {
 	for(let i = 1; i < camera.size; i++) {
 		for(let j = 1; j < camera.size; j++) {
-			if(camera[i][j] === "debug") {
-				camera[i][j] === "empty"
+			if(camera[i][j] === camera.world.debug) {
+				camera[i][j] === camera.world.empty;
 			}
 		}
 	}
