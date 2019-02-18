@@ -187,7 +187,7 @@ function move(dir) {
 		for(let j = 1; j < camera.size; j++) {
 			if(camera[i][j] === camera.map.debug) {
 				camera[i][j] = camera.map.empty;
-				camera.map[i+camera.x][j+camera.y] = "empty";
+				camera.map.map[i+camera.x][j+camera.y] = "empty";
 			}
 		}
 	}
