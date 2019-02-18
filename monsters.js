@@ -380,7 +380,7 @@ class Debug {
 					console.log(thingy);
 					console.log(this.camera[thingy[0]][thingy[1]]);
 					break;
-				} else if(thingy[0] < camera.x || thingy[1] < camera.y || thingy[0] >= camera.x+camera.size || thingy[1] >= camera.y+camera.size) {
+				} else if(thingy[0] < 1 || thingy[1] < 1 || thingy[0] >= camera.size || thingy[1] >= camera.size) {
 					break;
 				}
 			}
