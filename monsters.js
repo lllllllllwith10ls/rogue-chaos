@@ -374,8 +374,11 @@ class Debug {
 				let thingy2 = [thingy[0],thingy[1]];
 				thingy = this.moveHelp(thingy[0],thingy[1],array);
 				if(!thingy) {
+					console.log(thingy2);
 					break;
 				} else if(thingy2 === thingy) {
+					console.log(thingy);
+					console.log(this.camera[thingy[0]][thingy[1]]);
 					break;
 				} else if(thingy[0] < camera.x || thingy[1] < camera.y || thingy[0] >= camera.x+camera.size || thingy[1] >= camera.y+camera.size) {
 					break;
@@ -426,34 +429,30 @@ class Debug {
 				if(this.parent.map.map[this.parent.posX-1]) {
 					if(this.parent.map.map[this.parent.posX-1][this.parent.posY] === "empty") {
 						this.parent.map.map[this.parent.posX-1][this.parent.posY] = "debug";
-						console.log([x-1,y]);
+						return [x-1,y];
 					}
 				}
-				return [x-1,y];
 			} else if(choose === 2) {
 				if(this.parent.map.map[this.parent.posX+1]) {
 					if(this.parent.map.map[this.parent.posX+1][this.parent.posY] === "empty") {
 						this.parent.map.map[this.parent.posX+1][this.parent.posY] = "debug";
-						console.log([x+1,y]);
+						return [x+1,y];
 					}
 				}
-				return [x+1,y];
 			} else if(choose === 3) {
 				if(this.parent.map.map[this.parent.posX]) {
 					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
 						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
-						console.log([x,y-1]);
+						return [x,y-1];
 					}
 				}
-				return [x,y-1];
 			} else if(choose === 4) {
 				if(this.parent.map.map[this.parent.posX]) {
 					if(this.parent.map.map[this.parent.posX][this.parent.posY-1] === "empty") {
 						this.parent.map.map[this.parent.posX][this.parent.posY-1] = "debug";
-						console.log([x,y+1]);
+						return [x,y+1];
 					}
 				}
-				return [x,y+1];
 			}
 		}
 	}
