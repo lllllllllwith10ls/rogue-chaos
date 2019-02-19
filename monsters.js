@@ -148,10 +148,10 @@ class RatAi {
 				if(this.noted.includes(camera[i][j]) || camera[i][j] === this.parent) {
 					
 				} else if(camera[i][j].name === "large rat") {
-					this.notables.push({thing:camera[i][j],baseLove:0.3});
+					this.notables.push({thing:camera[i][j],baseLove:0.3+Math.random()});
 					this.noted.push(camera[i][j]);
-				} else if(camera[i][j] === player) {
-					this.notables.push({thing:camera[i][j],hate:2,baseFear:this.baseFear,killed:0});
+				} else if(camera[i][j].fighter) {
+					this.notables.push({thing:camera[i][j],hate:2+Math.random()-0.5,baseFear:this.baseFear,killed:0});
 					this.noted.push(camera[i][j]);
 				}
 			}
@@ -168,14 +168,13 @@ class RatAi {
 				
 			}
 		}
-		for(let i = 0; i < this.notables.length; i++) {
-			if(this.notables[i].thing === player) {
-				this.notables[i].fear = this.baseFear * player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
-			}
+		for(let i = 0; i < this.notables.length; i++) {	
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
 				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/20;
 				
+			} else {
+				this.notables[i].fear = this.baseFear * player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
 			}
 			if(this.notables[i].love) {
 				this.notables[i].desire = this.notables[i].love;
@@ -303,7 +302,7 @@ class GoblinAi {
 					this.noted.push(camera[i][j]);
 				} else if(camera[i][j].fighter) {
 					let strength = camera[i][j].fighter
-					this.notables.push({thing:camera[i][j],hate:1,baseFear:this.baseFear,killed:0});
+					this.notables.push({thing:camera[i][j],baseFear:this.baseFear,killed:0});
 					this.noted.push(camera[i][j]);
 				}
 			}
@@ -317,14 +316,19 @@ class GoblinAi {
 			}
 		}
 		for(let i = 0; i < this.notables.length; i++) {
-			if(this.notables[i].thing.ai) {
-				let thing = this.notables[i].thing;
-				this.notables[i].fear = this.baseFear * thing.fighter.hp*thing.fighter.power/5-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
-			}
-			if(this.notables[i].thing.name === "large rat") {
+			
+			if(this.notables[i].thing.name === "goblin") {
 				let thing = this.notables[i].thing;
 				this.notables[i].love = thing.fighter.hp*thing.fighter.power*thing.notables[i].baseLove/20;
 				
+			} else {
+				let thing = this.notables[i].thing;
+				this.notables[i].fear = this.baseFear * thing.fighter.hp*thing.fighter.power/5-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+				if(this.noted[i] === player && !this.notables[i].hate) {
+					this.notables[i].hate = Math.random()*3;
+				} else if(!this.notables[i].hate){
+					this.notables[i].hate = Math.random();
+				}
 			}
 			if(this.notables[i].love) {
 				this.notables[i].desire = this.notables[i].love;
