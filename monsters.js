@@ -658,6 +658,7 @@ player.attack = function(enemy) {
 		enemy.die(this);
 		log("The "+enemy.parent.name+" dies!");
 	}
+	enemy.regenTime = 0;
 }
 class LargeRat extends Monster{
 	constructor(x,y,map) {
