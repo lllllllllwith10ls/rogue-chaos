@@ -254,6 +254,9 @@ function move(dir) {
 	if(player.fighter.regenTime >= 5) {
 		player.fighter.hp++;
 	}
+	if(player.fighter.hp > player.fighter.maxHp) {
+		player.fighter.hp = player.fighter.maxHp;
+	}
 	document.getElementById("stats").innerHTML = "HP: "+player.fighter.hp+"/"+player.fighter.maxHp;
 }
 cleanThings();
