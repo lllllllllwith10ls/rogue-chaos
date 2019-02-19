@@ -131,6 +131,7 @@ class Fighter {
 		this.power = power;
 		this.die = die;
 		this.parent = parent;
+		this.regenTime = 0;
 	}
 }
 class RatAi {
@@ -171,7 +172,7 @@ class RatAi {
 		for(let i = 0; i < this.notables.length; i++) {	
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
-				if(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY) < 2) {
+				if(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY) <= 2) {
 					this.notables[i].love = 0;
 				} else {
 					this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/20;
@@ -270,6 +271,7 @@ class RatAi {
 				}
 			}
 		}
+		this.parent.fighter.regenTime++;
 	}
 	attack(enemy) {
 		if(enemy.parent.name !== "large rat") {
@@ -323,7 +325,7 @@ class GoblinAi {
 			
 			if(this.notables[i].thing.name === "goblin") {
 				let thing = this.notables[i].thing;
-				if(Math.abs(this.parent.relPosX-thing.relPosX+this.parent.relPosY-thing.relPosY) < 2) {
+				if(Math.abs(this.parent.relPosX-thing.relPosX+this.parent.relPosY-thing.relPosY) <= 2) {
 					this.notables[i].love = 0;
 				} else {
 					this.notables[i].love = thing.fighter.hp*thing.fighter.power*this.notables[i].baseLove/20;
@@ -427,6 +429,7 @@ class GoblinAi {
 				}
 			}
 		}
+		this.parent.fighter.regenTime++;
 	}
 	attack(enemy) {
 		if(enemy.parent.name !== "goblin") {
