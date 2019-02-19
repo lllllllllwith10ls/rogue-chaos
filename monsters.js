@@ -171,7 +171,11 @@ class RatAi {
 		for(let i = 0; i < this.notables.length; i++) {	
 			if(this.notables[i].thing.name === "large rat") {
 				let rat = this.notables[i].thing;
-				this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/20;
+				if(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY) < 2) {
+					this.notables[i].love = 0;
+				} else {
+					this.notables[i].love = rat.fighter.hp*rat.fighter.power*this.notables[i].baseLove/20;
+				}
 				
 			} else {
 				this.notables[i].fear = this.baseFear * player.fighter.hp*player.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
@@ -319,8 +323,11 @@ class GoblinAi {
 			
 			if(this.notables[i].thing.name === "goblin") {
 				let thing = this.notables[i].thing;
-				this.notables[i].love = thing.fighter.hp*thing.fighter.power*thing.notables[i].baseLove/20;
-				
+				if(Math.abs(this.parent.relPosX-thing.relPosX+this.parent.relPosY-thing.relPosY) < 2) {
+					this.notables[i].love = 0;
+				} else {
+					this.notables[i].love = thing.fighter.hp*thing.fighter.power*thing.notables[i].baseLove/20;
+				}
 			} else {
 				let thing = this.notables[i].thing;
 				this.notables[i].fear = this.baseFear * thing.fighter.hp*thing.fighter.power/5-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
