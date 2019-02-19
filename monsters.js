@@ -667,7 +667,7 @@ class LargeRat extends Monster{
 }
 class Goblin extends Monster{
 	constructor(x,y,map) {
-		super("g","#000000",map,x,y,player,"large rat");
+		super("g","#000000",map,x,y,player,"goblin");
 		this.ai = new GoblinAi(this);
 		function ded(thing) {
 			for(let i = 1; i <= camera.size; i++) {
