@@ -105,7 +105,11 @@ class World{
 			} else {
 				this.map[x][y] = "empty";
 				if(Math.random() > 0.99) {
-					new LargeRat(x,y,this);
+					if(Math.random() > 0.8) {
+						new Goblin(x,y,this);
+					} else {
+						new LargeRat(x,y,this);
+					}
 				}
 			}
 		}
@@ -202,9 +206,15 @@ function move(dir) {
 				camera[i][j].ai.move();
 			} else if(camera[i][j] === camera.map.empty && (i <= 2 || i >= camera.size-1) && (j <= 2 || j >= camera.size-1)) {
 				if(Math.random() > 0.99) {
-					camera[i][j] = new LargeRat(i,j,camera.map);
-					camera.map.map[camera.x+i][camera.y+j] = new LargeRat(i,j,camera.map);
-					camera[i][j].ai.move();
+					if(Math.random() > 0.8) {
+						camera[i][j] = new Goblin(i,j,camera.map);
+						camera.map.map[camera.x+i][camera.y+j] = new Goblin(i,j,camera.map);
+						camera[i][j].ai.move();
+					} else {
+						camera[i][j] = new LargeRat(i,j,camera.map);
+						camera.map.map[camera.x+i][camera.y+j] = new LargeRat(i,j,camera.map);
+						camera[i][j].ai.move();
+					}
 				}
 			}
 		}
