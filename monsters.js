@@ -326,7 +326,7 @@ class GoblinAi {
 				if(Math.abs(this.parent.relPosX-thing.relPosX+this.parent.relPosY-thing.relPosY) < 2) {
 					this.notables[i].love = 0;
 				} else {
-					this.notables[i].love = thing.fighter.hp*thing.fighter.power*thing.notables[i].baseLove/20;
+					this.notables[i].love = thing.fighter.hp*thing.fighter.power*this.notables[i].baseLove/20;
 				}
 			} else {
 				let thing = this.notables[i].thing;
