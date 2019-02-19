@@ -275,6 +275,9 @@ class RatAi {
 		if(this.parent.fighter.regenTime >= 5) {
 			this.parent.fighter.hp++;
 		}
+		if(this.parent.fighter.hp > this.parent.fighter.maxHp) {
+			this.parent.fighter.hp = this.parent.fighter.maxHp;
+		}
 	}
 	attack(enemy) {
 		if(enemy.parent.name !== "large rat") {
@@ -436,6 +439,9 @@ class GoblinAi {
 		this.parent.fighter.regenTime++;
 		if(this.parent.fighter.regenTime >= 5) {
 			this.parent.fighter.hp++;
+		}
+		if(this.parent.fighter.hp > this.parent.fighter.maxHp) {
+			this.parent.fighter.hp = this.parent.fighter.maxHp;
 		}
 	}
 	attack(enemy) {
