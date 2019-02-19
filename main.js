@@ -250,9 +250,9 @@ function move(dir) {
 	
 	camera.draw();
 	
-	player.parent.fighter.regenTime++;
-	if(player.parent.fighter.regenTime >= 5) {
-		player.parent.fighter.hp++;
+	player.fighter.regenTime++;
+	if(player.fighter.regenTime >= 5) {
+		player.fighter.hp++;
 	}
 	document.getElementById("stats").innerHTML = "HP: "+player.fighter.hp+"/"+player.fighter.maxHp;
 }
