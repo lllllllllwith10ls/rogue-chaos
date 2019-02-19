@@ -289,6 +289,7 @@ class RatAi {
 				enemy.die();
 				log("The "+enemy.parent.name+" dies!");
 			}
+			enemy.regenTime = 0;
 		}
 	}
 }
@@ -454,6 +455,7 @@ class GoblinAi {
 				enemy.die();
 				log("The "+enemy.parent.name+" dies!");
 			}
+			enemy.regenTime = 0;
 		}
 	}
 }
