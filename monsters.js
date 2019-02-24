@@ -447,7 +447,7 @@ function ded(thing) {
 			if(friend) {
 				let thing = camera[i][j];
 				if(thing.ai.noted.includes(thing)) {
-					thing.ai.notables[thing.ai.noted.indexOf(thing)].killed++;
+					thing.ai.notables[thing.ai.noted.indexOf(thing)].killed+=(this.fighter.maxHp+this.fighter.power)/(thing.fighter.maxHp+thing.fighter.power);
 				}
 			}
 		}
