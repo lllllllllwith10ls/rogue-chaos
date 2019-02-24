@@ -209,11 +209,14 @@ class MonsterAi {
 				
 			} else if(!friend) {
 				let thing = this.notables[i].thing;
-				if(!thing.baseFear) {
+				if(!this.notables[i].baseFear) {
 					this.notables[i].baseFear = thingy.baseFear+(Math.random()-0.5)*this.fearDeviation*2;
 				}
-				if(!thing.baseHate) {
+				if(!this.notables[i].baseHate) {
 					this.notables[i].baseHate = thingy.baseHate+(Math.random()-0.5)*this.hateDeviation*2;
+				}
+				if(!this.notables[i].killed) {
+					this.notables[i].killed = 0;
 				}
 				this.notables[i].fear = this.notables[i].baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
 				this.notables[i].hate = this.notables[i].baseHate;
