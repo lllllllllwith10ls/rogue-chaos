@@ -409,7 +409,7 @@ class GoblinAi extends MonsterAi{
 		if(enemy === player) {
 			return ["The goblin bites you!"+string,"The goblin kicks you!"+string,"The goblin bodyslams you!"+string];
 		} else {
-			if(enemy.parent.size === "small") {
+			if(enemy.size === "small") {
 				return "The goblin kicks the "+enemy.parent.name+"!"+string;
 			} else {
 				return ["The goblin bites the "+enemy.parent.name+"!"+string,"The goblin kicks the "+enemy.parent.name+"!"+string,"The goblin bodyslams the "+enemy.parent.name+"!"+string];
