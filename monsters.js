@@ -347,7 +347,7 @@ class MonsterAi {
 		}
 	}
 }
-class RatAi {
+class RatAi extends MonsterAi {
 	constructor(parent) {
 		let things = [
 			{
@@ -379,7 +379,7 @@ class RatAi {
 	}
 	
 }
-class GoblinAi {
+class GoblinAi extends MonsterAi{
 	constructor(parent) {
 		let things = [
 			{
