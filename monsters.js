@@ -215,8 +215,8 @@ class MonsterAi {
 				if(!thing.baseHate) {
 					this.notables[i].baseHate = thingy.baseHate+(Math.random()-0.5)*this.hateDeviation*2;
 				}
-				this.notables[i].fear = this.baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
-				this.notables[i].hate = this.baseHate;
+				this.notables[i].fear = thing.notables[i].baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+				this.notables[i].hate = thing.notables[i].baseHate;
 			}
 			if(this.notables[i].love) {
 				this.notables[i].desire = this.notables[i].love;
