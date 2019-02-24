@@ -11,8 +11,8 @@ function dijkstra(target,desire,init) {
 					array[i][j] = camera[i][j];
 				}
 			}
-			let x = target.relPosX-1;
-			let y = target.relPosY-1;
+			let x = target.relPosX;
+			let y = target.relPosY;
 			for(let i = 1; i < array.length; i++) {
 				for(let j = 1; j < array.length; j++) {
 					if(array[i][j]) {
@@ -260,8 +260,8 @@ class MonsterAi {
 					array = array2;
 				}
 			}
-			let x = this.parent.relPosX-1;
-			let y = this.parent.relPosY-1;
+			let x = this.parent.relPosX;
+			let y = this.parent.relPosY;
 			if(this.parent.inCamera) {
 				let number = 1000000000000000;
 				let choose = [];
