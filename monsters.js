@@ -452,8 +452,8 @@ function ded(thing) {
 			}
 		}
 	}
-	this.parent.dead = true;
-	this.parent.map.map[this.parent.posX][this.parent.posY] = "empty";
+	thing.parent.dead = true;
+	thing.parent.map.map[thing.parent.posX][thing.parent.posY] = "empty";
 
 }
 class LargeRat extends Monster{
