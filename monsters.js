@@ -437,17 +437,17 @@ player.attack = function(enemy) {
 function ded(thing) {
 	for(let i = 1; i <= camera.size; i++) {
 		for(let j = 1; j <= camera.size; j++) {
+			let thing2 = camera[i][j];
 			let friend = false;
-			for(let i = 0; i < this.ai.things.length; i++) {
-				if(this.ai.things[i].name === name && this.ai.things[i].friend) {
+			for(let i = 0; i < thing.ai.things.length; i++) {
+				if(thing.ai.things[i].name === thing2.name && thing.ai.things[i].friend) {
 					friend = true;
 					break;
 				}
 			}
 			if(friend) {
-				let thing = camera[i][j];
-				if(thing.ai.noted.includes(thing)) {
-					thing.ai.notables[thing.ai.noted.indexOf(thing)].killed+=(this.fighter.maxHp+this.fighter.power)/(thing.fighter.maxHp+thing.fighter.power);
+				if(thing2.ai.noted.includes(thing)) {
+					thing2.ai.notables[thing2.ai.noted.indexOf(thing)].killed+=(thing.fighter.maxHp+thing.fighter.power)/(thing2.fighter.maxHp+thing2.fighter.power);
 				}
 			}
 		}
