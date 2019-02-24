@@ -51,10 +51,10 @@ class Thing{
 		return false;
 	}
 	get relPosX() {
-		return this.posX-camera.x+1;
+		return this.posX-camera.x;
 	}
 	get relPosY() {
-		return this.posY-camera.y+1;
+		return this.posY-camera.y;
 	}
 }
 class Tile{
@@ -205,7 +205,7 @@ function move(dir) {
 		for(let j = 1; j <= camera.size; j++) {
 			if(camera[i][j].ai) {
 				camera[i][j].ai.move();
-			} else if(camera[i][j] === camera.map.empty && (i <= 2 || i >= camera.size-1) && (j <= 2 || j >= camera.size-1)) {
+			} else if(camera[i][j] === camera.map.empty && (i === 2 || i === camera.size-1) && (j === 2 || j === camera.size-1)) {
 				if(Math.random() > 0.99) {
 					if(Math.random() > 0.8) {
 						camera[i][j] = new Goblin(i,j,camera.map);
@@ -213,7 +213,7 @@ function move(dir) {
 						camera[i][j].ai.move();
 					} else {
 						camera[i][j] = new LargeRat(i,j,camera.map);
-						camera.map.map[camera.x+i][camera.y+j] = new LargeRat(i,j,camera.map);
+						camera.map.map[camera.x+i][camera.y+j] = camera[i][j];
 						camera[i][j].ai.move();
 					}
 				}
