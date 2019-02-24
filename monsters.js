@@ -438,8 +438,8 @@ function ded(thing) {
 	for(let i = 1; i <= camera.size; i++) {
 		for(let j = 1; j <= camera.size; j++) {
 			let friend = false;
-			for(let i = 0; i < this.things.length; i++) {
-				if(this.things[i].name === name && this.things[i].friend) {
+			for(let i = 0; i < this.ai.things.length; i++) {
+				if(this.ai.things[i].name === name && this.ai.things[i].friend) {
 					friend = true;
 					break;
 				}
