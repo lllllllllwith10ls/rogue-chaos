@@ -139,6 +139,7 @@ player.move = function(dx,dy) {
 		}
 	}
 }
+player.name = "player";
 function lose() {
 	log("Rip");
 	move = function() {
