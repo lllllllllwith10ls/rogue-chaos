@@ -330,7 +330,7 @@ class MonsterAi {
 			if(enemy.parent === player) {
 				log(this.getMessage(player,string));
 			} else {
-				log(this.getMessage(enemy.parent,string)]);
+				log(this.getMessage(enemy.parent,string));
 			}
 			if(enemy.hp <= 0) {
 				enemy.die();
