@@ -341,7 +341,7 @@ class MonsterAi {
 	}
 	getMessage(enemy,string) {
 		if(enemy === player) {
-			return "you"+string);
+			return "you"+string;
 		} else {
 			return enemy.name+string;
 		}
