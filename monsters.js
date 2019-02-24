@@ -204,7 +204,7 @@ class MonsterAi {
 				if(this.adjacent) {
 					this.notables[i].love = 0;
 				} else {
-					this.notables[i].love = thing.fighter.hp*thing.fighter.power*thing.notables[i].baseLove/(this.parent.fighter.maxHp*this.parent.fighter.power);
+					this.notables[i].love = thing.fighter.hp*thing.fighter.power*this.notables[i].baseLove/(this.parent.fighter.maxHp*this.parent.fighter.power);
 				}
 				
 			} else if(!friend) {
@@ -215,8 +215,8 @@ class MonsterAi {
 				if(!thing.baseHate) {
 					this.notables[i].baseHate = thingy.baseHate+(Math.random()-0.5)*this.hateDeviation*2;
 				}
-				this.notables[i].fear = thing.notables[i].baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
-				this.notables[i].hate = thing.notables[i].baseHate;
+				this.notables[i].fear = this.notables[i].baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
+				this.notables[i].hate = this.notables[i].baseHate;
 			}
 			if(this.notables[i].love) {
 				this.notables[i].desire = this.notables[i].love;
