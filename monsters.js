@@ -336,7 +336,7 @@ class MonsterAi {
 				log(this.getMessage(enemy.parent,string));
 			}
 			if(enemy.hp <= 0) {
-				enemy.die(enemy);
+				enemy.die(enemy.parent);
 				log("The "+enemy.parent.name+" dies!");
 			}
 			enemy.regenTime = 0;
@@ -429,7 +429,7 @@ player.attack = function(enemy) {
 		log(["You punch the "+enemy.parent.name+"!"+string,"You kick the "+enemy.parent.name+"!"+string,"You bodyslam the "+enemy.parent.name+"!"+string]);
 	}
 	if(enemy.hp <= 0) {
-		enemy.die(enemy);
+		enemy.die(enemy.parent);
 		log("The "+enemy.parent.name+" dies!");
 	}
 	enemy.regenTime = 0;
