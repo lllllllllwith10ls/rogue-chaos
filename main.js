@@ -11,6 +11,8 @@ function cleanThings() {
 			things.splice(i,1);
 		} else if(isNaN(things[i].posX) || isNaN(things[i].posY) || things[i].dead) {
 			things.splice(i,1);
+		} else if(!things[i].ai) {
+			console.log(things[i]);
 		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
