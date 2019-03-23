@@ -419,7 +419,7 @@ class GoblinAi extends MonsterAi{
 }
 
 
-player.fighter = new Fighter(30,3,"",lose);
+player.fighter = new Fighter(30,3,player,lose);
 player.attack = function(enemy) {
 	enemy.hp -= this.fighter.power;
 	let string = " -"+this.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
