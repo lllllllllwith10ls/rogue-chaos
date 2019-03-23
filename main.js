@@ -100,7 +100,7 @@ class World{
 			this.map[x] = {};
 		}
 		if(!this.map[x][y]) {
-			if(perlin(x/3,y/3) > 0.5) {
+			if(perlin(x/3,y/3) > 0.75) {
 				this.map[x][y] = "wall";
 			} else {
 				this.map[x][y] = "empty";
@@ -209,13 +209,14 @@ function move(dir) {
 				if(Math.random() > 0.99) {
 					if(Math.random() > 0.8) {
 						camera[i][j] = new Goblin(i,j,camera.map);
-						camera.map.map[camera.x+i][camera.y+j] = new Goblin(i,j,camera.map);
+						camera.map.map[camera.x+i][camera.y+j] = camera[i][j];
 						camera[i][j].ai.move();
 					} else {
 						camera[i][j] = new LargeRat(i,j,camera.map);
 						camera.map.map[camera.x+i][camera.y+j] = camera[i][j];
 						camera[i][j].ai.move();
 					}
+					console.log(i+","+j);
 				}
 			}
 		}
