@@ -100,7 +100,7 @@ class World{
 			this.map[x] = {};
 		}
 		if(!this.map[x][y]) {
-			if(perlin(x/3,y/3) > 0.75) {
+			if(perlin(x/3,y/3) > 0.6) {
 				this.map[x][y] = "wall";
 			} else {
 				this.map[x][y] = "empty";
