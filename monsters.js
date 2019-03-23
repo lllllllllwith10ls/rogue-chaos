@@ -322,7 +322,7 @@ class MonsterAi {
 	attack(enemy) {
 		let friend = false;
 		for(let i = 0; i < this.things.length; i++) {
-			if(this.things[i].name === enemy.name && this.things[i].friend) {
+			if(this.things[i].name === enemy.parent.name && this.things[i].friend) {
 				friend = true;
 				break;
 			}
