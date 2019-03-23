@@ -322,7 +322,7 @@ class MonsterAi {
 	attack(enemy) {
 		let friend = false;
 		for(let i = 0; i < this.things.length; i++) {
-			if(this.things[i].name === name && this.things[i].friend) {
+			if(this.things[i].name === enemy.name && this.things[i].friend) {
 				friend = true;
 				break;
 			}
@@ -453,7 +453,7 @@ function ded(thing) {
 		}
 	}
 	thing.dead = true;
-	thing.map.map[thing.parent.posX][thing.parent.posY] = "empty";
+	thing.map.map[thing.posX][thing.posY] = "empty";
 
 }
 class LargeRat extends Monster{
