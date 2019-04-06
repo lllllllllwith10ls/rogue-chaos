@@ -198,7 +198,7 @@ class MonsterAi {
 					this.adjacent = true;
 					for(let k = 0; k < this.notables.length; k++) {
 						let friend2;
-						for(let l = 0; j < this.things.length; l++) {
+						for(let l = 0; l < this.things.length; l++) {
 							if(this.things[l].name === name && this.things[l].friend) {
 								friend2 = true;
 								break;
