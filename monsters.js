@@ -183,13 +183,8 @@ class MonsterAi {
 					friend = true;
 					thingy = this.things[j];
 					break;
-				}
-				if(this.things[j].name === name && this.things[j].enemy) {
+				} else if(this.things[j].name === name && this.things[j].enemy) {
 					friend = false;
-					thingy = this.things[j];
-					break;
-				}
-				if(this.things[j].name) {
 					thingy = this.things[j];
 					break;
 				}
