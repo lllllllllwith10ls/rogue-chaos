@@ -199,15 +199,11 @@ class MonsterAi {
 					for(let k = 0; k < this.notables.length; k++) {
 						let friend2;
 						for(let l = 0; j < this.things.length; l++) {
-							if(this.things[j].name === name && this.things[j].friend) {
+							if(this.things[l].name === name && this.things[l].friend) {
 								friend2 = true;
 								break;
-							}
-							if(this.things[j].name === name && this.things[j].enemy) {
+							} else if(this.things[l].name === name && this.things[l].enemy) {
 								friend2 = false;
-								break;
-							}
-							if(this.things[j].name) {
 								break;
 							}
 						}
