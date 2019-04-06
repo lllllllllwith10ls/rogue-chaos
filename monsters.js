@@ -159,7 +159,7 @@ class MonsterAi {
 		}
 		this.percievedStrength = this.parent.fighter.hp*this.parent.fighter.power/5;
 		for(let i = 0; i < this.notables.length; i++) {
-			let name = this.noted.name;
+			let name = this.noted[i].name;
 			let friend = false;
 			for(let j = 0; j < this.things.length; j++) {
 				if(this.things[j].name === name && this.things[j].friend) {
@@ -175,7 +175,7 @@ class MonsterAi {
 		}
 		this.adjacent = false;
 		for(let i = 0; i < this.notables.length; i++) {	
-			let name = this.noted.name;
+			let name = this.noted[i].name;
 			let friend;
 			let thingy;
 			for(let j = 0; j < this.things.length; j++) {
