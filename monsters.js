@@ -173,6 +173,7 @@ class MonsterAi {
 				
 			}
 		}
+		this.adjacent = false;
 		for(let i = 0; i < this.notables.length; i++) {	
 			let name = this.noted.name;
 			let friend;
@@ -200,6 +201,25 @@ class MonsterAi {
 				}
 				if(Math.abs(this.parent.relPosX-rat.relPosX+this.parent.relPosY-rat.relPosY) <= 2) {
 					this.adjacent = true;
+					for(let k = 0; k < this.notables.length; k++) {
+						let friend2;
+						for(let l = 0; j < this.things.length; l++) {
+							if(this.things[j].name === name && this.things[j].friend) {
+								friend2 = true;
+								break;
+							}
+							if(this.things[j].name === name && this.things[j].enemy) {
+								friend2 = false;
+								break;
+							}
+							if(this.things[j].name) {
+								break;
+							}
+						}
+						if(friend2) {
+							this.notables[k].love = 0;
+						}
+					}
 				} 
 				if(this.adjacent) {
 					this.notables[i].love = 0;
