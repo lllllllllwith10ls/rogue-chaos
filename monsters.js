@@ -169,7 +169,7 @@ class MonsterAi {
 			}
 			if(friend) {
 				let thing = this.noted[i];
-				this.percievedStrength += thing.fighter.hp*thing.fighter.power/(Math.abs(this.parent.relPosX-thing.relPosX+thing.parent.relPosY-thing.relPosY)*20);
+				this.percievedStrength += thing.fighter.hp*thing.fighter.power/(Math.abs(this.parent.relPosX-thing.relPosX+thing.relPosY-thing.relPosY)*20);
 				
 			}
 		}
