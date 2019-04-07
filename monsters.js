@@ -155,19 +155,19 @@ function path(ai) {
 		}
 		choose = choose[Math.floor(Math.random()*choose.length)];
 		if(choose === 1) {
-			array[x][y] = 1;
+			array2[x][y] = 1;
 			x = x-1;
 		} else if(choose === 2) {
-			array[x][y] = 1;
+			array2[x][y] = 1;
 			x = x-1;
 		} else if(choose === 3) {
-			array[x][y] = 1;
+			array2[x][y] = 1;
 			y = y-1;
 		} else if(choose === 4) {
-			array[x][y] = 1;
+			array2[x][y] = 1;
 			y = y+1;
 		} else {
-			array[x][y] = 2;
+			array2[x][y] = 2;
 			break;
 		}
 	}
