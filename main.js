@@ -13,6 +13,8 @@ function cleanThings() {
 			things.splice(i,1);
 		} else if(!things[i].ai) {
 			console.log(things[i]);
+		} else if(things[i].ai && !things[i].inCamera) {
+			things.splice(i,1);
 		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
@@ -21,7 +23,7 @@ function cleanThings() {
 		}
 	}
 }
-class Thing{
+class Thing {
 	constructor(char,color,map,x,y) {
 		this.char = char;
 		this.color = color;
