@@ -107,8 +107,8 @@ function path(ai) {
 	let y = ai.parent.relPosY;
 	let array = ai.pathfind();
 	let array2 = array;
-	for(let i = 0; i < array2.length; i++) {
-		for(let j = 0; j < array2[i].length; j++) {
+	for(let i = 1; i < array2.length; i++) {
+		for(let j = 1; j < array2[i].length; j++) {
 			array2[i][j] = 0;
 		}
 	}
