@@ -262,7 +262,7 @@ class MonsterAi {
 				if(!thing.baseLove) {
 					this.notables[i].baseLove = thingy.baseLove+(Math.random()-0.5)*this.loveDeviation*2;
 				}
-				if(Math.abs(this.parent.relPosX-thing.relPosX+this.parent.relPosY-thing.relPosY) <= 2) {
+				if(Math.abs(this.parent.relPosX-thing.relPosX)+Math.abs(this.parent.relPosY-thing.relPosY)) <= 2) {
 					this.adjacent = true;
 					for(let k = 0; k < this.notables.length; k++) {
 						let friend2;
