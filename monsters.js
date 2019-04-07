@@ -151,7 +151,9 @@ function path(ai) {
 			}
 		}
 		choose = choose[Math.floor(Math.random()*choose.length)];
-		if(choose === 1) {
+		if(x < 1 || x > 29 || y < 1 || y > 29) {
+			break;
+		} else if(choose === 1) {
 			array[x][y] = 1;
 			x = x-1;
 		} else if(choose === 2) {
