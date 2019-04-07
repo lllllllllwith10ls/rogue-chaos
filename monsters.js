@@ -114,6 +114,9 @@ function path(ai) {
 		}
 	}
 	while(true) {
+		if(x < 1 || x > 29 || y < 1 || y > 29) {
+			break;
+		}
 		let number = 1000000000000000;
 		let choose = [];
 		if(array[x-1]) {
@@ -151,9 +154,7 @@ function path(ai) {
 			}
 		}
 		choose = choose[Math.floor(Math.random()*choose.length)];
-		if(x < 1 || x > 29 || y < 1 || y > 29) {
-			break;
-		} else if(choose === 1) {
+		if(choose === 1) {
 			array[x][y] = 1;
 			x = x-1;
 		} else if(choose === 2) {
