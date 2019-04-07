@@ -1,4 +1,5 @@
 let marker = new Tile("#","#0000ff",camera.map,"debug");
+
 function dijkstra(target,desire,init) {
 	if(target.inCamera) {
 		let array = [];
@@ -65,6 +66,7 @@ function dijkstra(target,desire,init) {
 	}
 	
 }
+
 function dijkstraHelper(array,x,y) {
 	if(array[x][y] !== undefined) {
 		let number = array[x][y];
@@ -100,7 +102,73 @@ function dijkstraHelper(array,x,y) {
 		}
 	}
 }
-
+function path(ai) {
+	let x = ai.parent.relPosX;
+	let y = ai.parent.relPosY;
+	let array = ai.pathfind();
+	let array2 = array;
+	for(let i = 0; i < array2.length; i++) {
+		for(let j = 0; j < array2[i].length; j++) {
+			array2[i][j] = 0;
+		}
+	}
+	while(true) {
+		let number = 1000000000000000;
+		let choose = [];
+		if(array[x-1]) {
+			if(array[x-1][y]) {
+				if(array[x-1][y] < number) {
+					number = array[x-1][y];
+					choose = [1];
+				}
+			}
+		}
+		if(array[x+1]) {
+			if(array[x+1][y]) {
+				if(array[x+1][y] < number) {
+					number = array[x+1][y];
+					choose = [2];
+				} else if(array[x+1][y] === number){
+					choose.push(2);
+				}
+			}
+		}
+		if(array[x][y-1]) {
+			if(array[x][y-1] < number) {
+				number = array[x][y-1];
+				choose = [3];
+			} else if(array[x][y-1] === number){
+				choose.push(3);
+			}
+		}
+		if(array[x][y+1]) {
+			if(array[x][y+1] < number) {
+				number = array[x][y+1];
+				choose = [4];
+			} else if(array[x][y+1] === number){
+				choose.push(4);
+			}
+		}
+		choose = choose[Math.floor(Math.random()*choose.length)];
+		if(choose === 1) {
+			array[x][y] = 1;
+			x = x-1;
+		} else if(choose === 2) {
+			array[x][y] = 1;
+			x = x-1;
+		} else if(choose === 3) {
+			array[x][y] = 1;
+			y = y-1;
+		} else if(choose === 4) {
+			array[x][y] = 1;
+			y = y+1;
+		} else {
+			array[x][y] = 2;
+			break;
+		}
+	}
+	return array2;
+}
 class Monster extends Thing {
 	constructor(char,color,map,x,y,thePlayer,name) {
 		super(char,color,map,x,y);
@@ -247,7 +315,7 @@ class MonsterAi {
 			}
 		}
 	}
-	move() {
+	pathfind() {
 		camera.update();
 		this.observe();
 		this.cleanThings();
@@ -271,55 +339,59 @@ class MonsterAi {
 					array = array2;
 				}
 			}
+			return array
+		}
+	}
+	move() {
+		let array = this.pathfind();
 			let x = this.parent.relPosX;
 			let y = this.parent.relPosY;
 			if(this.parent.inCamera) {
-				let number = 1000000000000000;
-				let choose = [];
-				if(array[x-1]) {
-					if(array[x-1][y]) {
-						if(array[x-1][y] < number) {
-							number = array[x-1][y];
-							choose = [1];
-						}
+			let number = 1000000000000000;
+			let choose = [];
+			if(array[x-1]) {
+				if(array[x-1][y]) {
+					if(array[x-1][y] < number) {
+						number = array[x-1][y];
+						choose = [1];
 					}
 				}
-				if(array[x+1]) {
-					if(array[x+1][y]) {
-						if(array[x+1][y] < number) {
-							number = array[x+1][y];
-							choose = [2];
-						} else if(array[x+1][y] === number){
-							choose.push(2);
-						}
+			}
+			if(array[x+1]) {
+				if(array[x+1][y]) {
+					if(array[x+1][y] < number) {
+						number = array[x+1][y];
+						choose = [2];
+					} else if(array[x+1][y] === number){
+						choose.push(2);
 					}
 				}
-				if(array[x][y-1]) {
-					if(array[x][y-1] < number) {
-						number = array[x][y-1];
-						choose = [3];
-					} else if(array[x][y-1] === number){
-						choose.push(3);
-					}
+			}
+			if(array[x][y-1]) {
+				if(array[x][y-1] < number) {
+					number = array[x][y-1];
+					choose = [3];
+				} else if(array[x][y-1] === number){
+					choose.push(3);
 				}
-				if(array[x][y+1]) {
-					if(array[x][y+1] < number) {
-						number = array[x][y+1];
-						choose = [4];
-					} else if(array[x][y+1] === number){
-						choose.push(4);
-					}
+			}
+			if(array[x][y+1]) {
+				if(array[x][y+1] < number) {
+					number = array[x][y+1];
+					choose = [4];
+				} else if(array[x][y+1] === number){
+					choose.push(4);
 				}
-				choose = choose[Math.floor(Math.random()*choose.length)];
-				if(choose === 1) {
-					this.parent.move(-1,0);
-				} else if(choose === 2) {
-					this.parent.move(1,0);
-				} else if(choose === 3) {
-					this.parent.move(0,-1);
-				} else if(choose === 4) {
-					this.parent.move(0,1);
-				}
+			}
+			choose = choose[Math.floor(Math.random()*choose.length)];
+			if(choose === 1) {
+				this.parent.move(-1,0);
+			} else if(choose === 2) {
+				this.parent.move(1,0);
+			} else if(choose === 3) {
+				this.parent.move(0,-1);
+			} else if(choose === 4) {
+				this.parent.move(0,1);
 			}
 		}
 		this.parent.fighter.regenTime++;
