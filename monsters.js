@@ -300,9 +300,9 @@ class MonsterAi {
 				this.notables[i].fear = this.notables[i].baseFear * thing.fighter.hp*thing.fighter.power-this.percievedStrength+this.notables[i].killed*this.fearOnKill;
 				this.notables[i].hate = this.notables[i].baseHate;
 			}
-			if(this.notables[i].love) {
+			if(typeof(this.notables[i].love) === "number") {
 				this.notables[i].desire = this.notables[i].love;
-			} else if(this.notables[i].fear && this.notables[i].hate) {
+			} else if(typeof(this.notables[i].fear) === "number" && typeof(this.notables[i].hate) === "number") {
 				this.notables[i].desire = this.notables[i].hate-this.notables[i].fear;
 			}
 		}
