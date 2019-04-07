@@ -106,9 +106,10 @@ function path(ai) {
 	let x = ai.parent.relPosX;
 	let y = ai.parent.relPosY;
 	let array = ai.pathfind();
-	let array2 = array;
-	for(let i = 1; i < array2.length; i++) {
-		for(let j = 1; j < array2[i].length; j++) {
+	let array2 = [];
+	for(let i = 1; i < array.length; i++) {
+		array2[i] = []
+		for(let j = 1; j < array[i].length; j++) {
 			array2[i][j] = 0;
 		}
 	}
