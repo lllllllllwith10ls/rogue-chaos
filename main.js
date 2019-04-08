@@ -111,7 +111,7 @@ class World{
 				if(Math.random() > 0.99) {
 					if(Math.random() > 0.8) {
 						let goblin = new Goblin(x,y,this);
-						if(math.random() > 0.8) {
+						if(Math.random() > 0.8) {
 							goblin.fighter.inventory = [getItem()];
 						}
 					} else {
@@ -135,6 +135,8 @@ new Tile(".","#ffffff",map,"empty");
 player.on = "empty";
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
+		let x = this.posX;
+		let y = this.posY;
 		if(this.cooldown <= 0) {
 			if(!this.map.map[this.posX+dx][this.posY+dy]) {
 				this.map.generate(this.posX+dx,this.posY+dy);
@@ -228,11 +230,14 @@ function move(dir) {
 			} else if(camera[i][j] === camera.map.empty && (i === 2 || i === camera.size-1) && (j === 2 || j === camera.size-1)) {
 				if(Math.random() > 0.99) {
 					if(Math.random() > 0.8) {
-						camera[i][j] = new Goblin(i,j,camera.map);
-						camera.map.map[camera.x+i][camera.y+j] = camera[i][j];
+						let goblin = new Goblin(camera.x+i,camera.y+j,this);
+						camera[i][j] = goblin;
+						if(Math.random() > 0.8) {
+							goblin.fighter.inventory = [getItem()];
+						}
 						camera[i][j].ai.move();
 					} else {
-						camera[i][j] = new LargeRat(i,j,camera.map);
+						camera[i][j] = new LargeRat(camera.x+i,camera.y+j,camera.map);
 						camera.map.map[camera.x+i][camera.y+j] = camera[i][j];
 						camera[i][j].ai.move();
 					}
