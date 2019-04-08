@@ -117,7 +117,7 @@ class World{
 					} else {
 						new LargeRat(x,y,this);
 					}
-				} else if(Math.random() > 0.99) {
+				} else if(Math.random() > 0.995) {
 					new LootPile(this,x,y,[getItem()]);
 				}
 			}
