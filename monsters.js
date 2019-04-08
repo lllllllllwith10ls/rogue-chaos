@@ -177,21 +177,28 @@ class Monster extends Thing {
 	constructor(char,color,map,x,y,thePlayer,name) {
 		super(char,color,map,x,y);
 		this.name = name;
+		this.cooldown = 0;
 	}
 	move(dx,dy) {
 		if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
-
-			let x = this.posX;
-			let y = this.posY;
-			if(!this.map.map[x+dx][y+dy]) {
-				this.map.generate(x+dx,y+dy);
-			}
-			let thing = this.map.map[x+dx][y+dy];
-			if(thing.fighter) {
-				this.ai.attack(thing.fighter);
-			} else if(thing !== "wall") {
-				this.map.map[x][y] = "empty";
-				this.map.map[x+dx][y+dy] = this;
+			if(this.cooldown <= 0) {
+				let x = this.posX;
+				let y = this.posY;
+				if(!this.map.map[x+dx][y+dy]) {
+					this.map.generate(x+dx,y+dy);
+				}
+				let thing = this.map.map[x+dx][y+dy];
+				if(thing.fighter) {
+					this.ai.attack(thing.fighter);
+				} else if(thing !== "wall") {
+					this.map.map[x][y] = "empty";
+					this.map.map[x+dx][y+dy] = this;
+				}
+				if(this.map.map[x+dx*2][y+dy*2].fighter && this.fighter.weapon.weapon === "spear") {
+					this.ai.attack(thing.fighter,true);
+				}
+			} else {
+				this.cooldown--;
 			}
 		}
 	}
@@ -200,10 +207,21 @@ class Fighter {
 	constructor(hp,power,parent,die) {
 		this.hp = hp;
 		this.maxHp = hp;
-		this.power = power;
+		this.basePower = power;
 		this.die = die;
 		this.parent = parent;
 		this.regenTime = 0;
+		this.regenTime = 0;
+		this.inventory = [];
+		this.weapon = null;
+	}
+	get power() {
+		return this.basePower + this.weapon.damage;
+	}
+	equip(weapon) {
+		if(this.inventory.includes(weapon)) {
+			this.weapon = weapon;
+		}
 	}
 }
 class MonsterAi {
@@ -313,6 +331,27 @@ class MonsterAi {
 				this.notables[i].desire = this.notables[i].hate-this.notables[i].fear;
 			}
 		}
+		let fighter = this.parent.fighter;
+		if(fighter.weapon === null) {
+			fighter.equip(fighter.inventory[0]);
+		}
+		for(let i = 0; i < fighter.inventory.length; i++) {
+			let quality = 0;
+			if(fighter.inventory[i].weapon = "axe") {
+				quality = fighter.inventory[i].damage/2;
+			} else {
+				quality = fighter.inventory[i].damage;
+			}
+			let quality2 = 0;
+			if(fighter.weapon.weapon = "axe") {
+				quality2 = fighter.inventory[i].damage/2;
+			} else {
+				quality2 = fighter.inventory[i].damage;
+			}
+			if(quality2 < quality) {
+				equip(fighter.inventory[i]);
+			}
+		}
 	}
 	cleanThings() {
 		for(let i = this.noted.length-1; i >= 0; i--) {
@@ -409,7 +448,7 @@ class MonsterAi {
 			this.parent.fighter.hp = this.parent.fighter.maxHp;
 		}
 	}
-	attack(enemy) {
+	attack(enemy,charging=false) {
 		let friend = false;
 		for(let i = 0; i < this.things.length; i++) {
 			if(this.things[i].name === enemy.parent.name && this.things[i].friend) {
@@ -418,13 +457,14 @@ class MonsterAi {
 			}
 		}
 		if(!friend) {
-			enemy.hp -= this.parent.fighter.power;
-			let string = " -"+this.parent.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
-			if(enemy.parent === player) {
-				log(this.getMessage(player,string));
+			let parried;
+			if(enemy.weapon.weapon === "sword" && Math.random() > 0.25) {
+				parried = true;
 			} else {
-				log(this.getMessage(enemy.parent,string));
+				enemy.hp -= this.parent.fighter.power;
 			}
+			let string = "! -"+this.parent.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
+			log(this.getMessage(enemy.parent,string,parried,charging));
 			if(enemy.hp <= 0) {
 				enemy.die(enemy.parent);
 				log("The "+enemy.parent.name+" dies!");
@@ -463,11 +503,17 @@ class RatAi extends MonsterAi {
 		]
 		super(parent,3,4,3,2,3,things);
 	}
-	getMessage(enemy,string) {
+	getMessage(enemy,string,parried) {
 		if(enemy === player) {
-			return ["The large rat bites you!"+string,"The large rat scratches you!"+string,"You get bitten by the large rat!"+string];
+			if(parried) {
+				string = ", but you parry the attack!";
+			}
+			return ["The large rat bites you"+string,"The large rat scratches you"+string];
 		} else {
-			return ["The large rat bites the "+enemy.name+"!"+string,"The large rat scratches the "+enemy.name+"!"+string,"The "+enemy.name+" gets bitten by the large rat!"+string];
+			if(parried) {
+				string = ", but the "+enemy.name+" parries the attack!";
+			}
+			return ["The large rat bites the "+enemy.name+string,"The large rat scratches the "+enemy.name+string];
 		}
 	}
 	
@@ -495,14 +541,42 @@ class GoblinAi extends MonsterAi{
 		]
 		super(parent,2,3,4,2,2,things);
 	}
-	getMessage(enemy,string) {
+	getMessage(enemy,string,parried,charging) {
 		if(enemy === player) {
-			return ["The goblin bites you!"+string,"The goblin kicks you!"+string,"The goblin bodyslams you!"+string];
+			if(parried) {
+				string = ", but you parry the attack!";
+			}
+			if(enemy.size === "medium" && !this.fighter.weapon) {
+				return ["The goblin bites you"+string,"The goblin kicks you"+string,"The goblin bodyslams you!"+string];
+			} else if(this.fighter.weapon.weapon === "axe") {
+				log(["The goblin swings at you"+string,"The goblin axes you"+string]);
+			} else if(this.fighter.weapon.weapon === "sword") {
+				log(["The goblin swings at you"+string,"The goblin slashes at you"+string]);
+			} else if(this.fighter.weapon.weapon === "spear") {
+				if(charging) {
+					log(["The goblin charges at you"+string]);
+				} else {
+					log(["The goblin stabs at you"+string]);
+				}
+			}
 		} else {
-			if(enemy.size === "small") {
-				return "The goblin kicks the "+enemy.name+"!"+string;
-			} else {
-				return ["The goblin bites the "+enemy.name+"!"+string,"The goblin kicks the "+enemy.name+"!"+string,"The goblin bodyslams the "+enemy.name+"!"+string];
+			if(parried) {
+				string = ", but the "+enemy.name+" parries the attack!";
+			}
+			if(enemy.size === "small" && !this.fighter.weapon) {
+				return "The goblin kicks the "+enemy.name+string;
+			} else if(enemy.size === "medium" && !this.fighter.weapon) {
+				return ["The goblin bites the "+enemy.name+string,"The goblin kicks the "+enemy.name+string,"The goblin bodyslams the "+enemy.name+string];
+			} else if(this.fighter.weapon.weapon === "axe") {
+				log(["The goblin swings at the "+enemy.parent.name+string,"The goblin axes the "+enemy.parent.name+string]);
+			} else if(this.fighter.weapon.weapon === "sword") {
+				log(["The goblin swings at the "+enemy.parent.name+string,"The goblin slashes at the "+enemy.parent.name+string]);
+			} else if(this.fighter.weapon.weapon === "spear") {
+				if(charging) {
+					log(["The goblin charges at the "+enemy.parent.name+string]);
+				} else {
+					log(["The goblin stab at the "+enemy.parent.name+string]);
+				}
 			}
 		}
 	}
@@ -510,13 +584,33 @@ class GoblinAi extends MonsterAi{
 
 
 player.fighter = new Fighter(30,3,player,lose);
-player.attack = function(enemy) {
-	enemy.hp -= this.fighter.power;
-	let string = " -"+this.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
-	if(enemy.parent.size === "small") {
+player.attack = function(enemy,charging=false) {
+	let parried = false;
+	if(enemy.weapon.weapon === "sword" && Math.random() > 0.25) {
+		parried = true;
+	} else {
+		enemy.hp -= this.fighter.power;
+	}
+	let string = "! -"+this.fighter.power+"hp ("+enemy.hp+"/"+enemy.maxHp+")";
+	if(parried) {
+		string = ", but the " + enemy.parent.name + " parries the attack!";
+	}
+	if(enemy.parent.size === "small" && !this.fighter.weapon) {
 		log("You kick the "+enemy.parent.name+"!"+string);
-	} else if(enemy.parent.size === "medium") {
-		log(["You punch the "+enemy.parent.name+"!"+string,"You kick the "+enemy.parent.name+"!"+string,"You bodyslam the "+enemy.parent.name+"!"+string]);
+	} else if(enemy.parent.size === "medium" && !this.fighter.weapon) {
+		else {
+			log(["You punch the "+enemy.parent.name+string,"You kick the "+enemy.parent.name+string,"You bodyslam the "+enemy.parent.name+"!"+string]);
+		}
+	} else if(this.fighter.weapon.weapon === "axe") {
+		log(["You swing at the "+enemy.parent.name+string,"You axe the "+enemy.parent.name+string]);
+	} else if(this.fighter.weapon.weapon === "sword") {
+		log(["You swing at the "+enemy.parent.name+string,"You slash at the "+enemy.parent.name+string]);
+	} else if(this.fighter.weapon.weapon === "spear") {
+		if(charging) {
+			log(["You charge at the "+enemy.parent.name+string]);
+		} else {
+			log(["You stab at the "+enemy.parent.name+string]);
+		}
 	}
 	if(enemy.hp <= 0) {
 		enemy.die(enemy.parent);
