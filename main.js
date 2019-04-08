@@ -14,7 +14,7 @@ function cleanThings() {
 		} else if(!things[i].ai) {
 			console.log(things[i]);
 		} else if(things[i].ai && !things[i].inCamera) {
-			things.splice(i,1);
+			things[i].map.map[things[i].posX][things[i].posY] = "empty";
 		}
 	}
 	for(let i = places.length-1; i >= 0; i--) {
@@ -273,3 +273,22 @@ function move(dir) {
 	document.getElementById("stats").innerHTML = "HP: "+player.fighter.hp+"/"+player.fighter.maxHp;
 }
 cleanThings();
+function info(x,y) {
+	let thing = camera[x][y];
+	let string = "";
+	if(thing === camera.map.empty) {
+		string = "";
+	} else if(thing === player) {
+		string = "You";
+	} else if(thing === camera.map.wall) {
+		string = "A wall";
+	} else if(thing.ai && thing.weapon) {
+		string = "A " + thing.name + " with a " + thing.weapon + "." +thing.fighter.hp+"/"+thing.fighter.maxHp + " HP.";
+	} else if(thing.ai) {
+		string = "A " + thing.name + "." +thing.fighter.hp+"/"+thing.fighter.maxHp + " HP.";
+	}
+	document.getElementById("info").innerHTML = string;
+}
+function clearinfo() {
+	document.getElementById("info").innerHTML = "";
+}
