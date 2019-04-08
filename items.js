@@ -63,7 +63,7 @@ function getItem() {
 	let material = materials[Math.floor(Math.random()*materials.length)];
 	let weapon = weapons[Math.floor(Math.random()*weapons.length)];
 	let damage = weapon.baseDamage+material.damageLow+Math.floor(Math.random()*(material.damageHigh-material.damageLow));
-	return new Item(material.material+" "+weapon.weapon,,{damage:damage,weapon:weapon.weapon,material:material.material});
+	return new Item(material.material+" "+weapon.weapon,{damage:damage,weapon:weapon.weapon,material:material.material});
 }
 
 class LootPile extends Thing{
