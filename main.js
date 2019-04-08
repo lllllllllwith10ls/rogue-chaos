@@ -129,17 +129,24 @@ new Tile("#","#777777",map,"wall");
 new Tile(".","#ffffff",map,"empty");
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
-		if(!this.map.map[this.posX+dx][this.posY+dy]) {
-			this.map.generate(this.posX+dx,this.posY+dy);
-		}
-		let thing = this.map.map[this.posX+dx][this.posY+dy];
-		if(thing.fighter) {
-			this.attack(thing.fighter);
-		} else if(thing !== "wall") {
-			let x = this.posX;
-			let y = this.posY;
-			this.map.map[x][y] = "empty";
-			this.map.map[x+dx][y+dy] = this;
+		if(this.cooldown <= 0) {
+			if(!this.map.map[this.posX+dx][this.posY+dy]) {
+				this.map.generate(this.posX+dx,this.posY+dy);
+			}
+			let thing = this.map.map[this.posX+dx][this.posY+dy];
+			if(thing.fighter) {
+				this.attack(thing.fighter);
+			} else if(thing !== "wall") {
+				let x = this.posX;
+				let y = this.posY;
+				this.map.map[x][y] = "empty";
+				this.map.map[x+dx][y+dy] = this;
+			}
+			if(this.map.map[x+dx*2][y+dy*2].fighter && this.fighter.weapon.weapon === "spear") {
+				this.attack(thing.fighter,true);
+			}
+		} else {
+			this.cooldown--;
 		}
 	}
 }
