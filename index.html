@@ -5,6 +5,9 @@
 			p{
 				font-family:monospace;
 			}
+			button{
+				font-family:monospace;
+			}
 		</style>
 		<script src="perlin.js"></script>
 		<script src="main.js"></script>
@@ -43,6 +46,8 @@
 		</script>
 	</head>
 	<body onload="updateStart()">
+		<button id="toggle" onclick="toggle()">Inventory</button>
+		<p id="info""></p>
 		<p id="game">
 		</p>
 		<p id="log">
