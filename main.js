@@ -110,10 +110,15 @@ class World{
 				this.map[x][y] = "empty";
 				if(Math.random() > 0.99) {
 					if(Math.random() > 0.8) {
-						new Goblin(x,y,this);
+						let goblin = new Goblin(x,y,this);
+						if(math.random() > 0.8) {
+							goblin.fighter.inventory = [getItem()];
+						}
 					} else {
 						new LargeRat(x,y,this);
 					}
+				} else if(Math.random() > 0.99) {
+					new LootPile(this,x,y,[getItem()]);
 				}
 			}
 		}
@@ -290,6 +295,8 @@ function info(x,y) {
 		string = "A " + thing.name + " with a " + thing.weapon + "." +thing.fighter.hp+"/"+thing.fighter.maxHp + " HP.";
 	} else if(thing.ai) {
 		string = "A " + thing.name + "." +thing.fighter.hp+"/"+thing.fighter.maxHp + " HP.";
+	} else if(thing instanceof LootPile) {
+		string = "A " + thing.name + ".";
 	}
 	document.getElementById("info").innerHTML = string;
 }
