@@ -43,7 +43,7 @@ let rareMaterials = [{
 }];
 let weapons = [{
 	weapon:"axe",
-	baseDamage:5
+	baseDamage:6
 },{
 	weapon:"sword",
 	baseDamage:2
