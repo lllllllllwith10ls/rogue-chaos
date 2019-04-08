@@ -127,6 +127,7 @@ camera.y = -14;
 let player = new Thing("@","#000000",map,0,0);
 new Tile("#","#777777",map,"wall");
 new Tile(".","#ffffff",map,"empty");
+player.on = "empty";
 player.move = function(dx,dy) {
 	if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
 		if(this.cooldown <= 0) {
@@ -135,11 +136,14 @@ player.move = function(dx,dy) {
 			}
 			let thing = this.map.map[this.posX+dx][this.posY+dy];
 			if(thing.fighter) {
-				this.attack(thing.fighter);
+				this.ai.attack(thing.fighter);
 			} else if(thing !== "wall") {
-				let x = this.posX;
-				let y = this.posY;
-				this.map.map[x][y] = "empty";
+				this.map.map[x][y] = this.on;
+				if(this.map.map[x+dx][y+dy] instanceof LootPile && this.ai.intelligent) {
+					this.fighter.inventory = this.fighter.inventory.concat(this.map.map[x+dx][y+dy].stuff);
+				} else if(this.map.map[x+dx][y+dy] instanceof LootPile && !this.ai.intelligent) {
+					this.on = this.map.map[x+dx][y+dy]
+				}
 				this.map.map[x+dx][y+dy] = this;
 			}
 			if(this.map.map[x+dx*2][y+dy*2].fighter && this.fighter.weapon.weapon === "spear") {
