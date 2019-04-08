@@ -19,6 +19,12 @@
 					for(let j = 1; j <= camera.size; j++) {
 						let span = document.createElement('span');
 						span.id = ""+j+","+i;
+						span.onmouseover = function() {
+							info(j,i);
+						}
+						span.onmouseout = function() {
+							clearinfo();
+						}
 						document.getElementById("game").appendChild(span);
 					}
 					let br = document.createElement('br');
