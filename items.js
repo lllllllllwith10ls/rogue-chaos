@@ -65,3 +65,10 @@ function getItem() {
 	let damage = weapon.baseDamage+material.damageLow+Math.floor(Math.random()*(material.damageHigh-material.damageLow));
 	return new Item(material.material+" "+weapon.weapon,,{damage:damage,weapon:weapon.weapon,material:material.material});
 }
+
+class LootPile extends Thing{
+	constructor(stuff,map,x,y,stuff) {
+		super("$","#00ff00",map,x,y);
+		this.stuff = stuff;
+	}
+}
