@@ -222,7 +222,11 @@ class Fighter {
 		this.weapon = null;
 	}
 	get power() {
-		return this.basePower + this.weapon.damage;
+		if(this.weapon) {
+			return this.basePower + this.weapon.damage;
+		} else {
+			return this.basePower;
+		}
 	}
 	equip(weapon) {
 		if(this.inventory.includes(weapon)) {
