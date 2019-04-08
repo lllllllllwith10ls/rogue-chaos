@@ -178,6 +178,7 @@ class Monster extends Thing {
 		super(char,color,map,x,y);
 		this.name = name;
 		this.cooldown = 0;
+		this.on = "empty";
 	}
 	move(dx,dy) {
 		if(!(this.posX+dx < 1 || this.posY+dy < 1 || this.posX+dx > this.map.sizeX || this.posY+dy > this.map.sizeY) || this.map instanceof World) { 
@@ -191,7 +192,12 @@ class Monster extends Thing {
 				if(thing.fighter) {
 					this.ai.attack(thing.fighter);
 				} else if(thing !== "wall") {
-					this.map.map[x][y] = "empty";
+					this.map.map[x][y] = this.on;
+					if(this.map.map[x+dx][y+dy] instanceof LootPile && this.ai.intelligent) {
+						this.fighter.inventory = this.fighter.inventory.concat(this.map.map[x+dx][y+dy].stuff);
+					} else if(this.map.map[x+dx][y+dy] instanceof LootPile && !this.ai.intelligent) {
+						this.on = this.map.map[x+dx][y+dy]
+					}
 					this.map.map[x+dx][y+dy] = this;
 				}
 				if(this.map.map[x+dx*2][y+dy*2].fighter && this.fighter.weapon.weapon === "spear") {
@@ -225,7 +231,7 @@ class Fighter {
 	}
 }
 class MonsterAi {
-	constructor(parent,loveDeviation,fearDeviation,fearOnKill,fearOnKillDeviation,hateDeviation,lovesAndHates) {
+	constructor(parent,loveDeviation,fearDeviation,fearOnKill,fearOnKillDeviation,hateDeviation,lovesAndHates,intelligent) {
 		this.parent = parent;
 		this.notables = [];
 		this.noted = [];
@@ -235,6 +241,7 @@ class MonsterAi {
 		this.hateDeviation = hateDeviation;
 		this.percievedStrength = 1;
 		this.things = lovesAndHates;
+		this.intelligent = intelligent;
 	}
 	observe() {
 		for(let i = 1; i <= camera.size; i++) {
@@ -504,7 +511,7 @@ class RatAi extends MonsterAi {
 				baseLove: 2,
 			}
 		]
-		super(parent,3,4,3,2,3,things);
+		super(parent,3,4,3,2,3,things,false);
 	}
 	getMessage(enemy,string,parried) {
 		if(enemy === player) {
@@ -542,7 +549,7 @@ class GoblinAi extends MonsterAi{
 				baseLove: 4,
 			}
 		]
-		super(parent,2,3,4,2,2,things);
+		super(parent,2,3,4,2,2,things,true);
 	}
 	getMessage(enemy,string,parried,charging) {
 		if(enemy === player) {
@@ -642,7 +649,12 @@ function ded(thing) {
 		}
 	}
 	thing.dead = true;
-	thing.map.map[thing.posX][thing.posY] = "empty";
+	thing.map.map[thing.posX][thing.posY] = thing.on;
+	if(thing.on === "empty" && thing.fighter.inventory.length > 0) {
+		thing.map.map[thing.posX][thing.posY] = new LootPile(thing.fighter.inventory.length);
+	} else if(thing.on instanceof LootPile) {
+		thing.map.map[thing.posX][thing.posY].stuff = thing.map.map[thing.posX][thing.posY].stuff.concat(thing.fighter.inventory);
+	}
 
 }
 class LargeRat extends Monster{
