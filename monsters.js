@@ -470,6 +470,9 @@ class MonsterAi {
 				log("The "+enemy.parent.name+" dies!");
 			}
 			enemy.regenTime = 0;
+			if(this.weapon.weapon === "axe") {
+				this.parent.cooldown = 1;
+			}
 		}
 	}
 	getMessage(enemy,string) {
@@ -617,7 +620,11 @@ player.attack = function(enemy,charging=false) {
 		log("The "+enemy.parent.name+" dies!");
 	}
 	enemy.regenTime = 0;
+	if(this.weapon.weapon === "axe") {
+		this.cooldown = 1;
+	}
 }
+player.cooldown = 0;
 function ded(thing) {
 	for(let i = 1; i <= camera.size; i++) {
 		for(let j = 1; j <= camera.size; j++) {
