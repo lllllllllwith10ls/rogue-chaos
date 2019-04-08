@@ -264,7 +264,7 @@ class MonsterAi {
 					break;
 				}
 			}
-			if(friend) {
+			if(friend && this.noted[i].fighter) {
 				let thing = this.noted[i];
 				this.percievedStrength += thing.fighter.hp*thing.fighter.power/((Math.abs(this.parent.relPosX-thing.relPosX)+Math.abs(this.parent.relPosY-thing.relPosY))*20);
 				
@@ -286,7 +286,7 @@ class MonsterAi {
 					break;
 				}
 			}
-			if(friend) {
+			if(friend && this.noted[i].fighter) {
 				let thing = this.noted[i];
 				if(!thing.baseLove) {
 					this.notables[i].baseLove = thingy.baseLove+(Math.random()-0.5)*this.loveDeviation*2;
@@ -317,6 +317,10 @@ class MonsterAi {
 				this.notables[i].fear = undefined;
 				this.notables[i].hate = undefined;
 				
+			} else if(friend && !this.noted[i].fighter) {
+				this.notables[i].love = this.notables[i].baseLove;
+				this.notables[i].fear = undefined;
+				this.notables[i].hate = undefined;
 			} else if(!friend) {
 				let thing = this.notables[i].thing;
 				if(!this.notables[i].baseFear) {
@@ -547,6 +551,11 @@ class GoblinAi extends MonsterAi{
 				name: "goblin",
 				friend: true,
 				baseLove: 4,
+			},
+			{
+				name: "loot pile",
+				friend: true,
+				baseLove: 6,
 			}
 		]
 		super(parent,2,3,4,2,2,things,true);
