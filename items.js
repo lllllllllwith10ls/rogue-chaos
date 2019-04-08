@@ -70,5 +70,6 @@ class LootPile extends Thing{
 	constructor(stuff,map,x,y,stuff) {
 		super("$","#00ff00",map,x,y);
 		this.stuff = stuff;
+		this.name = "loot pile".
 	}
 }
