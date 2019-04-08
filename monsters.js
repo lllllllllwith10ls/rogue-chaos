@@ -601,9 +601,7 @@ player.attack = function(enemy,charging=false) {
 	if(enemy.parent.size === "small" && !this.fighter.weapon) {
 		log("You kick the "+enemy.parent.name+"!"+string);
 	} else if(enemy.parent.size === "medium" && !this.fighter.weapon) {
-		else {
-			log(["You punch the "+enemy.parent.name+string,"You kick the "+enemy.parent.name+string,"You bodyslam the "+enemy.parent.name+"!"+string]);
-		}
+		log(["You punch the "+enemy.parent.name+string,"You kick the "+enemy.parent.name+string,"You bodyslam the "+enemy.parent.name+"!"+string]);
 	} else if(this.fighter.weapon.weapon === "axe") {
 		log(["You swing at the "+enemy.parent.name+string,"You axe the "+enemy.parent.name+string]);
 	} else if(this.fighter.weapon.weapon === "sword") {
